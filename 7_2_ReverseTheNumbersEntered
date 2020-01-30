@@ -1,0 +1,31 @@
+*/
+(Reverse the numbers entered) Write a program that reads ten integers and displays
+them in the reverse of the order in which they were read.
+*/
+
+import java.util.Scanner;
+public class ReverseTheNumbersEntered_7_2 {
+    public static void main (String [] args)
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Plese enter 10 integers: ");
+        int [] integers = new int [10];
+        for(int i = 0; i< integers.length; i++)
+            integers[i] = input.nextInt();
+        //int [] reverse = reverse(integers);
+        //for (int i:reverse)
+        //    System.out.print(i+ " ");
+        revers(integers);
+        for (int i:integers)
+            System.out.print(i+ " ");              
+    }    
+     public static void revers(int []array){
+    
+    for (int i = 0, j = array.length - 1; i < array.length/2; i++, j--){
+          // Swap list[i] with list[j]
+          
+          int temp = array[i]; 
+          array[i] = array[j];  
+          array[j] = temp; 
+    }
+    }
