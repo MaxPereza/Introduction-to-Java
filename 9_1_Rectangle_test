@@ -1,0 +1,22 @@
+public class HQ_9_1_Rectangle_test {
+    public static void main(String []args)
+    {
+        HQ_9_1_Rectangle defult = new HQ_9_1_Rectangle();
+        System.out.println("The area of the rectangle of width " + defult.width + " and height " + defult.height+ 
+                " is "+ defult.getArea());
+        System.out.println("The perimetr of the rectangle " + 
+                " is "+ defult.getPerimeter());
+        
+        HQ_9_1_Rectangle rectangle1 = new HQ_9_1_Rectangle(4, 40);
+        System.out.println("The area of the rectangle of width " + rectangle1.width + " and height " + rectangle1.height+ 
+                " is "+ rectangle1.getArea());
+        System.out.println("The perimetr of the rectangle " + 
+                " is "+ rectangle1.getPerimeter());
+        
+        HQ_9_1_Rectangle rectangle2 = new HQ_9_1_Rectangle(3.5, 35.9);
+        System.out.println("The area of the rectangle of width " + rectangle2.width + " and height " + rectangle2.height+ 
+                " is "+ rectangle2.getArea());
+        System.out.println("The perimeter of the rectangle " + 
+                " is "+ rectangle2.getPerimeter());
+    }
+}
