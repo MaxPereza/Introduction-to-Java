@@ -1,0 +1,17 @@
+import java.util.Scanner;
+public class HQ_9_2_Stock_test {
+    public static void main(String [] args)
+    {
+        Scanner input = new Scanner(System.in);
+        HQ_9_2_Stock oracle = new HQ_9_2_Stock("ORCL", "Oracle Corporation",34.5 );
+        System.out.println("Current price is " +oracle.getCurrentPrice());
+        oracle.setCurrentPrice(34.35);
+        System.out.println("And now current price is " +oracle.getCurrentPrice());
+        System.out.println("Price-change percentage is " + oracle.getChangePercent());
+        System.out.print("Please enter previos price ");
+        oracle.setCurrentPrice(input.nextDouble());
+        System.out.print("Please enter current price ");
+        oracle.setCurrentPrice(input.nextDouble());
+        System.out.println("Price-change percentage is " + oracle.getChangePercent());
+    }
+}
