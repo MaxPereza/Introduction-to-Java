@@ -1,0 +1,51 @@
+/*
+(Sorted?) Write the following method that returns true if the list is already sorted
+in increasing order.
+public static boolean isSorted(int[] list)
+Write a test program that prompts the user to enter a list and displays whether
+the list is sorted or not. Here is a sample run. Note that the first number in the
+input indicates the number of the elements in the list. This number is not part
+of the list.
+*/
+
+import java.util.Scanner;
+public class SortedOrNot_7_19 {
+    public static void main(String [] args)
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Please enter list: ");
+        int [] list = new int[input.nextInt()];
+        
+        for(int i = 0; i <list.length;i++)
+            list[i] = input.nextInt();
+            
+        int sorted = sortedOrNot(list );
+        String [] str = {"The list is not sorted", "The list is already sorted"};
+        System.out.println(str[sorted]);
+           
+    }
+    
+    public static int sortedOrNot (int [] array)
+    {
+        int [] tempArray = new int [array.length];
+        int sorted = 0;
+        while(sorted == 0){
+                    
+            sorted = 1;
+            for(int i = 0,j = i+1; j<array.length; i++, j++)
+            {               
+                int temp = 0;
+                if (array[i] > array[j]){
+                    temp = tempArray[i];
+                    tempArray[i]=tempArray[j];
+                    tempArray[j]=temp;
+                    sorted = 0;
+                    break;
+                }
+            }
+            if(sorted==0)
+                break;
+        }
+        return sorted;
+    }
+}
