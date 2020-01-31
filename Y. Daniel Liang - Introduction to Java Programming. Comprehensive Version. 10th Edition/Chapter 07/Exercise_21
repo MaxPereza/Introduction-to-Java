@@ -1,0 +1,71 @@
+import java.util.Scanner;
+public class BeanMachine_7_21 {
+    public static void main (String []args){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Please enter the number of balls to drop: ");
+        int numberOfBalls = input.nextInt();
+        System.out.print("Enter the number of slots in the bean machine: ");
+        int [] listOfSlots = new int [input.nextInt()];
+        String [] listPathBalls = new String[numberOfBalls];
+        beanMachine(listPathBalls, listOfSlots );
+        
+        for(int i = 0; i<listPathBalls.length; i++)
+            System.out.println( listPathBalls[i]);               
+        printSlots(listOfSlots);    
+    }
+    
+    public static int rand()
+    {
+        int randomNum = (int)(Math.random() * 2);
+        return randomNum;
+    }
+ 
+    public static void beanMachine(String [] strPath, int [] arraySlots){
+        for(int i = 0; i < strPath.length; i++){
+            int series = 0;
+            for(int j =1; j<arraySlots.length; j++)
+            {
+                int randomNum = rand();                
+                series = series + randomNum;               
+                if(j == 1)
+                    strPath[i] = chBack(randomNum);
+                else
+                    strPath[i]= strPath[i] + chBack(randomNum);    
+            }           
+            arraySlots[series]++;            
+        }
+    }
+    
+    public static String chBack(int i)
+    {
+        String ch;
+        if (i == 0)
+            ch = "L" ;
+        else
+            ch = "R";        
+        return ch;
+    }
+    
+    public static void printSlots(int [] array)
+    {        
+        int maxNum = array[0];
+        for (int i = 1; i <array.length; i++)
+        {
+            if(maxNum < array[i])
+                maxNum= array[i];
+        }
+                
+        for (int i = maxNum; i >0; i--){
+            for(int j = 0; j<array.length; j++)
+            {
+                if(array[j]>=i){
+                    System.out.print("O");                    
+                }
+                
+                else
+                    System.out.print(" ");
+            } 
+            System.out.println();
+        }  
+    }           
+}
