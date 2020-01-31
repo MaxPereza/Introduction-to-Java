@@ -1,0 +1,30 @@
+/*(Count single digits) Write a program that generates 100 random integers between
+0 and 9 and displays the count for each number. (Hint: Use an array of ten integers,
+say counts, to store the counts for the number of 0s, 1s, . . . , 9s.)*/
+
+public class CountSingleDigits_7_7 {
+    public static void main(String [] args){
+        int [] listCount = new int [10];
+        int [] listRandomInt = randomArray(100);
+        countArray(listCount, listRandomInt);   
+    }
+    
+    public static int [] randomArray(int count){
+        int [] randomArray = new int [count];
+        for (int i = 0; i < randomArray.length;i++)
+            randomArray[i] = (int)(Math.random()*10);
+        
+        return randomArray; 
+    }
+    
+    public static void countArray(int [] countList, int [] randomArray){
+        for(int i = 0; i < countList.length; i++){
+            int numb = i;
+            for(int j =0; j < randomArray.length; j++)
+                if (numb == randomArray[j])
+                    countList[i]++;
+        }
+        for(int i = 0; i<countList.length; i++)
+            System.out.println("Integer "+ i+ " the number "+ countList[i] );
+    }  
+}
