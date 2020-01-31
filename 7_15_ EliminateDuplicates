@@ -1,0 +1,55 @@
+/*
+(Eliminate duplicates) Write a method that returns a new array by eliminating the
+duplicate values in the array using the following method header:
+public static int[] eliminateDuplicates(int[] list)
+Write a test program that reads in ten integers, invokes the method, and displays
+the result. Here is the sample run of the program:
+
+Enter ten numbers: 1 2 3 2 1 6 3 4 5 2
+The distinct numbers are: 1 2 3 6 4 5
+*/
+
+import java.util.Scanner;
+public class EliminateDuplicates_7_15 {
+    
+    public static void main(String [] args){
+        int [] numbers = new int [10];
+        Scanner input = new Scanner(System.in);
+        int index = 10;
+        int number;
+        System.out.print("Please enter 10 integers: ");
+        for (int i = 0; i < numbers.length; i++){
+            int count = 0;
+             number = input.nextInt();
+             numbers[i] = number;
+             for(int j = 0; j <= i; j++){
+                if(number == numbers[j])
+                    count++;               
+            }
+            if(count > 1)
+                index -=1;
+        }     
+        int [] list = eliminateDuplicates(numbers);      
+        System.out.print("The distinct numbers are: ");
+        for(int i = 0; i < index;i++)
+            System.out.print( list[i]+ " " );           
+    }
+    
+     public static int [] eliminateDuplicates(int [] array){
+        int [] lastList = new int [array.length];
+        int index =0;
+        for(int i = 0; i < array.length; i++){
+            int number = array[i];
+            int distinctCount = 0;
+            for(int j =0; j <= i; j++){
+                if(number==lastList[j])
+                    distinctCount++;
+            }
+            if(distinctCount ==0){
+                lastList[index] = number;
+                index++;
+            }
+        }
+       return lastList;    
+    }    
+}
