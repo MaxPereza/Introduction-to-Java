@@ -1,0 +1,86 @@
+/*
+(Execution time) Write a program that randomly generates an array of 100,000
+integers and a key. Estimate the execution time of invoking the linearSearch
+method in Listing 7.6. Sort the array and estimate the execution time of invoking
+the binarySearch method in Listing 7.7. You can use the following code
+template to obtain the execution time:
+long startTime = System.currentTimeMillis();
+perform the task;
+long endTime = System.currentTimeMillis();
+long executionTime = endTime - startTime;
+*/
+
+public class ExecutionTime_7_16 {
+    public static void main(String []args)
+    {
+        int [] listIntegers = new int [10000000];
+        getRandom(listIntegers);
+        int key = rand();       
+        java.util.Arrays.sort(listIntegers);
+       
+        long startTime = System.currentTimeMillis();        
+        int index = binarySearch(listIntegers, key);
+        long endTime = System.currentTimeMillis();
+        long executionTime = endTime - startTime;
+        System.out.println("Key " +key+ " index is " + index+ " \nExecutionTime "+executionTime ); 
+    }
+    
+    public static int rand()
+    {
+        int randomNum = (int)(Math.random() * 10000001);
+        return randomNum;
+    }
+    
+    public static void getRandom(int...numbers) {
+    
+        for (int i= 0; i < numbers.length; i++) {
+            int randomNum = rand();
+            numbers[i] = randomNum;
+        }
+    }
+    
+    public static int linearSearch(int [] array, int key)
+    {
+        int index = -1;
+        for(int i =0; i < array.length&&index==-1; i++){
+            if (key == array[i])
+                index = i;
+        }        
+    return index;       
+    }
+    
+    public static int binarySearch(int[] list, int key) {
+         int low = 0;
+         int high = list.length - 1;
+         
+         while (high >= low) {
+             int mid = (low + high) / 2;
+             if (key < list[mid]) 
+                 high = mid - 1; 
+             else if (key == list[mid]) 
+                 return mid; 
+             else 
+                 low = mid + 1;  
+         } 
+         return -low- 1; 
+    }
+    
+    public static void selectionSort(int[] list) { 
+        for (int i = 0; i < list.length - 1; i++) {             
+           
+            int currentMin = list[i]; 
+            int currentMinIndex = i; 
+            System.out.println(i);
+            for (int j = i + 1; j < list.length; j++) {
+                if (currentMin > list[j]) {
+                    currentMin = list[j];
+                    currentMinIndex = j; 
+                }
+            }
+            if (currentMinIndex != i) {
+                list[currentMinIndex] = list[i];
+                list[i] = currentMin; 
+                }
+            }
+        }
+}
