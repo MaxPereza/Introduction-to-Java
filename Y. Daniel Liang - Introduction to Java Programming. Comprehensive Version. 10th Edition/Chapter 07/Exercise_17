@@ -1,0 +1,53 @@
+/*
+(Sort students) Write a program that prompts the user to enter the number of students,
+the students’ names, and their scores, and prints student names in decreasing
+order of their scores.
+*/
+
+import java.util.Scanner;
+public class SortStudents_7_17 {
+    public static void main(String [] args)
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Please enter numbers of student ");
+        int lengthArray = input.nextInt();
+        input.nextLine();
+        System.out.print("Please enter the names students ");        
+        String [] studentNames = new String [lengthArray];
+        
+        for(int i = 0; i < lengthArray; i++)
+            studentNames[i] = input.nextLine();
+        int [] studentsScore = new int [lengthArray];
+        System.out.print("Please enter students scores ");
+        
+        for(int i = 0; i < lengthArray; i++)
+            studentsScore[i] = input.nextInt();        
+        decreasSort(studentsScore, studentNames);
+        
+        for (int i = 0; i<studentsScore.length;i++)
+            System.out.println("Studen name: " +studentNames[i]+ " student score: " +studentsScore[i]);        
+    }
+    
+    public static void decreasSort(int[] list, String [] names) { 
+        
+        for (int i = 0; i < list.length - 1; i++) {
+            int currentMax = list[i]; 
+            int currentMaxIndex = i; 
+            String temp = names[i];
+            
+            for (int j = i + 1; j < list.length; j++) {
+                if (currentMax < list[j]) {
+                    currentMax = list[j];
+                    currentMaxIndex = j; 
+                }
+            }            
+            if (currentMaxIndex != i) {
+                list[currentMaxIndex] = list[i];
+                list[i] = currentMax;
+                temp = names[i]; 
+                names[i] = names[currentMaxIndex]; 
+                names[currentMaxIndex] = temp;
+                }
+        }
+    }
+}
