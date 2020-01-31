@@ -1,0 +1,31 @@
+/*
+(Find the index of the smallest element) Write a method that returns the index of
+the smallest element in an array of integers. If the number of such elements is
+greater than 1, return the smallest index. Use the following header:
+public static int indexOfSmallestElement(double[] array)
+Write a test program that prompts the user to enter ten numbers, invokes this
+method to return the index of the smallest element, and displays the index.
+
+import java.util.Scanner;
+public class FindTheIndexOfTheSmallestElement_7_10 {
+    public static void main(String [] args){
+        Scanner input = new Scanner(System.in);
+        int [] listInt = new int [10];
+        System.out.print("Please enter ten numbers ");
+        for (int i = 0; i < listInt.length; i++)
+            listInt[i] = input.nextInt();
+        
+        System.out.println("The index of smallest element in array is: " +indexOfSmallestElement(listInt));  
+    }
+    public static int indexOfSmallestElement(int [] array){
+        int indexMin = 0;
+        int minNum = array[indexMin];
+        for(int i = 1; i < array.length; i++){
+            if( minNum > array[i]) {
+                minNum = array[i];
+                indexMin = i;
+            }
+        }
+        return indexMin;
+    }    
+}
