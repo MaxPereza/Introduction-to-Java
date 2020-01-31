@@ -1,0 +1,35 @@
+*/
+(Sum elements column by column) Write a method that returns the sum of all the
+elements in a specified column in a matrix using the following header:
+public static double sumColumn(double[][] m, int columnIndex)
+Write a test program that reads a 3-by-4 matrix and displays the sum of each
+column.
+*/
+
+
+import java.util.Scanner;
+public class HQ_8_1_SumElementsColumn {
+    public static void main(String []args)
+    {
+        Scanner input = new Scanner(System.in);
+        double [][] listDouble = new double [3][4];
+        System.out.print("Enter a 3-by-4 matrix row by row: ");
+        for(int i =0; i < listDouble.length;i++)
+            for(int j = 0; j <listDouble[i].length; j++)
+                listDouble[i][j] = input.nextDouble();
+                
+        for(int column =0; column<listDouble[0].length; column++)
+            System.out.println("Sum of the elements at column " +column+ " is " +sumColumn(listDouble, column) );       
+    }
+    public static double sumColumn(double[][] m, int columnIndex)
+    {
+        double total = 0;
+        
+        for(int column =columnIndex; column <=columnIndex ; column++){
+            for(int row = 0; row < m.length; row++){               
+                total += m[row][column];                
+            }
+        }
+        return total;            
+        }   
+}
