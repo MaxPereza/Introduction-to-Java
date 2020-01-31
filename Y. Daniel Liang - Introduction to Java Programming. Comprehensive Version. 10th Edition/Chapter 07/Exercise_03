@@ -1,0 +1,92 @@
+/*
+(Count occurrence of numbers) Write a program that reads the integers between 1
+and 100 and counts the occurrences of each. Assume the input ends with 0.
+*/
+
+import java.util.Scanner;
+public class CountOccurrenceOffNumbers_7_3 {
+    public static void main(String [] args){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the integers between 1 and 100 and inter 0 to end: ");
+        int number = 0;
+        int count = 0;
+        int index = 0;  
+        String firstList = "";
+        String lastList = "";
+        do {
+            number = input.nextInt();
+            String nextStr = number+"-";
+            if (firstList.indexOf(nextStr)== -1&&number!=0 ) {
+                lastList = lastList + nextStr;
+                index++;}
+            if (number!=0){
+                firstList = firstList + nextStr ;
+                count++;
+            }
+        } while (number != 0);        
+      
+        int [] firstArray = stringToArray(count, firstList);
+        int [] releaseArray = stringToArray(index, lastList);
+        selectionSort(releaseArray);
+        
+        int [] occursArray = occursArray (releaseArray, firstArray);  
+        
+        for(int i = 0; i < releaseArray.length; i++)
+            System.out.println(releaseArray[i]+ " occurs " +occursArray[i]+ pluralTime(occursArray[i]));           
+      
+    }
+   public static void selectionSort(int[] list) { 
+        for (int i = 0; i < list.length - 1; i++) { 
+            
+            // Find the minimum in the list[i..list.length-1] 
+            int currentMin = list[i]; 
+            int currentMinIndex = i; 
+            for (int j = i + 1; j < list.length; j++) {
+                if (currentMin > list[j]) {
+                    currentMin = list[j];
+                    currentMinIndex = j; 
+                }
+            }
+            
+            // Swap list[i] with list[currentMinIndex] if necessary
+            if (currentMinIndex != i) {
+                list[currentMinIndex] = list[i];
+                list[i] = currentMin; 
+                }
+            }
+        }
+   public static int [] stringToArray(int count, String str) {
+        int [] array = new int [count];
+        int k ;
+                      
+        for (int i = 0, j =0; i < str.length()-1; i = k+1, j++) {
+            k = str.indexOf('-', i);
+            String sub = str.substring(i, k);
+            //System.out.println("i начальный индекс " +i+ " конечный индекс "+k+ " символ " +sub);
+            array[j] = Integer.parseInt(sub);
+            //System.out.println("firstArray"  + "---"+ firstArray[j] );
+        }
+        return array;
+   }
+   public static int [] occursArray (int [] releaseArray, int [] firstArray ){
+       int [] occursArray = new int [releaseArray.length];
+       for(int i = 0; i<releaseArray.length;i++ ){
+           int number = releaseArray[i];
+           for( int j = 0; j < firstArray.length; j++)
+               if (number == firstArray[j])
+                   occursArray[i]++;
+       }
+    
+    return occursArray;
+   }
+   
+   public static String pluralTime(int i){
+       String plural = "error";
+       if (i >1)
+           plural = " times";
+       else
+           plural = " time";
+       return plural;           
+   }      
+   
+}
