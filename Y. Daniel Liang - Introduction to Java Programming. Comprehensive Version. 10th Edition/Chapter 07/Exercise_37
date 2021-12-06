@@ -1,0 +1,47 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_7_37_BeanMachine {
+	public static void main(String [] args)
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter the number of balls to drop: ");
+		int balls = input.nextInt();
+		System.out.print("Enter the number of slots in the bean machine: " );
+		int sizeSlots = input.nextInt();
+		input.close();
+		beanMachine (balls, sizeSlots);
+	}
+	
+	public static void beanMachine(int balls, int size)
+	{
+		int [] slots = new int [size];
+		
+		for(int j = 0; j < balls; j++)
+			{
+			int selectSlot = 0;
+			for(int i = 1; i<size; i++ )
+			{
+				int hit_aNail = (int)(Math.random()*2);
+				selectSlot += hit_aNail;
+				if(hit_aNail == 0)
+					System.out.print("L");
+				else
+					System.out.print("R");								
+			}
+			slots[selectSlot]++;
+			System.out.println();
+			}	
+		
+		for(int i = balls; i > 0; i--)
+		{
+			for(int j = 0; j < slots.length; j++)
+			{
+				if(i<=slots[j])
+					System.out.print("|O");
+				else
+					System.out.print("| ");
+			}
+			System.out.println("|");
+		}		
+	}
+}
