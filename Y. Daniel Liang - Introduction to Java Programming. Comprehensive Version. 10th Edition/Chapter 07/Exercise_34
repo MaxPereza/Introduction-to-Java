@@ -1,0 +1,30 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_7_34_SortCharacters_in_aString {
+	public static void main (String [] args)
+	{
+		//String s = "12345 abcd ASDF !@#$%^&";
+		System.out.println("Enter a string: ");
+		Scanner input = new Scanner(System.in);
+		String s = input.nextLine();
+		input.close();		
+		///System.out.println("String " +s);
+		s = sort(s);
+		System.out.println("Sorted " +s);
+	}		
+		
+		public static String sort(String s)
+		{
+			char [] charList = new char [s.length()];
+			for(int i = 0; i < s.length(); i++)
+				charList [i] = s.charAt(i);
+			
+			java.util.Arrays.parallelSort(charList);
+			String sortedS="";
+			
+			for(int i = 0; i < charList.length; i++) 
+				sortedS += charList [i];
+				
+			return sortedS;			
+		}
+}
