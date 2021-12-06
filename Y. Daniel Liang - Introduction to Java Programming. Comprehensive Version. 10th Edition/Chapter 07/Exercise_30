@@ -1,0 +1,45 @@
+package programming_exercises;
+import java.util.Scanner;
+
+public class PE_7_30_PatternRecognition {
+	public static void main (String [] args)
+	{
+		
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter number of values ");
+		int size = input.nextInt();
+		int [] list = new int [size];
+		System.out.println ("Enter the values: ");
+		for(int i = 0; i<list.length; i++)
+			list[i] = input.nextInt();
+		input.close();
+		for(int e: list)
+			System.out.print(e+" " );
+		 //int list [] = {3, 4, 5, 5, 5, 5, 4, 5};
+		 //int list [] = {3, 4, 5, 5, 6, 5, 5, 4, 5};
+		 if(consecutiveFours (list))
+			 System.out.println("\nThe list has consecutive fours");
+		 else
+			 System.out.println("'nThe list has no consecutive fours");
+		 
+		
+	}
+	public static boolean consecutiveFours (int list [])
+	{
+		int consecutive = 1;
+		int number = list[0];
+		for (int i = 1; i < list.length && consecutive!=4; i++)
+		{
+			if(number == list[i])
+				consecutive++;
+			else
+			{
+				number = list[i];
+				consecutive = 1;						
+			}		
+		}
+		boolean result = (consecutive == 4)? true :false;
+        return result;
+				
+	}	
+}
