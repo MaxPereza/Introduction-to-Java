@@ -1,0 +1,168 @@
+package programming_exercises;
+
+public class PE_7_36_EightQueens {
+	public static void main (String [] args)
+	{
+		int [] board = new int [64];
+		final int EIGHT = 8;
+		int [] queensPlace = new int [EIGHT];
+		int newQueen = (int)(Math.random()*board.length);
+		int place = 0;
+		int allQueenPlaced = 0;
+		int count = 1;
+		
+		while(allQueenPlaced < 8 && (newQueen < board.length))
+		{
+			boolean queenAtack = true;			
+			while ((newQueen < board.length)&&(queenAtack == true))
+			{				
+				queenAtack = rowSearch (board, newQueen );
+				if(queenAtack == true)
+					newQueen++;
+			}			
+			
+			if(queenAtack == false && newQueen< board.length)
+			{
+				int end = newQueen;
+				while(end%8 !=7)
+					end++;
+				queenAtack = true;
+				while (newQueen <= end&&(queenAtack == true))
+				{
+					queenAtack = columntSearch (board, newQueen);
+					if(queenAtack == true)
+						newQueen++;					
+				}				
+			}
+						
+			if(queenAtack == false && newQueen< board.length)
+				queenAtack = diagonalSearch(board, newQueen);			
+			
+			if(queenAtack == false)
+			{
+				queensPlace[place] = newQueen; 
+				board[newQueen] = 1;
+				allQueenPlaced++;
+				place++;
+			}				
+			
+			newQueen++;
+			if(newQueen>= board.length&&allQueenPlaced!=8)
+			{	
+				place = 0;
+				count++;
+				newQueen = 0;
+				allQueenPlaced = 0;
+				for(int i = 0; i<board.length; i++)
+					board[i] = 0;			
+				
+				for(int i =0 ; i<3; i++)
+				{
+					queenAtack  = true;
+					while(queenAtack  == true)
+					{
+						int random = (int)(Math.random() * board.length);
+						queenAtack  = rowSearch (board, random);
+												
+						if(queenAtack  == false)						
+							queenAtack = columntSearch (board, random);
+												
+						if(queenAtack == false)
+							queenAtack = diagonalSearch(board, random);
+												
+						if(queenAtack == false)
+						{
+							board[random] =1;
+							allQueenPlaced++;
+							queensPlace[place] = random;
+							place++;
+						}
+					}
+						
+					}				
+				}
+			
+			/*else if(count == 100)
+				break;	*/		
+			
+		}
+		System.out.println("Конец цикла Count = " + count);
+		for(int e:queensPlace)
+			System.out.print(e+" ");
+		System.out.println();
+		
+		for(int i = 0; i < board.length; i++)
+		{	
+			char stick = '|';
+			System.out.print(stick);
+			if(board[i]  == 1)
+				System.out.print("Q");
+			if(board[i]== 0)
+				System.out.print(" ");
+			if(i%8 == 7)				
+				System.out.println(stick);
+		}		
+	}
+	
+	public static boolean rowSearch (int [] board, int row)
+	{
+		int start = row%8; 
+		start = row - start ;
+		for(int i = start ; i <= start+7; i++)
+			if(board[i] == 1)
+				return true;				
+							
+		return false;
+	}
+	public static boolean columntSearch (int [] board, int column)
+	{
+		
+		int start = column/8; 		
+		for(int i = start; i>0; i--)
+			column -= 8;
+				
+		for(int i = column, j =0; j < 8; j++, i=i+8)
+		   if(board[i] == 1)
+			   return true;				
+								
+		
+		return false;
+	}
+	
+	public static boolean diagonalSearch (int [] board, int queen)
+	{
+		for(int i = queen; i>=0; i-=9)
+		{
+			if(board[i] == 1)
+				return true;
+			if(i%8==0)
+				break;			
+		}		
+		
+		for(int i = queen; i<board.length; i+=9)
+		{			
+			if(board[i] == 1)
+				return true;
+			if(i%8==7)
+				break;			
+		}		
+		
+		if(queen%8!=0)
+			for(int i = queen; i<board.length; i+=7)
+				{
+				if(board[i] == 1)
+					return true;
+				if(i%8==0)
+					break;
+				}			
+				
+		for(int i = queen; i > 0; i-=7)
+		{
+			if(board[i] == 1)
+				return true;				
+			if(i%8 == 7)
+				break;
+		}	
+		return false;
+	}
+}
