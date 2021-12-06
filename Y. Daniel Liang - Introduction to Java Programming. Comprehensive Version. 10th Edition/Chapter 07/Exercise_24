@@ -1,0 +1,99 @@
+package programming_exercises;
+
+public class PE_7_24_CouponCollector_sProblem {
+	public static void main(String[] args) { 
+        int[] deck = new int[52];
+        String[] suits = {"Spades", "Hearts", "Diamonds", "Clubs"};
+        String[] ranks = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
+ // Initialize the cards 
+        for (int i = 0; i < deck.length; i++)
+        	deck[i] = i;
+        shuffleCards(deck);
+        int [] fourCards = {-1, -1, -1, -1};
+        int countWhile = 0;
+        int countPicks = 0;
+        while(countWhile !=4)
+        {
+        	countPicks++;
+        	int randomCard = (int)(Math.random()*53);
+        	randomCard = deck[randomCard];
+        	int suit = randomCard / 13;
+        	if(fourCards[suit]==-1)
+        	{
+        		countWhile++;
+        		fourCards[suit] = randomCard %13;
+        	}
+        }
+        for(int i = 0; i < fourCards.length; i++)
+        	System.out.println(ranks[fourCards[i]] +" " + suits[i]);
+        System.out.println("Number of picks " + countPicks);
+       
+	}
+	
+	public static void shuffleCards(int []deck)
+	{
+		for (int i = 0; i < deck.length; i++)
+		{
+			int index = (int)(Math.random() * deck.length); 
+		    int temp = deck[i]; 
+		    deck[i] = deck[index];
+		    deck[index] = temp;
+		}		
+	}
+        /* another solution, an example that a person needs to carefully read the condition of the problem, 
+         * otherwise it turns out the following: 
+        int [] fourCards = randomCardsFromEachSuit();
+        shuffleCards(deck);
+        for(int i = 0; i<fourCards.length; i++)
+        {
+        	System.out.println(ranks[fourCards[i]%13] +" "+suits[fourCards[i]/13] );
+        }
+        int count = 0;
+        boolean allCardsMatch = false;
+        while(!allCardsMatch)
+        {
+        	int pickCard = (int)(Math.random() * deck.length);
+        	count++;
+        	int sum = 0;
+        	for(int i = 0; i<fourCards.length; i++)
+        	{
+        		if(fourCards[i]==pickCard)
+        		{
+        			fourCards [i] = 53;
+        		}
+        		sum += fourCards[i];        		
+        	}
+        	if(sum == 212)
+        		allCardsMatch = true;       	
+        	}
+        System.out.println("Number of picks " + count);
+	}
+
+	// Shuffle the cards 13 
+	public static void shuffleCards(int []deck)
+	{
+		for (int i = 0; i < deck.length; i++)
+		{
+			int index = (int)(Math.random() * deck.length); 
+		    int temp = deck[i]; 
+		    deck[i] = deck[index];
+		    deck[index] = temp;
+		}		
+	}
+	
+	public static int [] randomCardsFromEachSuit()
+	
+	{
+		int [] fourCards = new int [4];
+        int start =0;
+        int end = 13;
+        for(int i =0; i<4; i++)
+        {
+        	fourCards[i]=(int)(Math.random() * (end-start)) + start;
+        	end += 13;
+        	start +=13;
+        }
+        return fourCards;
+		
+	}*/	
+}
