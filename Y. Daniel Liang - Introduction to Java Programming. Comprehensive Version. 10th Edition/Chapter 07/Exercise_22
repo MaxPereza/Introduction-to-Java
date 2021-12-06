@@ -1,0 +1,29 @@
+/*(Find the number of uppercase letters in a string) Write a program that passes a string
+to the command line and displays the number of uppercase letters in the string.*/
+
+package programming_exercises;
+
+public class PE_7_22_FindTheNumber_of_uppercaseLetters {
+	
+	public static void main (String []args)
+		{
+		for(int i = 0; i < args.length; i++)
+			System.out.print(args[i]+ " ");
+		System.out.println();
+		int countUpperLetters = 0;
+		for(int i = 0; i < args.length; i++)
+		{
+			char ch;
+			String str = args[i];
+			for(int j = 0; j<str.length(); j++)
+			{
+				ch = str.charAt(j);
+				if(Character.isUpperCase(ch))
+					countUpperLetters++;
+				
+			}
+		}
+		
+		System.out.println("The number of uppercase letters in the string is " +countUpperLetters);		
+		}
+}
