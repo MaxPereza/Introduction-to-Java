@@ -1,0 +1,60 @@
+package programming_exercises;
+
+public class PE_7_29_PickFourCards {
+	public static void main (String []args)
+	{
+		int[] deck = new int[52];
+        String[] suits = {"Spades", "Hearts", "Diamonds", "Clubs"};
+        String[] ranks = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
+        // Initialize the cards 
+        for (int i = 0; i < deck.length; i++)
+        	deck[i] = i;
+     // Shuffle the cards 13 
+   	 	for (int i = 0; i < deck.length; i++) {
+   	 		// Generate an index randomly 
+   	 		int index = (int)(Math.random() * deck.length); 
+   	 		int temp = deck[i]; 
+   	 		deck[i] = deck[index];
+   	 		deck[index] = temp;
+   	 	}
+   	 	int [] fourCards = pickFourCards(deck);
+   	 	for(int i = 0; i < fourCards.length; i++)
+   	 	{
+   	 		int index = fourCards[i];
+   	 		System.out.println("The card " + ranks[index%13]+" "+ suits[index/13]);
+   	 	}   	 	
+	}
+	
+	public static int [] pickFourCards(int [] list)
+	{
+		int [] fourCards = {-1, -1 , -1, -1};
+		int sum;
+		int countPiks =0;
+		do
+		{
+			sum = 0;
+			int countCards =0;
+			while(countCards <4)
+			{
+				int randomCardIndex = (int)(Math.random() * 52);
+				countPiks++;
+				int card = list[randomCardIndex];
+				if( card != fourCards[countCards])
+				{
+					fourCards[countCards] = card;
+					countCards++;
+				}
+				
+				else
+					continue;
+				
+				if(card%13==0)
+					sum +=1;
+				else
+					sum += card%13;
+			}
+		}while(sum!= 24);
+		System.out.println("The number of picks that yields the sum of 24 is " + countPiks);
+		return fourCards;
+	}
+}
