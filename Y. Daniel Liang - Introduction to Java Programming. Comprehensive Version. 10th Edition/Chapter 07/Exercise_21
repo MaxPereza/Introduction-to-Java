@@ -1,0 +1,38 @@
+/*(Sum integers) Write a program that passes an unspecified number of integers from
+command line and displays their total.*/
+
+package programming_exercises;
+//since I could not understand what exactly needed to be done, I made 2 solutions 
+
+//import java.util.Scanner;
+
+public class PE_7_21_SumIntegers {
+	public static void main(String [] args)
+	{
+		//first solution with passing arguments via command line 
+		int sum = 0;
+		int total = 0;
+		for(int i = 0; i < args.length; i++)
+		{
+			sum += Integer.parseInt(args[i]);
+			total++;
+		}
+		System.out.println("Total of numbers is " + total + ", summ of numbers is " + sum);
+		
+		
+		//another solution
+		/*Scanner input = new Scanner(System.in);
+		int summ = 0;
+		int total = 0;
+		System.out.println("Enter integers, enter 0 to finish. ");
+		int number  = input.nextInt();
+		while(number != 0)
+		{
+			number = input.nextInt();
+			summ +=number;
+			total++;
+		}
+		input.close();
+		System.out.println("Total of numbers is " + total + ", summ of numbers is " + summ);*/
+	}
+}
