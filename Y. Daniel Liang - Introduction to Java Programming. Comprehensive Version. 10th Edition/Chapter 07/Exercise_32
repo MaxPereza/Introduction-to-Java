@@ -1,0 +1,222 @@
+
+//The best what can i did))) Sol3
+/*
+import java.util.Scanner;
+public class PE_7_32_PartitionOf_a_list {
+	public static void main (String [] args)
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter list: ");
+		int size = input.nextInt();
+		int [] list = new int [size];
+		for(int i = 0; i < list.length; i++)
+			list[i] = input.nextInt();
+		input.close();
+		//int [] list = {15, 6, 5, 16, 61, 9, 11, 44, 5, 8, 32, 18, 2};
+		//int [] list = {5, 2, 9, 3, 6, 8};
+		int newPivotPlace = partition (list);
+		System.out.println("\nPivot index is " +newPivotPlace);		
+	}
+	public static int partition(int[] list)
+	{
+		int array [] = new int [list.length];
+		array[0] = list[0];
+		for(int i = 0; i < list.length; i++)
+			array[i] = list[i];
+		
+		int pivotIndex = 0;
+		int pivot = array[0];
+		int temp = 0;		
+		for(int i =1, j=array.length-1; (i <= j)&&(i < array.length);i++)
+		{			
+			if(pivot > array[i])
+			{
+				temp = array[i];
+				array[i] = pivot;
+				array[pivotIndex] = temp;
+				pivotIndex++;				
+			}
+			else if(pivot > array[j])
+			{
+				temp = array[j];
+				array[j] = array[i];
+				array[i] = temp;
+						
+				temp = array[i];
+				array[i] = pivot;
+				array[pivotIndex] = temp;
+				pivotIndex++;
+			}
+			else
+			{
+				i--;
+				j--;
+			}							
+		}		
+		System.out.println("\nList is : ");
+		for(int e: list)
+			System.out.print(e + " ");		
+		
+		System.out.println("\nAfter the partition, the list is ");
+		for(int e: array)
+			System.out.print(e + " ");
+				
+		return pivotIndex;
+	}
+
+
+
+/* another solution 1, first try 
+package programming_exercises;
+import java.util.Scanner;
+public class PE_7_32_PartitionOf_a_list {
+	public static void main (String [] args)
+		{
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter list: ");
+		int size = input.nextInt();
+		int [] list = new int [size];
+		for(int i = 0; i < list.length; i++)
+			list[i] = input.nextInt();
+		input.close();
+		//int [] list = {1, 6, 5, 16, 61, 9, 11, 44, 5, 8, 32, 18, 2};
+		//int [] list = {5, 2, 9, 3, 6, 8};
+		int newPivotPlace = partition (list);
+		System.out.println("\nPivot index is " +newPivotPlace);		
+		}
+		public static int partition(int[] list)
+		{
+			int array [] = new int [list.length];
+			array[0] = list[0];
+			for(int i = 0; i < list.length; i++)
+				array[i] = list[i];
+			
+			int pivotIndex = 0;
+			int pivot = array[0];
+			int index = 1;
+			int swapPoint =0;
+			int temp = 0;
+			
+			while(swapPoint==0&&index<list.length)
+			{
+				if(pivot < list[index])
+				{
+					array[index-1] = pivot;
+					array[pivotIndex] = list[index-1];
+					pivotIndex = index-1;
+					swapPoint = index;
+					index++;
+				}
+				else
+					index++;			
+			}
+					
+			for(int i = index; i<array.length; i++)
+			{
+				if(pivot >= array[i]) {
+					temp = array[swapPoint];
+					array[swapPoint] = array[i];				
+					array[i] = temp;
+					swapPoint++;								
+				}			
+			}
+			
+			if(swapPoint-1!=pivotIndex && swapPoint != 0)
+			{
+				array[pivotIndex] = array[swapPoint-1];
+				pivotIndex = swapPoint-1;
+				array[pivotIndex] = pivot;				
+			}
+			else if(swapPoint == 0)
+			{
+				array[pivotIndex] = array[array.length-1];
+				pivotIndex = array.length-1;
+				array[pivotIndex] = pivot;
+			}
+			
+			System.out.println("\nList is : ");
+			for(int e: list)
+				System.out.print(e + " ");		
+			
+			System.out.println("\nAfter the partition, the list is ");
+			for(int e: array)
+				System.out.print(e + " ");
+					
+			return pivotIndex;
+		}
+	}
+// ANOTHER 2 solution better then 1
+
+/*
+import java.util.Scanner;
+public class Temp {
+	public static void main (String [] args)
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter list: ");
+		int size = input.nextInt();
+		int [] list = new int [size];
+		for(int i = 0; i < list.length; i++)
+			list[i] = input.nextInt();
+		input.close();
+		//int [] list = {1, 6, 5, 16, 61, 9, 11, 44, 5, 8, 32, 18, 2};
+		//int [] list = {5, 2, 9, 3, 6, 8};
+		int newPivotPlace = partition (list);
+		System.out.println("\nPivot index is " +newPivotPlace);		
+	}
+	public static int partition(int[] list)
+	{
+		int array [] = new int [list.length];
+		array[0] = list[0];
+		for(int i = 0; i < list.length; i++)
+			array[i] = list[i];
+		
+		int pivotIndex = 0;
+		int pivot = array[0];
+		int temp = 0;		
+		for(int i =1, j=array.length-1; (i <= j)&&(i < array.length);i++)
+		{			
+			if(pivot > array[i])
+			{
+				temp = array[i];
+				array[i] = pivot;
+				array[pivotIndex] = temp;
+				pivotIndex++;				
+			}
+			else {
+				boolean swap = false;
+				System.out.println("A что у нас тут?");
+				while(i < j && swap==false)
+				{					
+					if(pivot > array[j])
+						{
+						temp = array[j];
+						array[j] = array[i];
+						array[i] = temp;
+						
+						temp = array[i];
+						array[i] = pivot;
+						array[pivotIndex] = temp;
+						pivotIndex++;
+						swap = true;						
+						}
+					else											
+						j--;						
+				}				
+			}				
+		}
+		
+		System.out.println("\nList is : ");
+		for(int e: list)
+			System.out.print(e + " ");		
+		
+		System.out.println("\nAfter the partition, the list is ");
+		for(int e: array)
+			System.out.print(e + " ");
+				
+		return pivotIndex;
+	}
+} */
+
+
+}*/
