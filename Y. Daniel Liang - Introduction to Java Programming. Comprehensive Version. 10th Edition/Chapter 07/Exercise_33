@@ -1,0 +1,18 @@
+package programming_exercises;
+
+import java.util.Scanner;
+
+public class PE_7_33_ChineseZodiac {
+	public static void main (String [] args)
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter a year: ");
+		int year = input.nextInt();
+		input.close();
+		String [] zodiac = {"Monkey", "Rooster", "dog", "Pig", "Rat", "Ox", "Tiger", "Rabbit",
+							"Dragon", "Snake", "Horse", "Sheep"};
+		int index = (year % 12);
+		System.out.println(zodiac[index]);
+		 
+	}
+}
