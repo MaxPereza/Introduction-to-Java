@@ -1,0 +1,62 @@
+package programming_exercises;
+
+public class PE_8_04_ComputeTheWeeklyHoursForEachEmployee {
+	public static void main (String []args)
+	{
+		int [][] list = {{2, 4, 3, 4, 5, 8, 8 },
+						 {7, 3, 4, 3, 3, 4, 4},
+						 {3, 3, 4, 3, 3, 2, 2},
+						 {9, 3, 4, 7, 3, 4, 1},
+						 {3, 5, 4, 3, 6, 3, 8},
+						 {3, 4, 4, 6, 3, 4, 4},
+						 {3, 7, 4, 8, 3, 8, 4},
+						 {6, 3, 5, 9, 2, 7, 9}};
+		System.out.println("Work week: ");
+		for(int row = 0; row < list.length; row++)
+		{
+			for(int column = 0; column < list[row].length; column++)
+				System.out.print(list[row][column]+" ");
+			System.out.println();
+		}
+		
+		int [][] workResult = weekHours(list);
+		System.out.println();
+		descBubbleSort(workResult);
+		for(int row =0; row < workResult.length; row++)
+			 System.out.println("The employee "+workResult[row][0] +"'s worked " + workResult[row][1] +" hours this week" );				
+	}
+	
+	public static int [][] weekHours(int [][] m)
+	{
+		int [][]sum = new int [m.length][2];
+		for (int row = 0; row < m.length; row++) { 
+			 int sumByEmployee = 0; 
+			 
+			 for (int column = 0; column < m[row].length; column++)
+			 	 sumByEmployee += m[row][column];
+				 //System.out.println("m[row][column] " + m[row][column]);
+			 sum[row][0] = row;
+			 sum[row][1] = sumByEmployee;				 
+			 }	
+		return sum;
+	}
+	
+	public static void descBubbleSort(int [][] m)
+	{
+		boolean swap;
+		int limiter = 0;
+		do {
+			int [] temp;
+			swap = false;
+			for(int position = m.length-1; position>limiter; position--) 
+				if(m[position][1]>m[position-1][1])
+				{
+					temp = m[position-1];
+					m[position-1] = m[position];
+					m[position] = temp;
+					swap=true;
+				}				
+			limiter++;			
+		}while(swap);		
+	}
+}
