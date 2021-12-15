@@ -1,0 +1,61 @@
+package programming_exercises;
+
+public class PE_8_03_SortStudents_on_grades {
+	public static void main(String [] args) {
+
+	 char[][] answers = {{'A', 'B', 'A', 'C', 'C', 'D', 'E', 'E', 'A', 'D'}, 
+			 			 {'D', 'B', 'A', 'B', 'C', 'A', 'E', 'E', 'A', 'D'}, 
+			 			 {'E', 'D', 'D', 'A', 'C', 'B', 'E', 'E', 'A', 'D'}, 
+			 			 {'C', 'B', 'A', 'E', 'D', 'C', 'E', 'E', 'A', 'D'}, 
+			 			 {'A', 'B', 'D', 'C', 'C', 'D', 'E', 'E', 'A', 'D'}, 
+			 			 {'B', 'B', 'E', 'C', 'C', 'D', 'E', 'E', 'A', 'D'}, 
+			 			 {'B', 'B', 'A', 'C', 'C', 'D', 'E', 'E', 'A', 'D'}, 
+			 			 {'E', 'B', 'E', 'C', 'C', 'D', 'E', 'E', 'A', 'D'}};
+	 // Key to the questions 16      
+	 char[] keys = {'D', 'B', 'D', 'C', 'C', 'D', 'A', 'E', 'A', 'D'};
+	 // Grade all answers       
+	 		 
+	 int [][] testResult = new int [answers.length][2];
+	 for (int i = 0; i < answers.length; i++) { 
+		 // Grade one student
+		 
+		 int correctCount = 0; 
+		 for (int j = 0; j < answers[i].length; j++) { 
+			 if (answers[i][j] == keys[j]) 
+				 correctCount++; 
+			 } 
+		 testResult [i][0] = i;//student's name(number)
+		 testResult [i][1] = correctCount;//student's number correct answers
+		 }	
+	 
+	 for(int row =0; row < testResult.length; row++)
+		 System.out.println("Student "+testResult[row][0] +"'s and his number of correct answers " + testResult[row][1] );	 
+	
+	 System.out.println();
+	 bubbleSort(testResult);
+	 for(int row =0; row < testResult.length; row++)
+		 System.out.println("Student "+testResult[row][0] +"'s and his number of correct answers " + testResult[row][1] );	 
+	}
+	
+	
+	public static void bubbleSort(int [][] m)
+	{
+		boolean swap;
+		int length = m.length;
+		do {
+			int [] temp;
+			swap = false;
+			for(int row =0; row+1 < length; row++)
+			{
+				if(m[row][1] > m[row+1][1])
+				{
+					temp = m[row];
+					m[row] = m[row+1];
+					m[row+1]= temp;
+					swap=true;
+				}						
+			}
+			length -=1;	
+		}while(swap);		
+	}
+}
