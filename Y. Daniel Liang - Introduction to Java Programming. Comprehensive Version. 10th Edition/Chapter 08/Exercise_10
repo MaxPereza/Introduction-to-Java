@@ -1,0 +1,49 @@
+package programming_exercises;
+
+public class PE_8_10_LargestRow_andColumn {
+	public static void main (String [] args)
+	{
+		int [][] m = new int [4][4];
+		for(int row =0; row < m.length; row++)
+			for(int column = 0; column < m[row].length; column++)
+				m[row][column] = (int)(Math.random()*2);
+		computeLarge(m);
+	}
+	
+	public static void computeLarge(int m[][])
+	{
+		for(int row = 0; row < m.length; row++)
+		{
+			for(int column =0; column < m[row].length; column++)
+				System.out.print(m[row][column] +" ");
+			System.out.println();
+		}
+		int []largeRow = {0, 0};
+		int [] largeColumn = {0, 0};
+			
+		for(int row = 0; row < m.length; row++)
+		{
+			int sum = 0;
+			for(int column =0; column < m[row].length; column++)
+				sum += m[row][column];
+			if(sum > largeRow[1])
+			{
+				largeRow[0] = row;
+				largeRow[1] = sum;
+			}			
+		}
+		for(int column = 0; column < m[0].length; column++)
+		{
+			int sum = 0;
+			for(int row =0; row < m.length; row++)
+				sum += m[row][column];
+			if(sum > largeColumn[1])
+			{
+				largeColumn[0] = column;
+				largeColumn[1] = sum;
+			}			
+		}
+		System.out.println("The largest row index: " + largeRow[0]);
+		System.out.println("The largest column index: " + largeColumn[0]);
+	}
+}
