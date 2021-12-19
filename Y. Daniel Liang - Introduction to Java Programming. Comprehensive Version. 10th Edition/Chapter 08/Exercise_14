@@ -1,0 +1,79 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_14_ExploreMatrix {
+	public static void main(String []args)
+	{
+		Scanner input =  new Scanner(System.in);
+		System.out.print("Enter the size for the matrix: ");
+		int size = input.nextInt();
+		input.close();
+		exploreMatrix(size);		
+	}
+	public static void exploreMatrix(int size)
+	{
+		int [][] m = new int [size][size];
+		for(int row = 0; row < m.length; row++)
+		{
+			for(int column =0; column < m[row].length; column++)
+			{
+				m[row][column] = (int)(Math.random()*2);
+				System.out.print(m[row][column]+" ");
+			}
+			System.out.println();
+		}
+		//check row
+		boolean noSame = true;
+		for(int row = 0; row<m.length; row++)
+		{
+			boolean oneByOne = true;
+			int num = m[row][0];
+			for(int column =1; column < m[row].length && oneByOne; column++)
+				if(num != m[row][column])
+					oneByOne = false;
+			if(oneByOne)
+			{
+				System.out.println("All "+num+"s on row "+ row);
+				noSame = false;
+			}				
+		}
+		if(noSame)
+			System.out.println("No same numbers on a row");
+		//check column
+		noSame = true;
+		for(int column = 0; column<m[0].length; column++)
+		{
+			boolean oneByOne = true;
+			int num = m[0][column];
+			for(int row = 1; row < m.length && oneByOne; row++)
+				if(num != m[row][column])
+					oneByOne = false;
+			if(oneByOne)
+			{
+				noSame = false;
+				System.out.println("All "+num+"s on column "+ column);
+			}				
+		}
+		if(noSame)
+			System.out.println("No same numbers on a column");
+		// check  major diagonal 
+		noSame = false;
+		int num = m[0][0];
+		for(int row =1, column =1; row < m.length&& !noSame; row++, column++)
+			if(m[row][column] != num)
+				noSame = true;
+		if(noSame)
+			System.out.println("No same numbers on a major diagonal ");
+		else
+			System.out.println("All "+num+"s on major diagonal ");
+		//check  sub-diagonal
+		noSame = false;
+		num = m[m.length-1][0];
+		for(int row =m.length-2, column =1; row >=0 && !noSame; row--, column++)
+			if(m[row][column] != num)
+				noSame = true;
+		if(noSame)
+			System.out.println("No same numbers on the sub-diagonal");
+		else
+			System.out.println("All "+num+"s on the sub-diagonal");			
+	}
+}
