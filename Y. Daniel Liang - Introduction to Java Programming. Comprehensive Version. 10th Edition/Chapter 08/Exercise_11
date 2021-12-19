@@ -1,0 +1,81 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_11_NineHeads_andTails {
+	public static void main (String []args )
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter a number between 0 and 511 ");
+		int number = input.nextInt();
+		int [] binaryNumber = decimalToBinary(number);
+		printGame(binaryNumber);
+		input.close();
+	}
+	
+	public static int [] decimalToBinary  (int number)
+	{
+		int [] binary = new int [9];
+		for(int i = binary.length-1; i >=0 && number >0; i--)
+		{
+			binary[i] = number % 2;
+			number = number/2;			
+		}
+		return binary;
+	}
+	public static void printGame(int [] number)
+	{
+		/*at my decision, it was possible not to use a two-dimensional array at all, but chapter 8 obliges, so we will use. */
+		int indexArray = 0;
+		char ch = 0;
+		char [][] m = new char [3][3];
+		for(int row = 0; row <m.length; row++)
+		{
+			for(int column = 0; column<m[row].length; column++)
+			{
+				ch = (number[indexArray] == 0)?'H':'T';
+				m[row][column] = ch;
+				indexArray++;
+				System.out.print(m[row][column] + " ");				
+			}
+			System.out.println();				
+		}
+	}
+}
+
+/*package programming_exercises; Option without using a one-dimensional array 
+import java.util.Scanner;
+public class PE_8_11_NineHeads_andTails {
+	public static void main (String []args )
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter a number between 0 and 511 ");
+		int number = input.nextInt();
+		char [][] game = decimalToBinary(number);
+		printGame(game);
+		input.close();
+	}
+	
+	public static char [][] decimalToBinary(int number)
+	{
+		/*at my decision, it was possible not to use a two-dimensional array at all, but chapter 8 obliges, so we will use. */
+		int remainder;
+		char [][] m = new char [3][3];
+		for(int row = m.length-1; row >=0; row--)
+			for(int column = m[row].length-1; column>=0; column--)
+			{
+				remainder = number % 2;
+				number = number/2;
+				m[row][column] = (remainder == 0)?'H':'T';
+								
+			}
+		return m;		
+	}
+	public static void printGame(char [][] m)
+	{
+		for (char[] row : m) {
+            for (char element : row) {
+                System.out.print(element + " ");
+            }
+            System.out.println();
+        }
+	}
+}*/
