@@ -1,0 +1,32 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_15_SameLine {
+	public static void main (String [] args)
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter five points: ");
+		double [][] points = new double [5][2];
+		for(int row =0; row < points.length; row++)
+			for(int column = 0; column < points[row].length; column++)
+				points[row][column] = input.nextDouble();
+		input.close();
+		String result = (sameLine(points)) ?"on the same line": "not on the same line";
+		System.out.println("The five points are " + result);				
+	}
+	public static boolean sameLine(double[][] points)
+	{
+		double x0 = points[0][0];
+		double y0 = points[0][1];
+		double x1 = points[4][0];
+		double y1 = points[4][1];
+		boolean sameLine = true;
+		for(int row =1; row < points.length-1 && sameLine; row++)
+		{
+			double x2 = points[row][0];
+			double y2 = points[row][1];
+			if((x1 - x0)*(y2 - y0) - (x2 - x0)*(y1 - y0)!=0)
+				sameLine = false;
+		}
+		return sameLine;
+	}
+}
