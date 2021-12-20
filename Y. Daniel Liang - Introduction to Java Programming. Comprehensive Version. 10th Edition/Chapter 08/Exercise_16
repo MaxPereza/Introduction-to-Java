@@ -1,0 +1,46 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_16_SortTwo_dimensionalArray {
+	public static void main (String []args)
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter row lenght:" );
+		int size = input.nextInt();
+		int array [][] = new int [size][2];
+		//int [][] array = {{4, 2},{1, 7},{4, 5},{1, 2},{1, 1},{4, 1}};
+		System.out.println("Enter the array: ");
+		for(int row = 0; row < array.length; row++)
+			for(int column =0; column < array[row].length; column++)
+				array[row][column] = input.nextInt();
+		input.close();
+		sort(array);
+		for(int [] row: array)
+		{
+			for(int element: row)
+				System.out.print(element +" ");
+			System.out.println();
+		}
+		 
+	}
+	public static void sort(int m[][])
+	{
+		// sort by row
+		boolean swap;
+		int length = m.length;
+		do {
+			int [] temp;
+			swap = false;
+			for(int row =0; row+1 < length; row++)
+			{
+				if(m[row][0] > m[row+1][0] || m[row][0] == m[row+1][0] && m[row][1] > m[row+1][1])
+				{
+					temp = m[row];
+					m[row] = m[row+1];
+					m[row+1]= temp;
+					swap=true;
+				}						
+			}
+			length -=1;	
+		}while(swap);
+	}
+}
