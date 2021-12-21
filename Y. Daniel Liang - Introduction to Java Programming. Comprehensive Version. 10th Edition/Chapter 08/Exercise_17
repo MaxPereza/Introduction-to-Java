@@ -1,0 +1,81 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_17_FinancialTsunami {
+	public static void main (String [] args)
+	{
+		Scanner input = new Scanner(System.in);
+		/*double [][] banks = {{25,  100.5, 0 ,  0 ,  320.5},
+							 {0,   125,   40,  85,  0},
+							 {125, 0,     175, 75,  0},
+							 {125, 0,     0,   75,  0},
+							 {0,   0,     125, 0,   181}};*/
+		System.out.print("Enter number of banks ");
+		int size = input.nextInt();
+		System.out.print("Enter limit ");
+		double limit = input.nextDouble();
+		double [][] banks = new double [size][size];
+		for(int row = 0; row < banks.length; row++)
+		{
+			System.out.print("Bank " + row +" balance ");
+			banks [row][row] = input.nextDouble();
+			System.out.print("The number of bank borrowers " );
+			int borrowers = input.nextInt();
+			for(int j = 0; j < borrowers; j++)
+			{
+				System.out.print("Bank ");
+				int column = input.nextInt();
+				System.out.print("Loan ");
+				int loan = input.nextInt();
+				banks[row][column] = loan;
+			}
+		}
+		input.close();
+		checkSafeBanks (banks, limit);
+		}
+	
+	public static void checkSafeBanks(double [][] banks, double limit)
+	{
+		int [] checkList = new int [banks.length]; // non-safe banks with a value of -1 will be added here 
+												 //so that they do not need to be checked again
+		String unSafeBanks ="";
+		boolean checkCompleted;
+		do {
+			checkCompleted = true;
+			for(int bank = 0; bank < checkList.length &&checkCompleted; bank++)
+				if(checkList[bank]!= -1)
+				{
+					checkCompleted = checkBank(banks, limit, bank );
+					if(!checkCompleted)
+					{
+						//System.out.println(unSafeBanks + " ");
+						unSafeBanks += bank + " ";
+						checkList [bank] = -1;
+						nullificationOfLoans(banks, bank);
+					}
+				}		
+			
+		}while(!checkCompleted);
+		if(unSafeBanks.length() !=0)
+			System.out.println("Unsafe banks are "+ unSafeBanks);
+		else
+			System.out.println("All banks are safe");
+			
+	}
+	
+	public static void nullificationOfLoans(double [][] banks, int bank)
+	{
+		for(int row = 0; row < banks.length; row++)
+				banks[row][bank] = 0;
+	}
+	
+	public static boolean checkBank(double [][] banks, double limit, int bank)
+	{
+		double totalAssets = 0; 
+		for(int column = 0; column < banks[bank].length; column++ )
+			totalAssets += banks[bank][column];
+		if(totalAssets < limit)
+			return false;			
+		else
+			return true;
+	}
+}
