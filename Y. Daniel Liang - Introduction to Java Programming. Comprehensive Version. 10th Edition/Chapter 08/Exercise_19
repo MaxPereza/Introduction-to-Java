@@ -1,0 +1,118 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_19_PatternRecognition {
+	public static void main(String []args)
+	{
+		/*int [][] matrix = {{1, 1, 3, 8, 1, 6, 1},
+						   {6, 1, 38, 6, 7, 1, 1},
+						   {1, 8, 5, 4, 1, 7, 5},
+						   {8, 6, 4, 0, 4, 5, 7},
+						   {1, 4, 6, 6, 5, 4, 9},
+						   {4, 5, 3, 6, 7, 7, 4}};*/
+		Scanner input =  new Scanner(System.in);
+		System.out.print("Enter the number of rows ");
+		int sizeR = input.nextInt();
+		System.out.print("Enter the number of columns  ");
+		int sizeC = input.nextInt();
+		int [][] matrix = new int [sizeR][sizeC];
+		System.out.println("Enter the values in the array");
+		for(int row = 0; row < matrix.length; row++)
+			for(int column = 0; column < matrix[row].length; column++)
+				matrix[row][column] = input.nextInt();
+		input.close();
+		for(int row []: matrix)
+		{
+			for(int element: row)
+				System.out.print(element + " ");
+			System.out.println();
+		}
+		
+		boolean result = isConsecutiveFour( matrix);
+		System.out.println("Array contains four consecutive numbers with the same value? " + result);
+		
+	}
+	public static boolean isConsecutiveFour(int[][] values)
+	{
+		// check row
+		for(int row = 0; row<values.length; row++)
+		{
+			int num = values[row][0];
+			int count =1;
+			for(int column =1; column < values[row].length && count!=4; column++)
+			{
+				if(num == values[row][column])
+					count++;
+				else if ((values[row].length-column) >=4) //check for the possibility of getting 3 more numbers
+				{
+					count = 1;
+					num = values[row][column];
+				}					
+				else //otherwise exit this loop 
+					column = values.length;
+			if(count==4)
+				return true;				
+			}			
+		}
+		//check column
+		for(int column = 0; column<values[0].length; column++)
+		{
+			int num = values[0][column];
+			int count =1;
+			for(int row = 1; row < values.length && count!=4; row++)
+				if(num == values[row][column])
+					count++;
+				else if ((values.length-row) >=4) 
+				{
+					count = 1;
+					num = values[row][column];
+				}					
+				else
+					row = values.length;
+			if(count==4)
+				return true;	
+		}		
+		//check major diagonal
+		for(int row = 0; (values.length-row) >=4; row++)
+			for(int column =0; (values[row].length-column) >=4; column++)
+			{
+				int num = values[row][column];
+				int count =1;
+				for(int r =row+1, c =column+1; r < values.length && c < values[r].length && count!=4; r++, c++)
+				{
+					if(num == values[r][c])
+						count++;
+					else if ((values.length-r) >=4) 
+					{
+						count = 1;
+						num = values[r][c];
+					}					
+					else
+						r = values.length;
+				}
+				if(count==4)
+					return true;				
+			}
+		//check  sub-diagonal
+		for(int row = values.length-1; row>=3; row--)
+			for(int column =0; (values[row].length-column) >=4; column++)
+			{
+				int num = values[row][column];
+				int count =1;
+				for(int r =row-1, c =column+1; r >=0 && c < values[r].length && count!=4; r--, c++)
+				{
+					if(num == values[r][c])
+						count++;
+					else if (r >=3) 
+					{
+						count = 1;
+						num = values[r][c];
+					}					
+					else
+						r = 0;
+				}
+				if(count==4)
+					return true;					
+			}			
+		return false;
+	}
+}
