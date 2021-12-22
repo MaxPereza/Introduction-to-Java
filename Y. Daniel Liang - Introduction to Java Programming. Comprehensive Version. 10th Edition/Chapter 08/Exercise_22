@@ -1,0 +1,64 @@
+package programming_exercises;
+public class PE_8_22_EvenNumber_of_1s {
+	public static void main(String []args)
+	{
+		int [][] m = new int [6][6];
+		for(int row = 0; row < m.length; row++)
+		{
+			for(int column = 0; column < m[row].length; column++)
+			{
+				m[row][column] = (int)(Math.random() *2);
+				System.out.print(m[row][column] + " ");
+			}
+			System.out.println();
+		}
+		if(checkEven(m))
+			System.out.println("Every row and every column have an even number of 1s. ");
+		else
+			System.out.println("Noop, not every row and every column have an even number of 1s. ");
+		/*
+		int count =0;
+		while(!checkEven(m))
+		{
+			count++;
+			System.out.println();
+			for(int row = 0; row < m.length; row++)
+			{
+				for(int column = 0; column < m[row].length; column++)
+				{
+					m[row][column] = (int)(Math.random() *2);
+					System.out.print(m[row][column] + " ");
+				}
+				System.out.println();
+			}
+		}
+		System.out.println("Count " + count);*/
+					
+	}
+	
+	public static boolean checkEven(int [][] m)
+	{
+		int count;
+		//check row
+		for(int row =0; row < m.length; row++)
+		{
+			count = 0;
+			for(int column =0; column < m[row].length; column++)
+				if(m[row][column]==1)
+					count++;
+			if(count % 2!=0)
+				return false;
+		}
+		//check column;
+		for(int column =0; column < m[0].length; column++)
+		{
+			count =0;
+			for(int row =0; row < m.length; row++)
+				if(m[row][column]==1)
+					count++;
+			if(count % 2!=0)
+				return false;
+		}		
+		return true;
+	}
+}
