@@ -1,0 +1,144 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_20_ConnectFour {
+	public static void main(String []args)
+	{
+		char [][] game = new char [6][7];
+		int count = 0;
+		boolean gameOver = false;
+		for(int row =0; row < game.length; row++)
+			java.util.Arrays.fill(game[row], ' ');
+		
+		char player = 'Y';
+		while(!gameOver&&count<42)
+		{
+			
+			player = (player == 'R')? 'Y' : 'R';
+			printBoard(game);
+			checkInput (game, player);
+			gameOver = game(game, player);
+			count++;
+			System.out.println("Count" +count);
+		}
+		printBoard(game);
+		if(gameOver)
+			System.out.println(player + " player won");
+		else
+			System.out.println("Nobody won, draw"); 
+	}
+	public static void printBoard (char [][] board)
+	{
+		System.out.println(".............................");
+		for(int row =0; row < board.length; row++)
+		{
+			System.out.print("|");
+			for(int column =0; column < board[row].length; column++)
+			{
+				System.out.print(" "+board[row][column]+ " |");
+			}
+			System.out.println("\n.............................");
+		}			
+	}
+	public static boolean game(char [][] board, char player)
+	{			
+		
+		//check column
+		for(int column = 0 ; column < board[0].length; column++)
+		{
+			int count = 0;
+			for(int row = board.length-1; row >=0 && count!=4; row--)
+			{
+				if(player == board[row][column])
+					count++;
+				else if (row >=4) //check for the possibility of getting 3 more numbers
+					count = 0;
+				else //otherwise exit this loop 
+					row = 0;
+			if(count==4)
+				return true;				
+			}			
+		}		
+		
+		// check row
+		for(int row = board.length-1; row >= 0; row--)
+			{
+			int count =0;
+			for(int column =0; column < board[row].length && count!=4; column++)
+					{
+						if(player == board[row][column])
+							count++;
+						else if ((board[row].length-column) >4) //check for the possibility of getting 3 more numbers
+							count = 0;
+						else //otherwise exit this loop 
+							column = board[row].length;
+					}
+					if(count==4)
+						return true;								
+				}		
+		//check major diagonal
+		for(int row = 0; (board.length-row) >4; row++)
+				for(int column =0; (board[row].length-column) >=4; column++)
+					{
+					int count = 0;
+					for(int r =row+1, c =column+1; r < board.length && c < board[r].length && count!=4; r++, c++)
+					{
+						if(player == board[r][c])
+							count++;
+						else if ((board.length-r) >4) 
+							count = 0;
+						else
+							r = board.length;
+					}
+					if(count==4)
+						return true;				
+				}
+		
+		//check  sub-diagonal
+		for(int row = board.length-1; row>=3; row--)
+			for(int column =0; (board[row].length-column) >4; column++)
+				{	int count =1;
+					for(int r =row-1, c =column+1; r >=0 && c < board[r].length && count!=4; r--, c++)
+						{
+						if(player == board[r][c])
+							count++;
+						else if (r >3) 
+							count = 0;
+						else
+							r = 0;
+						}
+					if(count==4)
+						return true;
+				}		
+		return false;		
+	}
+	
+	public static void checkInput (char [][] board, char player)
+	{
+		Scanner input = new Scanner(System.in);
+		boolean goodInput = false;
+		String disk = (player == 'R')? "red disk": "yellow disk";
+		while(!goodInput)
+		{
+			System.out.print("Drop a " + disk +" at column (0–6): ");
+			int column = input.nextInt();
+			while(!goodInput)
+				if(column > 6|| column <0)
+				{
+					System.out.println("Wrong number, enter a number between  (0 - 6) ");
+					column = input.nextInt();		
+				}
+				else
+					goodInput = true;
+			goodInput = false;
+			
+			for(int row = board.length-1; row >= 0 && !goodInput; row--)
+				if(board[row][column] == ' ')
+				{
+					board[row][column] = player;	
+					goodInput=true;
+				}
+			if(!goodInput)
+				System.out.println("Oops, this cell is already occupied, try another ");
+		}						
+	}	
+}
