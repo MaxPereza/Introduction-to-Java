@@ -1,0 +1,81 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_23_Find_theFlippedCell {
+	public static void main(String [] args)
+	{
+		Scanner input =  new Scanner (System.in);
+		System.out.println("Enter a 6-by-6 matrix row by row: ");
+		int [][] matrix = new int [6][6];
+		for(int row = 0; row < matrix.length; row++)
+		{
+			String strRow = input.nextLine();
+			matrix[row] = convertStringToInt(strRow);
+		}
+		input.close();
+		/*int [][] matrix = {{1, 0, 1, 0, 1, 1},
+						   {1, 1, 1, 1, 0, 0},
+						   {0, 1, 0, 1, 1, 1},
+						   {1, 1, 1, 1, 1, 1},
+						   {0, 1, 1, 1, 1, 0},
+						   {1, 0, 0, 0, 0, 1}};*/
+		checkEven(matrix);
+		
+		}
+	public static void checkEven(int [][] m)
+	{
+		int []index = new int[2];
+		boolean allEven = true;
+		int count;
+		//check row
+		for(int row =0; row < m.length&&allEven; row++)
+		{
+			count = 0;
+			for(int column =0; column < m[row].length; column++)
+				if(m[row][column]==1)
+					count++;
+			if(count % 2!=0)
+			{
+				allEven = false;
+				index [0] = row;
+			}			
+		}
+		//check column;
+		if(!allEven)
+		{
+			allEven = true;
+			for(int column =0; column < m[0].length&&allEven; column++)
+				{
+				count =0;
+				for(int row =0; row < m.length; row++)
+					if(m[row][column]==1)
+						count++;
+				
+				if(count % 2!=0)
+				{
+					allEven = false;
+					index [1] = column;
+				}	
+				}
+		
+		}		
+		if(!allEven)
+			System.out.println("The flipped cell is at ("+ index[0]+", "+ index[1]+")");
+		else
+			System.out.println("Everything is fine ");
+			
+	}
+	public static int [] convertStringToInt(String str)
+	{
+		int [] row = new int [6];
+		String num = "";
+		for(int i = 0, j = 0; i < str.length(); i+=2, j++)
+			
+		{
+			num = str.substring(i, i+1);
+			row[j] = Integer.parseInt(num);			
+		}
+		return row;
+	}
+	
+
+}
