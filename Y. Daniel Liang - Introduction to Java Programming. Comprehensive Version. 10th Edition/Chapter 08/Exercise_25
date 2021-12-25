@@ -1,0 +1,82 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_25_MarkovMatrix {
+	public static void main (String []args)
+	{
+		double [][] matrix = readInput(); /*{{0.15, 0.875, 0.375},
+							  {0.55, 0.005, 0.225},
+							  {0.55, 0.12, 0.4}};*/
+		String result=(isMarkovMatrix(matrix))? "":" not";
+		System.out.println("It is" +result+ " a Markov matrix");
+	}
+	
+	public static boolean isMarkovMatrix(double[][] m)
+	{
+		for(int column = 0; column <m[0].length; column++)
+		{
+			double sum =0;
+			for(int row =0; row < m.length; row++)
+			{
+				if(m[row][column]<0)
+					return false;
+				else
+					sum +=m[row][column];
+			}
+			if(sum != 1)
+				return false;		
+		}
+		
+		return true;
+	}
+	public static double [][] readInput()
+	{
+		Scanner input = new Scanner(System.in);
+		double [][] m = new double [3][3];
+		System.out.println("Enter a 3-by-3 matrix row by row: ");
+		for(int row =0; row < m.length; row++)
+		{
+			boolean goodInput = false;
+			while(!goodInput)
+			{
+				int startIndex = 0;
+				goodInput = true;
+				String str = input.nextLine();	
+				str +=" ";
+				for(int i = 0; i < m[row].length&&goodInput; i++)
+				{
+					int endIndex = str.indexOf(' ',startIndex+1);
+					String numberStr = str.substring(startIndex, endIndex);
+					startIndex = endIndex+1;
+					if(checkDouble(numberStr))
+						m[row][i]= Double.parseDouble(numberStr);
+					else
+					{
+						System.out.println("Something went wrong, try again");
+						goodInput = false;						
+					}						
+				}				
+			}				
+		}
+    input.close();
+		return m;		
+	}
+  
+  //checking Double value is done as entertainment, it is not necessary 
+	public static boolean checkDouble(String str)
+	{
+		int count = 0;
+		for(int i =0; i < str.length(); i++)
+		{
+			char ch = str.charAt(i);
+			if(!Character.isDigit(ch)&& ch != '.'&& i>0)
+				return false;
+			else if(ch=='.')
+				count++;
+			else if(count > 1)
+				return false;
+		}
+		if(count==0)
+			return false;		
+	return true;
+	}
+}
