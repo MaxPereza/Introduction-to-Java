@@ -1,0 +1,69 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_26_RowSorting {
+	public static void main(String []args)
+	{
+		double [][] matrix = readInput();
+		double [][] sortedMatrix = sortRows(matrix);
+		for(double row []: sortedMatrix)
+		{
+			for(double element: row)
+				System.out.print(element +" ");
+			System.out.println();
+		}		
+	}
+	public static double [][] readInput()
+	{
+		Scanner input = new Scanner(System.in);
+		double [][] m = new double [3][3];
+		System.out.println("Enter a 3-by-3 matrix row by row: ");
+		for(int row =0; row < m.length; row++)
+		{
+			int startIndex = 0;
+			String str = input.nextLine();	
+			str +=" ";
+			for(int i = 0; i < m[row].length; i++)
+			{
+				int endIndex = str.indexOf(' ',startIndex+1);
+				String numberStr = str.substring(startIndex, endIndex);
+				startIndex = endIndex+1;
+				m[row][i]= Double.parseDouble(numberStr);
+			}				
+		}
+		input.close();
+		return m;
+	}
+	
+	public static double[][] sortRows(double[][] m)
+	{
+		double [][] sortM = new double [m.length][m[0].length];
+		for(int row =0; row < m.length; row++)
+		{
+			sortM[row] = m[row];
+			bubleSort(sortM[row]);
+		}
+		
+		return sortM;
+	}
+	public static void  bubleSort (double m[])
+	{
+		boolean swap;
+		do
+		{
+			swap = false;
+			int lenght = m.length;
+			for(int i = 0; i< lenght-1; i++ )
+			{
+				double temp;
+				if(m[i] > m[i+1])
+				{
+					temp = m[i];
+					m[i] = m[i+1];
+					m[i+1] = temp;
+					swap = true;					
+				}				
+			}
+			lenght--;
+		}while(swap);		
+	}
+}
