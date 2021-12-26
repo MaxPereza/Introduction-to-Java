@@ -1,0 +1,51 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_31_IntersectingPoint {
+	public static void main(String []args)
+	{
+		
+		System.out.println("Enter x1, y1, x2, y2, x3, y3, x4, y4: ");
+		double [][] points = readInput();
+		//2 2 5 -1.0 4.0 2.0 -1.0 -2.0 at (2.88889, 1.1111) 
+		//2 2 7 6.0 4.0 2.0 -1.0 -2.0 The two lines are parallel 
+		double [] result = getIntersectingPoint(points); 
+		if(result==null)
+			System.out.println("The two lines are parallel ");
+		else
+			System.out.printf("The intersecting point is at (%.4f, %.4f)", result[0], result[1]);		
+	}
+	public static double [][] readInput()
+	{
+		Scanner input = new Scanner(System.in);
+		String str = input.nextLine() + " ";
+		double [][] m = new double [4][2];
+		int startIndex = 0;
+		for(int row =0; row < m.length; row++)
+			for(int i = 0; i < m[row].length; i++)
+			{
+				int endIndex = str.indexOf(' ',startIndex+1);
+				String numberStr = str.substring(startIndex, endIndex);
+				startIndex = endIndex+1;
+				m[row][i]= Double.parseDouble(numberStr);
+			}
+		input.close();
+		return m;
+	}
+
+	private static double[] getIntersectingPoint(double[][] points) {
+        int X = 0, Y = 1;
+        double a = points[0][Y] - points[1][Y]; // y1 - y2
+        double b = -(points[0][X] - points[1][X]);//-(x1 - x2)
+        double c = points[2][Y] - points[3][Y]; //y3 - y4
+        double d = -(points[2][X] - points[3][X]);//-(x3 - x4)
+        double e = a * points[0][X] + b * points[0][Y];  // (y1 - y2) * x1 - (x1 - x2) * y1
+        double f = c * points[2][X] + d* points[2][Y]; // (y3 - y4) * x3 - (x3 - x4) * y3
+        double determinant = (a * d) - (b * c);
+        if (determinant == 0) return null;
+        else {
+            double x = (e * d - b * f) / determinant;
+            double y = (a * f - e * c) / determinant;
+            return new double[]{x, y};
+        }
+    }
+}
