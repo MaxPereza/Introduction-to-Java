@@ -48,10 +48,10 @@ public class PE_8_26_RowSorting {
 	public static void  bubleSort (double m[])
 	{
 		boolean swap;
+		int lenght = m.length;
 		do
 		{
-			swap = false;
-			int lenght = m.length;
+			swap = false;			
 			for(int i = 0; i< lenght-1; i++ )
 			{
 				double temp;
