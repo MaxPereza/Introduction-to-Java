@@ -1,0 +1,68 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_27_ColumnSorting {
+	public static void main (String []args)
+	{
+		double [][] matrix = readInput();
+		double [][] sortedMatrix = sortColumns(matrix);
+		System.out.println("The column-sorted array is ");
+		for(double row []: sortedMatrix)
+		{
+			for(double element: row)
+				System.out.print(element +" ");
+			System.out.println();
+		}		
+	}
+	
+	public static double[][] sortColumns(double[][] m)
+	{
+		double [][] sortM = new double [m.length][m[0].length];
+		for(int i =0; i <sortM.length; i++)
+			sortM[i] = m[i];
+		
+		for(int column = 0; column < sortM[0].length; column++)
+		{
+			boolean swap;
+			int length = sortM.length;
+			do
+			{
+				swap = false;
+				for(int row =0; row < length-1; row++)
+				{
+					double temp;
+					if(sortM[row][column] > sortM[row+1][column])
+					{
+						temp = sortM[row][column];
+						sortM[row][column] = sortM[row+1][column];
+						sortM[row+1][column] = temp;
+						swap = true;
+					}
+				}
+				length--;
+			}while(swap);					
+		}		
+		return sortM;
+	}
+	
+	public static double [][] readInput()
+	{
+		Scanner input = new Scanner(System.in);
+		double [][] m = new double [3][3];
+		System.out.println("Enter a 3-by-3 matrix row by row: ");
+		for(int row =0; row < m.length; row++)
+		{
+			int startIndex = 0;
+			String str = input.nextLine();	
+			str +=" ";
+			for(int i = 0; i < m[row].length; i++)
+			{
+				int endIndex = str.indexOf(' ',startIndex+1);
+				String numberStr = str.substring(startIndex, endIndex);
+				startIndex = endIndex+1;
+				m[row][i]= Double.parseDouble(numberStr);
+			}				
+		}
+		input.close();
+		return m;
+	}
+}
