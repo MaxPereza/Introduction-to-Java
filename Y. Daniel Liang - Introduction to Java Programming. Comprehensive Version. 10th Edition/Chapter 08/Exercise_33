@@ -1,0 +1,75 @@
+package programming_exercises;
+import java.util.Arrays;
+import java.util.Scanner;
+public class PE_8_33_PolygonSubareas {
+	public static void main(String []args)
+	{
+		System.out.println("Enter x1, y1, x2, y2, x3, y3, x4, y4: ");//-2.5 2 4 4 3 -2 -2 -3.5
+		double [][] points = readInput();
+		double [] intersectPoint = getIntersectingPoint(points); 
+		double [] areaOfTriangles = new double [4];
+		double [][] triangle = new double [3][2];
+		for(int i = 0; i < 4; i++)
+		{
+			triangle [0] = points[i%4];
+			triangle [1] = points[(i+1)%4];
+			triangle [2] = intersectPoint;
+			areaOfTriangles[i] =  getTriangleArea(triangle);
+		}
+		Arrays.parallelSort(areaOfTriangles);
+		System.out.print("The areas are: ");
+		for(double i: areaOfTriangles)
+			System.out.printf("%.2f ", i);	
+		
+	}
+	
+	public static double [][] readInput()
+	{
+		Scanner input = new Scanner(System.in);
+		String str = input.nextLine() + " ";
+		double [][] m = new double [4][2];
+		int startIndex = 0;
+		for(int row =0; row < m.length; row++)
+			for(int i = 0; i < m[row].length; i++)
+			{
+				int endIndex = str.indexOf(' ',startIndex+1);
+				String numberStr = str.substring(startIndex, endIndex);
+				startIndex = endIndex+1;
+				m[row][i]= Double.parseDouble(numberStr);
+			}
+		input.close();
+		return m;
+	}
+	private static double[] getIntersectingPoint(double[][] points) {
+        int X = 0, Y = 1;
+        double a = points[0][Y] - points[2][Y]; // (y1 - y3)
+        double b = -(points[0][X] - points[2][X]);//- (x1 - x3
+        double c = points[1][Y] - points[3][Y]; // (y2 - y4)
+        double d = -(points[1][X] - points[3][X]);//- (x2 - x4)
+        double e = a * points[0][X] + b * points[0][Y];  
+        double f = c * points[3][X] + d* points[3][Y]; 
+        double determinant = (a * d) - (b * c);
+        if (determinant == 0) return null;
+        else {
+            double x = (e * d - b * f) / determinant;
+            double y = (a * f - e * c) / determinant;
+            return new double[]{x, y};
+        }
+    }
+	public static double getTriangleArea(double[][] points)
+	{
+		double [] sides = new double [3];
+		sides[0] = getSide(points[0], points[1]);
+		sides[1] = getSide(points[1], points[2]);
+		sides[2] = getSide(points[0], points[2]);
+		double s = (sides[0]+sides[1]+sides[2])/2;
+		double area = Math.sqrt((s*(s - sides[0])*(s - sides[1])*(s - sides[2])));
+		return area;		
+	}
+	
+	public static double getSide(double [] pointA, double []pointB)
+	{
+		double side = Math.pow(pointB[0]-pointA[0], 2)+ Math.pow(pointB[1]-pointA[1], 2);
+		return Math.sqrt(side);		
+	}
+}
