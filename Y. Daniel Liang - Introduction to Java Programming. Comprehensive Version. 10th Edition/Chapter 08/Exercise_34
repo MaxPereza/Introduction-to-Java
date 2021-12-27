@@ -1,0 +1,40 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_34_RightmostLowestPoint {
+	public static void main (String []args)
+	{
+		System.out.println("Enter 6 points: "); //1.5 2.5 -3 4.5 5.6 -7 6.5 -7 8 1 10 2.5 
+		double [][] points = readInput();
+		double [] r_lPoint = getRightmostLowestPoint(points); 
+		System.out.println("The rightmost lowest point is (" + r_lPoint[0]+", " +r_lPoint[1]+")" );		
+	}	
+	public static double [][] readInput()
+	{
+		Scanner input = new Scanner(System.in);
+		String str = input.nextLine() + " ";
+		double [][] m = new double [6][2];
+		int startIndex = 0;
+		for(int row =0; row < m.length; row++)
+			for(int i = 0; i < m[row].length; i++)
+			{
+				int endIndex = str.indexOf(' ',startIndex+1);
+				String numberStr = str.substring(startIndex, endIndex);
+				startIndex = endIndex+1;
+				m[row][i]= Double.parseDouble(numberStr);
+			}
+		input.close();
+		return m;
+	}
+	public static double[]  getRightmostLowestPoint(double[][] points)
+	{
+		double [] r_lPoint = {0,0};
+		final int x = 0;
+		final int y = 1;
+		for(int i =0; i < points.length; i++)
+			{
+			if(r_lPoint[y]>points[i][y] || r_lPoint[y] == points[i][y]&&r_lPoint[x]<points[i][x])
+				r_lPoint = points[i];
+			}
+		return r_lPoint;
+	}
+}
