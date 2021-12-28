@@ -1,0 +1,71 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_35_LargestBlock {
+	public static void main (String []args)
+	{
+		System.out.print("Enter the number of rows in the matrix: ");
+		int [][] matrix = readInput();
+		int [] subM = findLargestBlock(matrix);
+		System.out.println("The maximum square submatrix is at ("+ subM[0]+", " +subM[1]+") with size " +subM[2]);
+		
+	}
+	public static int [][] readInput()
+	{
+		Scanner input = new Scanner(System.in);
+		int size = input.nextInt();
+		int [][] m = new int [size][size];
+		input.nextLine();	
+		System.out.println("Enter the matrix row by row: ");
+		for(int row =0; row < m.length; row++)
+		{
+			int startIndex = 0;
+			String str = input.nextLine();	
+			str +=" ";
+			for(int i = 0; i < m[row].length; i++)
+			{
+				int endIndex = str.indexOf(' ',startIndex+1);
+				String numberStr = str.substring(startIndex, endIndex);
+				startIndex = endIndex+1;
+				m[row][i]= Integer.parseInt(numberStr);
+			}				
+		}
+		input.close();
+		return m;
+	}
+	public static int[] findLargestBlock(int[][] m)
+	{
+		int [] subMatrix = {0, 0, 0};
+		for(int row = 0; row < m.length; row++)
+		{
+			int count=0;
+			for(int column =0; column < m[row].length; column++)
+			{	
+				if(m[row][column]==1)
+					count++;
+				else
+					count=0;
+				if(count>1 && count> subMatrix[2] && (m.length-row) >= count) // (m.length-row) >= count / border check 
+				{
+					if(checkBlock(row, (column-count)+1, count, m)) // (column-count)+1 / fined start column
+					{
+						subMatrix [0] = row;
+						subMatrix [1] = (column-count)+1;
+						subMatrix [2] = count;
+					}
+					else
+						count=0;
+				}				
+			}
+		}
+		return subMatrix;
+	}	
+	
+	public static boolean checkBlock (int r, int c, int lenght, int [][] m )
+	{
+		for(int row = r; row < r+lenght; row++)
+			for(int column =c; column < m[row].length && column < c+lenght; column++)
+				if(m[row][column]!=1)
+					return false;				
+		return true;		
+		}
+}
