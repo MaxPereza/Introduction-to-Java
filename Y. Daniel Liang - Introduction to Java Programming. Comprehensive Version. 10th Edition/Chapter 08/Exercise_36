@@ -1,0 +1,66 @@
+package programming_exercises;
+import java.util.Scanner;
+public class PE_8_36_LatinSquare {
+	public static void main (String [] args)
+	{
+		char [][] latinSquare = readInput();
+		String result = (checkLatinSquare(latinSquare))? "": " not";
+		System.out.println("The input array is" +result+" a Latin square");		
+	}
+	public static char [][] readInput()
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter number n: ");
+		int size = input.nextInt();
+		char [][] m = new char [size][size];
+		input.nextLine();	
+		System.out.println("Enter "+size+" rows of letters separated by spaces: : ");
+		
+		for(int row =0; row < m.length; row++)
+		{
+			boolean goodInput;
+			do
+			{
+				goodInput = true;
+				int startIndex = 0;
+				String str = input.nextLine();	
+				str +=" ";
+				for(int i = 0; i < m[row].length&&goodInput; i++)
+				{
+					int endIndex = str.indexOf(' ',startIndex+1);
+					char ch = str.charAt(startIndex);
+					startIndex = endIndex+1;
+					if((ch-'A')>=size)
+					{
+						System.out.println("Wrong input: the letters must be from A to " + (char)('A'+size-1));
+						goodInput = false;
+					}
+					m[row][i]= ch;
+				}
+			}while(!goodInput);				
+		}
+		input.close();
+		return m;
+	}
+	public static boolean checkLatinSquare(char [][] m)
+	{
+		for(int row = 0; row < m.length; row++)
+			for(int column = 0; column < m[row].length; column++)
+				if(!isValid(row, column, m))
+					return false;
+		return true;
+		
+	}
+	public static boolean isValid(int r, int c, char[][] m) 
+	{ 
+		 // Check whether grid[i][j] is unique in i's row 
+		 for (int column = c+1; column < m[0].length; column++) 
+			 if (m[r][column] == m[r][c]) 
+				 return false; 
+		// Check whether grid[i][j] is unique in j's column 
+		 for (int row = r+1; row < m.length; row++) 
+			 if (m[row][c] == m[r][c]) 
+				 return false;
+		 return true;
+	}
+}
