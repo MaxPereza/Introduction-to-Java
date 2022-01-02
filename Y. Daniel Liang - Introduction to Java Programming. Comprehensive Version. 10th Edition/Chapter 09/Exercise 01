@@ -1,0 +1,46 @@
+package pe_9_1;
+public class TestRectangle {
+	public static void main(String []args)
+	{
+		Rectangle [] list = new Rectangle [2];
+		list [0] =	new Rectangle(4, 40);
+		list [1] = new Rectangle(3.5, 35.9);
+		for(int i =0; i < list.length; i++)
+			System.out.printf("Width %4.2f Height %4.2f Area %4.2f Perimetr %4.2f \n",  list[i].getWidth(), list[i].getHeight(),
+					list[i].getArea(), list[i].getPerimeter());
+	}
+}
+
+package pe_9_1;
+public class Rectangle {
+	private double width = 1;
+	private double height = 1;
+	
+	public Rectangle (double width, double height)
+	{
+		this.width = width;
+		this.height = height;
+	}
+	public Rectangle()
+	{}
+	
+	public double getArea()
+	{
+		return width * height;
+	}
+	
+	public double getPerimeter()
+	{
+		return 2*(width * height);
+	}
+	
+	public double getWidth()
+	{
+		return width;
+	}
+	
+	public double getHeight()
+	{
+		return height;
+	}
+}
