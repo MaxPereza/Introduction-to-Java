@@ -1,0 +1,57 @@
+package pe_9_2;
+public class TestStock {
+	public static void main (String[]args)
+	{
+		Stock a = new Stock("ORCL", " OracleCorporation ", 34.5 );
+		a.setCurrentPrice(34.35);
+		System.out.print(a.getSymbol()+ " " + a.getName() + "\nthe price-change percentage " + a.getChangePercent());
+	}
+}
+package pe_9_2;
+public class Stock {
+	private String symbol;
+	private String name;
+	private double currentPrice;
+	private double previousClosingPrice = 0;
+	
+	public Stock(String symbol, String name, double currentPrice)
+	{
+		this.symbol = symbol;
+		this.name = name;
+		this.currentPrice = currentPrice;
+	}
+	public Stock(String symbol, String name)
+	{
+		this(symbol, name, 0.0);
+	}
+	public void setCurrentPrice(double currentPrice)
+	{
+		previousClosingPrice = this.currentPrice;
+		this.currentPrice = currentPrice;
+	}
+	public double getChangePercent()
+	{
+		double hight;
+        double low;
+        if(currentPrice > previousClosingPrice)
+        {
+            hight = currentPrice;
+            low = previousClosingPrice;
+        }
+        
+        else {
+            hight = previousClosingPrice;
+            low = currentPrice;
+        }
+        double percent = ((hight - low) / hight) * 100;
+        return (int)(percent * 100)/100.0;
+	}
+	public String getSymbol()
+	{
+		return symbol;
+	}
+	public String getName() 
+	{
+		return name;
+	}	
+}
