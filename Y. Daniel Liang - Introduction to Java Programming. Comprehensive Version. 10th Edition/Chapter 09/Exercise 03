@@ -1,0 +1,16 @@
+package programming_exercises;
+public class PE_9_3_UsetheDateClass {
+	public static void main (String []args)
+	{
+		java.util.Date date = new java.util.Date();
+		long elapseTime = 10000;
+		for(int i = 0; i< 8; i++)
+		{
+			///java.util.Date date = new java.util.Date(elapseTime);
+			date.setTime(elapseTime);
+			System.out.println("The elapsed time is " + date.getTime() + " milliseconds");
+			System.out.println(date.toString());
+			elapseTime *=10;
+		}
+	}
+}
