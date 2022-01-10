@@ -1,0 +1,17 @@
+package programming_exercises;
+import java.util.Random;
+public class PE_9_4_UsetheRandomclass {
+	public static void main (String []args)
+	{
+		Random generator1 = new Random(1000);
+		System.out.println("From generator1: ");
+		for (int i = 1; i <= 50; i++)
+		{
+			if(i%10==0)
+				System.out.println(generator1.nextInt(100));
+			else
+				System.out.printf("%-4d", generator1.nextInt(100));
+			
+		}		 
+	}
+}
