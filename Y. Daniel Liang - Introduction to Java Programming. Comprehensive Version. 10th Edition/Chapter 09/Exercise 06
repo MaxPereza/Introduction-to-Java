@@ -1,0 +1,62 @@
+package pe_9_6;
+public class Stopwatch {
+	private long startTime;
+	private long endTime;
+	
+	public Stopwatch()
+	{		
+		startTime = System.currentTimeMillis();
+	}
+	public void start()
+	{
+		startTime = System.currentTimeMillis(); 
+	}
+	public void stop ()
+	{
+		endTime = System.currentTimeMillis();
+	}
+	
+	public long getElapsedTime()
+	{
+		return endTime - startTime;
+	}
+	
+	public long getStartTime ()
+	{
+		return startTime;
+	}
+	
+	public long getEndTime ()
+	{
+		return endTime;
+	}
+}
+package pe_9_6;
+public class TestStopwatch {
+	public static void main (String []args)
+	{
+		int [] list = new int [100000];
+		for(int i = 0; i < list.length; i++)
+			list[i] = (int)(Math.random()*10);
+		
+		Stopwatch time = new Stopwatch();
+		time.start();
+		System.out.println("start time "+ time.getStartTime());
+		selectionSort(list);
+		time.stop();
+		System.out.println("ent time   " + time.getEndTime());
+		System.out.println("Elapsed time is " + time.getElapsedTime());
+	}
+	
+	public static void selectionSort(int [] list)
+	{
+		for(int i = 0; i< list.length-1; i++)
+			for(int j = i +1; j < list.length; j++)
+				if(list[i]>list[j])
+				{
+					int saveValue = list[i];
+					list[i] = list[j];
+					list[j] = saveValue;
+				}					
+	}	
+}
