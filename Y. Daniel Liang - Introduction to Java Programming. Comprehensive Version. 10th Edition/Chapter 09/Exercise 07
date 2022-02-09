@@ -1,0 +1,67 @@
+package pe_9_7;
+import java.util.Date;
+
+public class Account {
+	private int id = 0;
+	private double balance = 0;
+	private double annualInterestRate = 0;
+	private Date dateCreated = new Date();
+	
+	public Account()
+	{}
+	
+	public Account(int id, double balance)
+	{
+		this.id = id;
+		this.balance = balance;		
+	}
+	
+	public int getId(){
+		return id; }
+	
+	public double getBalance (){
+		return balance;}
+	
+	public double getAnnualInterestRate (){
+		return balance;	}
+	
+	public Date getDateCreated() {
+		return dateCreated;	}
+	
+	public double getMonthlyInterestRate(){
+		return annualInterestRate / 12;	}
+	
+	public double getMonthlyInterest()
+	{
+		double monthInterestRate = getMonthlyInterestRate();
+		return (balance * monthInterestRate) / 100;
+	}
+	public void setId(int id) {
+		this.id = id;}
+	
+	public void setBalance (double balance){
+		this.balance = balance;}
+	
+	public void setAnnualInterestRate (double annualInterestRate) {
+		this.annualInterestRate = annualInterestRate;}
+	
+	public void withdraw(double amount) {
+		balance -= amount;}
+	
+	public void deposit(double amount) {
+		balance += amount;}
+}
+
+package pe_9_7;
+public class TestAccount {
+	public static void main(String [] args)
+	{
+		Account mark = new Account(1121, 20000);
+		mark.setAnnualInterestRate(4.5);
+		mark.withdraw(2500);
+		System.out.println("Balance " + mark.getBalance());
+		mark.deposit(3000);
+		System.out.println("ID " + mark.getId() + " balance " + mark.getBalance()+ " the monthly interest " + 
+		mark.getMonthlyInterest() +" date "+ mark.getDateCreated().toString() );
+	}
+}
