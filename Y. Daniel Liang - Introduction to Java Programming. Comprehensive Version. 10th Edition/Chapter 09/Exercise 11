@@ -1,0 +1,78 @@
+package pe_9_11;
+public class LinearEquations {
+	private double a;
+	private double b;
+	private double c;
+	private double d;
+	private double e;
+	private double f;
+	
+	LinearEquations(double a, double b, double c,
+					double d, double e, double f)
+	{
+		this.a = a;
+		this.b = b;
+		this.c = c;
+		this.d = d;
+		this.e = e;
+		this.f = f;
+	}
+	
+	public double getA() {
+		return a; }
+	
+	public double getB() {
+		return b;}
+	
+	public double getC() {
+		return c;}
+	
+	public double getD() {
+		return d; }
+	
+	public double getE() {
+		return e;}
+	
+	public double getF() {
+		return f;}
+	
+	public boolean isSolvable()
+	{
+		 boolean result = a*d - b*c != 0;
+		 return result;
+	}
+	
+	public double getX()
+	{
+		double x = (e*d -b *f) / (a*d - b*c);
+		return x;
+	}
+	
+	public double getY()
+	{
+		double y = (a*f - e*c) / (a*d - b*c);
+		return y;
+	}
+}
+
+package pe_9_11;
+import java.util.Scanner;
+public class TestLinearEquations {
+	public static void main(String []args)
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter a, b, c, d, e, f: ");
+		// 9.0 4.0 3.0 -5.0 -6.0 -21.0
+		//1.0 2.0 2.0 4.0 4.0 5.0
+		double [] values = new double [6];
+		for(int i = 0; i < values.length; i++)
+			values[i] = input.nextDouble();
+		input.close();
+		LinearEquations test = new LinearEquations(values[0], values [1], values[2], 
+												  values[3], values[4], values[5]);
+		if(!test.isSolvable())
+			System.out.println("The equation has no solution");
+		else
+			System.out.printf("X is %.2f Y is %.2f", test.getX(), test.getY());
+	}
+}
