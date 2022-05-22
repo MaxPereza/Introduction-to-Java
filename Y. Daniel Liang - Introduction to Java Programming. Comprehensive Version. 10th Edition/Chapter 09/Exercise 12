@@ -1,0 +1,76 @@
+package pe_9_12;
+public class IntersectingPoint {
+	private double [][] listPoints;	
+	IntersectingPoint(String points)
+	{
+		listPoints = new double [4][2];
+		int startIndex = 0;
+		for(int row =0; row < listPoints.length; row++)
+			for(int i = 0; i < listPoints[row].length; i++)
+			{
+				int endIndex = points.indexOf(' ',startIndex+1);
+				String numberStr = points.substring(startIndex, endIndex);
+				startIndex = endIndex+1;
+				listPoints[row][i]= Double.parseDouble(numberStr);
+			}		
+	}
+	
+	public double[] getIntersectingPoint() {
+        int X = 0, Y = 1;
+        double a = listPoints[0][Y] - listPoints[1][Y]; // y1 - y2
+        double b = -(listPoints[0][X] - listPoints[1][X]);//-(x1 - x2)
+        double c = listPoints[2][Y] - listPoints[3][Y]; //y3 - y4
+        double d = -(listPoints[2][X] - listPoints[3][X]);//-(x3 - x4)
+        double e = a * listPoints[0][X] + b * listPoints[0][Y];  // (y1 - y2) * x1 - (x1 - x2) * y1
+        double f = c * listPoints[2][X] + d* listPoints[2][Y]; // (y3 - y4) * x3 - (x3 - x4) * y3
+        double determinant = (a * d) - (b * c);
+        if (determinant == 0) return null;
+        else {
+            double x = (e * d - b * f) / determinant;
+            double y = (a * f - e * c) / determinant;
+            return new double[]{x, y};
+        }
+    }
+	
+	public double getXorY(String XorY)
+	{
+		char ch = XorY.charAt(1);
+		int indexX = ch-'1';
+		ch = XorY.charAt(0);
+		ch = Character.toUpperCase(ch);
+		int indexY = (ch=='X') ? 0 : 1;
+		return listPoints[indexX][indexY];
+	}
+	
+	public void setXorY(String XorY, double value)
+	{
+		char ch = XorY.charAt(1);
+		int indexX = ch-'1';
+		ch = XorY.charAt(0);
+		ch = Character.toUpperCase(ch);
+		int indexY = (ch=='X') ? 0 : 1;
+		listPoints[indexX][indexY] = value;
+	}
+}
+package pe_9_12;
+import java.util.Scanner;
+public class TestIntersectingPoint {
+	public static void main(String []args)
+	{
+		System.out.println("Enter x1, y1, x2, y2, x3, y3, x4, y4: ");
+		//2 2 5 -1.0 4.0 2.0 -1.0 -2.0 at (2.88889, 1.1111) 
+		//2 2 7 6.0 4.0 2.0 -1.0 -2.0 The two lines are parallel 
+		Scanner input = new Scanner(System.in);
+		String str = input.nextLine() + " ";
+		input.close();
+		IntersectingPoint test = new IntersectingPoint(str);
+		double [] intersect = test.getIntersectingPoint();
+		if(intersect==null)
+			System.out.println("The two lines are parallel");
+		else
+			System.out.printf("The intersecting point is at (%.4f, %.4f)\n", intersect[0], intersect[1]);
+		System.out.println(test.getXorY("y4"));
+		test.setXorY("y4", 3.4);
+		System.out.println(test.getXorY("y4"));
+	}
+}
