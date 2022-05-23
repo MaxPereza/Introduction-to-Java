@@ -1,0 +1,62 @@
+package pe_9_13;
+
+public class Location {
+	public int row;
+	public int column;
+	public double maxValue;
+	
+	Location ()
+	{}
+	
+	public static Location locateLargest(double[][] a)
+	{
+		Location m = new Location();
+		for(int row =0; row < a.length; row++)
+			for(int column = 0; column < a[row].length; column++)
+			{
+				if(m.maxValue < a[row][column])
+				{
+					m.maxValue = a[row][column];
+					m.row = row;
+					m.column = column;
+				}				
+			}
+		return m;
+	}
+}
+package pe_9_13;
+
+import java.util.Scanner;
+public class TestLocation {
+	public static void main (String []args)
+	{
+		double [][] matrix = readInput();		
+		Location test = Location.locateLargest(matrix);
+		System.out.println("The location of the largest element is " + test.maxValue + " at (" + test.row+","+ test.column+")");
+	}
+	public static double [][] readInput()
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter the number of rows and columns in the array: ");
+		int rows = input.nextInt();
+		int columns = input.nextInt();
+		double [][] m = new double [rows][columns];
+		input.nextLine();	
+		System.out.println("Enter the array row by row: ");
+		for(int row =0; row < m.length; row++)
+		{
+			int startIndex = 0;
+			String str = input.nextLine();	
+			str +=" ";
+			for(int i = 0; i < m[row].length; i++)
+			{
+				int endIndex = str.indexOf(' ',startIndex+1);
+				String numberStr = str.substring(startIndex, endIndex);
+				startIndex = endIndex+1;
+				m[row][i]= Double.parseDouble(numberStr);
+			}				
+		}
+		input.close();
+		return m;
+	}
+}
