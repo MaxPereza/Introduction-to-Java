@@ -1,0 +1,69 @@
+package pe_10_01;
+public class Time {
+	private int second;
+	private int minute;
+	private int hour;
+	
+	Time ()
+	{
+		this(System.currentTimeMillis()+10800000);
+		//10800000 MSK summer + 3 hours
+	}
+	
+	Time (long elapseTime)
+	{
+		setTime(elapseTime);		
+	}
+	
+	Time(int hour, int minute, int second)
+	{
+		this.hour = hour;
+		this.minute = minute;
+		this.second = second;
+	}	
+	
+	private int [] convertTime(long milliseconds)
+	{
+		int [] time = new int [3];
+		long totalSeconds = milliseconds / 1000;
+		 // Compute the current second in the minute in the hour
+		time[2] = (int)(totalSeconds % 60);
+		long totalMinutes = totalSeconds / 60;
+		// Compute the current minute in the hour
+		time[1]  = (int)(totalMinutes % 60);
+		long totalHours = totalMinutes / 60;
+		// Compute the current hour
+		time[0] = (int)(totalHours % 24);//MSK(summer)		
+		return time;
+	}
+	
+	public int getHour() {
+		return hour; }
+	
+	public int getMinute(){
+		return minute;}
+	
+	public int getSecond() {
+		return second;
+	}
+	public void setTime(long elapseTime)
+	{
+		int [] time = convertTime(elapseTime);
+		hour = time[0];
+		minute = time[1];
+		second = time[2];		
+	}	
+}
+public class TestTime {
+	public static void main (String []args)
+	{
+		Time time = new Time();
+		System.out.printf("%2d:%2d:%-2d\n", time.getHour(), time.getMinute(), time.getSecond());
+		time.setTime(555550000);
+		System.out.printf("%2d:%2d:%-2d\n", time.getHour(), time.getMinute(), time.getSecond());
+		Time time1 = new Time(5, 23 , 55);
+		System.out.printf("%2d:%2d:%-2d\n", time1.getHour(), time1.getMinute(), time1.getSecond());
+		Time time2 = new Time(9434856755343L);
+		System.out.printf("%-2d:%2d:%-2d", time2.getHour(), time2.getMinute(), time2.getSecond());
+	}
+}
