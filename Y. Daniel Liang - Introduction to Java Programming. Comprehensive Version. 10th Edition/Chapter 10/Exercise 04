@@ -1,0 +1,47 @@
+package pe_10_04;
+public class MyPoint {
+	private double x;
+	private double y;
+	
+	MyPoint(){
+		this(0, 0);
+	}
+	
+	MyPoint(double x, double y){
+		this.x = x;
+		this.y = y;
+	}
+	
+	public double getX() {
+		return x;}
+	
+	public double getY() {
+		return y;}
+	
+	public double distance(double x, double y){
+		double result = Math.pow((this.x - x), 2) + Math.pow((this.y - y), 2);
+		return (int)(Math.sqrt(result)*100) / 100.0;		
+	}
+	
+	public double distance(MyPoint a) {
+		return distance(a.x, a.y);
+	}
+	
+	public static double distance (MyPoint a, MyPoint b) {
+		double result = Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2);
+		return (int)(Math.sqrt(result)*1000) / 1000.0;
+		}
+}
+package pe_10_04;
+public class TestMyPoint {
+	public static void main(String []args)
+	{
+		MyPoint a = new MyPoint();
+		System.out.println("X is " + a.getX()+ " Y is " + a.getY());
+		System.out.println("Distance with x1, y5 is " + a.distance(1, 5));
+		MyPoint b = new MyPoint(1.5, -3.4);
+		MyPoint c = new MyPoint(4, 5);
+		System.out.println("The distance between points is " + b.distance(c));
+		System.out.println("The distance between points is " + MyPoint.distance(b,c));		
+	}
+}
