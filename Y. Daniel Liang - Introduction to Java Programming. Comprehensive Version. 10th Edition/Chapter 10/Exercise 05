@@ -1,0 +1,22 @@
+package pe_10_05;
+import java.util.Scanner;
+public class DisplayPrimeFactors {
+	public static void main(String []args)
+	{
+		Scanner input = new Scanner(System.in);
+	    System.out.print("Enter a positive Integer: ");
+	    int num = input.nextInt();
+	    input.close();
+	    StackOfIntegers list = new StackOfIntegers ();
+	    while(num > 1){
+	        int i = 2;
+	        while (num % i != 0) 
+	        	i++;
+	        list.push(i);
+	        num /= i;
+	    }
+	    
+	    for(int i = list.getSize(); i > 0; i--)
+	    	System.out.print(list.pop() +" ");		
+	}
+}
