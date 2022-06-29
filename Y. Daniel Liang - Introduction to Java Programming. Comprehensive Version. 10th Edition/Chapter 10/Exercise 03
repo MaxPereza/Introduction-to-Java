@@ -1,0 +1,88 @@
+package pe_10_03;
+public class MyInteger {
+	private int value;
+	
+	MyInteger (int value){
+		this.value = value;
+	}
+	
+	public int getValue() {
+		return value;
+	}
+	
+	public static boolean isEven(int value) {
+		return value %2 ==0;
+	}
+	
+	public static boolean isOdd(int value) {
+		return !isEven(value);
+	}
+	
+	public static boolean isPrime(int value)
+	{
+		for (int divisor = 2; divisor <= value / 2; divisor++) 
+		{
+			if (value % divisor == 0)  // If true, number is not prime
+				return false; // Number is not a prime
+			}
+		return true; // Number is prime
+		}
+	
+	
+	public boolean isEven() {
+		return isEven(value);
+	}
+	
+	public boolean isOdd() {
+		return isOdd(value);
+	}
+	
+	public boolean isPrime (){
+		return isPrime(value);	
+	}
+	
+	public boolean equals(int value) {
+		return value == this.value; 
+	}
+	
+	public boolean equals(MyInteger a) {
+		return equals(a.getValue());
+	}
+	
+	public static int parseInt(char [] array)
+	{
+		int value = 0;
+		int pos = (int)Math.pow(10, array.length);
+		for(int i = 0; i < array.length; i++) 
+		{
+			pos/=10;
+			value += (array[i] - '0') * pos;
+			}		
+		return value;
+	}
+	
+	public static int parseInt(String str) {
+		char [] number = new char [str.length()];
+		for(int i =0; i< str.length(); i++)
+			number [i] = str.charAt(i);
+		return parseInt(number);		
+	}	
+}
+package pe_10_03;
+public class TestMyInteger {
+	public static void main(String []args)
+	{
+		MyInteger a = new MyInteger(3);
+		System.out.println("3 is even ? " + a.isEven());
+		System.out.println("7 is odd ? " + MyInteger.isOdd(7));
+		MyInteger b = new MyInteger(11);
+		System.out.println("11 is prime number? " + b.isPrime());
+		System.out.println("4 is prime number? "+ MyInteger.isPrime(4));
+		MyInteger c = new MyInteger(335);
+		System.out.println("Is equal " + a.getValue() + " and " + c.getValue()+ " ? " + a.equals(c));
+		System.out.println("Is equal " + a.getValue() + " and 3 ? " + a.equals(3));
+		int number = MyInteger.parseInt(new char [] {'6', '2', '4', '1'});
+		System.out.println("Char to int " + number);
+		System.out.println("String to int " + MyInteger.parseInt("910234"));		
+	}
+}
