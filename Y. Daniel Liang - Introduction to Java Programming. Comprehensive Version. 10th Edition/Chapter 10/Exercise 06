@@ -1,0 +1,30 @@
+package pe_10_06;
+import pe_10_05.StackOfIntegers;
+public class DisplayPrimeNumbers {
+	public static void main (String []args)
+	{
+		final int LIMIT = 120;
+		StackOfIntegers primeNum = new StackOfIntegers(31);
+		for(int i = 2; i < LIMIT; i++)
+			if(isPrime(i))
+				primeNum.push(i);
+				
+		for(int i = primeNum.getSize(),j=1 ; i > 0; i--, j++)
+		{
+			if(j%10==0)
+				System.out.println(primeNum.pop() );
+			else
+				System.out.printf("%-4d", primeNum.pop());			
+		}		
+	}
+	
+	public static boolean isPrime(int value)
+	{
+		for (int divisor = 2; divisor <= value / 2; divisor++) 
+		{
+			if (value % divisor == 0)  // If true, number is not prime
+				return false; // Number is not a prime
+			}
+		return true; // Number is prime
+		}
+}
