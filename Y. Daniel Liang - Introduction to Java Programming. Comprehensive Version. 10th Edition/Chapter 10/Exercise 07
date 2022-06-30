@@ -1,0 +1,71 @@
+package pe_10_07;
+import pe_9_7.Account;
+import java.util.Scanner;
+
+public class Game_ATMmachine {
+	public static void main (String []args)
+	{
+		Account [] atm = new Account [10];
+		for(int i=0; i< atm.length; i++)
+			atm[i] = new Account(i, 100);		
+		mainMenu(atm);
+	}
+	
+	static void mainMenu(Account [] atm)
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter an id: ");
+		int id = input.nextInt();
+		while(id != -1)
+		{
+			if(binarySearch(atm, id)==-1)
+				System.out.print("Id is entered incorrectly. ");
+			else
+				atmAccountMenu(atm[id]);
+			System.out.print("Enter an id: ");
+			id = input.nextInt();				
+		} 
+		input.close();		
+	}	
+	
+	static void atmAccountMenu(Account acc)
+	{
+		Scanner input = new Scanner(System.in);
+		int button 	=  0;
+		double money = 0;
+		while(button != 4)
+		{
+			System.out.print("\nMain menu\r\n"
+					+ "1: check balance\r\n"
+					+ "2: withdraw\r\n"
+					+ "3: deposit\r\n"
+					+ "4: exit\r\n"
+					+ "Enter a choice: ");
+			button = input.nextInt();
+			switch(button) {
+			case 1:System.out.println("The balance is " + acc.getBalance() );break;
+			case 2:System.out.print("Enter an amount to withdraw: " );
+			money = input.nextDouble();
+			acc.withdraw(money); break; 
+			case 3: System.out.print("Enter an amount to deposit: ");
+			money = input.nextDouble();
+			acc.deposit(money); break;			
+			}			
+		}		
+	}
+	
+	public static int binarySearch(Account [] list, int key) {
+		int low = 0;
+		int high = list.length - 1;
+		while (high >= low) {
+			int mid = (low + high) / 2;
+			if (key < list[mid].getId())
+				high = mid - 1;
+			else if (key == list[mid].getId())
+				return mid;
+			else
+				low = mid + 1;
+			}
+		return -1; 
+		}
+}
