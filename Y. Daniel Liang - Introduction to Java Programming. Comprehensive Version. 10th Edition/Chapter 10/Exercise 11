@@ -1,0 +1,68 @@
+package pe_10_11;
+public class Circle2D {
+	double x;
+	double y;
+	double radius;
+	
+	Circle2D(){
+		this(0, 0, 1);
+	
+	}
+	Circle2D(double x, double y, double radius){
+		this.x = x;
+		this.y = y;
+		this.radius = radius;
+	}
+	
+	public double getArea() {
+		return radius * radius * Math.PI;
+	}
+	
+	public double getPerimeter() {
+		return 2 * radius * Math.PI;
+	}
+	
+	public boolean contains(double x, double y)
+	
+	{
+		double distance = distance(x, y);
+		return distance <= radius;
+	}
+	
+	public boolean contains(Circle2D circle) {
+		double distance = distance(circle);
+		return distance <= (this.radius - circle.radius);		
+	}
+	
+	public boolean overlaps(Circle2D circle) {
+		double distance = distance(circle);
+		return distance <= (this.radius + circle.radius);		
+	}	
+	
+	private double distance(double x, double y){
+		double result = Math.pow((this.x - x), 2) + Math.pow((this.y - y), 2);
+		return (int)(Math.sqrt(result)*100) / 100.0;		
+	}
+	
+	private double distance(Circle2D a) {
+		return distance(a.x, a.y);
+	}
+}
+
+package pe_10_11;
+public class TestCircle2D {
+	public static void main(String []args)
+	{
+		Circle2D c1 = new Circle2D(2, 2, 5.5);
+		System.out.printf("C1 area %.3f and perimeter %.3f\n", c1.getArea() ,c1.getPerimeter());
+		System.out.println("C1.contains(3,3) " + c1.contains(3, 3) );
+		System.out.println("C1.contains(Circle2D(4, 5, 10.5)) " + c1.contains(new Circle2D(4, 5, 10.5)) );
+		System.out.println("C1.overlaps(new Circle2D(3, 5, 2.3)). " + c1.overlaps(new Circle2D(3, 5, 2.3)) );
+		Circle2D c2 = new Circle2D(0.5, 5.1, 13);
+		System.out.println("C2.contains(Circle2D(1, 1.7, 4.5)) " + c2.contains(new Circle2D(1, 1.7, 4.5)) );
+		Circle2D c3 = new Circle2D(3.4, 5.7, 5.5);
+		System.out.println("C3.overlaps(new Circle2D(6.7, 3.5, 3)) " + c3.overlaps(new Circle2D(6.7, 3.5, 3)) );
+		Circle2D c4 = new Circle2D( 3.4, 5.5, 1);
+		System.out.println("C4.overlaps(new Circle2D(3.4, 5.5, 1)) " + c4.overlaps(new Circle2D(5.5, 7.2, 1)) );
+	}
+}
