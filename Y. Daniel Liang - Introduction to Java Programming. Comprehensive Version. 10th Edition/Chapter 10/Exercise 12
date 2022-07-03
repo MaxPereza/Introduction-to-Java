@@ -63,27 +63,12 @@ public class Triangle2D {
 		return (contains(t.p1)&&contains(t.p2)&&contains(t.p3));			
 	}
 	
-	public boolean overlaps(Triangle2D t) {
-		if (getIntersectingPoint(this.p1, this.p2, t.p1, t.p2)!=null)
-			return true;
-		else if(getIntersectingPoint(this.p1, this.p2, t.p1, t.p3)!=null)
-			return true;
-		else if(getIntersectingPoint(this.p1, this.p2, t.p2, t.p3)!=null)
-			return true;
-		else if(getIntersectingPoint(this.p1, this.p3, t.p1, t.p2)!=null)
-			return true;
-		else if(getIntersectingPoint(this.p1, this.p3, t.p1, t.p3)!=null)
-			return true;
-		else if(getIntersectingPoint(this.p1, this.p3, t.p2, t.p3)!=null)
-			return true;
-		else if(getIntersectingPoint(this.p2, this.p3, t.p1, t.p2)!=null)
-			return true;
-		else if(getIntersectingPoint(this.p2, this.p3, t.p1, t.p3)!=null)
-			return true;
-		else if(getIntersectingPoint(this.p2, this.p3, t.p2, t.p3)!=null)
-			return true;
-		else
-			return false;
+	public boolean overlaps(Triangle2D t) {			
+		return getIntersectingPoint(this.p1, this.p2, t.p1, t.p2)!=null || getIntersectingPoint(this.p1, this.p2, t.p1, t.p3)!=null
+		||getIntersectingPoint(this.p1, this.p2, t.p2, t.p3)!=null || getIntersectingPoint(this.p1, this.p3, t.p1, t.p2)!=null
+		||getIntersectingPoint(this.p1, this.p3, t.p1, t.p3)!=null || getIntersectingPoint(this.p1, this.p3, t.p2, t.p3)!=null
+		||getIntersectingPoint(this.p2, this.p3, t.p1, t.p2)!=null || getIntersectingPoint(this.p2, this.p3, t.p1, t.p3)!=null
+		||getIntersectingPoint(this.p2, this.p3, t.p2, t.p3)!=null;
 	}
 	
 	private static double[] getIntersectingPoint(MyPoint pA, MyPoint pB, MyPoint pC, MyPoint pD) {
