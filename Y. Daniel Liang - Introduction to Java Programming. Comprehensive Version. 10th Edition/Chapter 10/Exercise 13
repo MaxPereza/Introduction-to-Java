@@ -1,0 +1,90 @@
+package pe_10_13;
+import pe_10_04.MyPoint;
+public class MyRectangle2D {
+	private double x;
+	private double y;
+	private double width;
+	private double height;
+	
+	public MyRectangle2D(double x, double y, double width, double height){
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
+	
+	public MyRectangle2D() {
+		this(0,0,1,1);
+	}
+	
+	public double getX() {
+		return x;	}
+	
+	public void setX(double x) {
+		this.x = x;	}
+	
+	public double returnY() {
+		return y;	}
+	
+	public void setY(double y) {
+		this.y = y;	}
+	
+	public double getWidth() {
+		return width;	}
+	
+	public void setWidth(double width) {
+		this.width = width;	}
+	
+	public double getHeight() {
+		return height;	}
+	
+	public void setHeight(double height) {
+		this.height = height;	}
+	
+	public double getArea() {
+		return width * height;
+	}
+	
+	public double getPerimeter() {
+		return 2*(width * height);
+	}	
+	
+	public boolean contains(double x, double y) {
+		double horizDistance = MyPoint.distance(this.x, y, x, y);
+		double vertiDistance = MyPoint.distance(x, this.y, x, y);
+		return horizDistance<=(width/2) && vertiDistance<=(height/2);
+	}
+	
+	public boolean contains(MyRectangle2D r)
+	{
+		double rX = r.x + r.width/2;
+		double lX = r.x - r.width/2;
+		double topY = r.y + r.height/2;
+		double botY = r.y - r.height/2;
+		return contains(rX, topY)&&contains(rX, botY)&& contains(lX, topY)&& contains(lX, botY);				
+	}
+	
+	public boolean overlaps(MyRectangle2D r) {
+		double rX = r.x + r.width/2;
+		double lX = r.x - r.width/2;
+		double topY = r.y + r.height/2;
+		double botY = r.y - r.height/2;
+		return contains(rX, topY)||contains(rX, botY) || contains(lX, topY) || contains(lX, botY);		
+	}
+}
+
+package pe_10_13;
+public class TestMyRectangle2D {
+	public static void main (String []args)
+	{
+		MyRectangle2D r1 = new MyRectangle2D(2, 2, 5.5, 4.9);
+		System.out.printf("Area of the r1 is %.2f and perimeter is %.2f \n", r1.getArea(), r1.getPerimeter());
+		MyRectangle2D r2 = new MyRectangle2D(0,0, 10, 5);
+		System.out.printf("Point (0, 5) is in the rectangle? %b", r2.contains(-5.1, -2.4));
+		MyRectangle2D r3 = new MyRectangle2D(2.5, 4, 2.5, 43);
+		System.out.println("\nR3 contains rectangle  1.5, 5 ; 0.5, 3 ? " + r3.contains(new MyRectangle2D( 1.5, 5, 0.5, 3)));
+		MyRectangle2D r4 = new MyRectangle2D(1, 2, 3, 5.5);
+		System.out.println("R4 contains rectangle  1, 2, ; 3, 5.5 ? " + r4.contains(new MyRectangle2D( 3, 4, 4.5, 5)));
+		System.out.println("R4 overlaps rectangle  1, 2, ; 3, 5.5 ? " + r4.overlaps(new MyRectangle2D( 3, 4, 4.5, 5)));
+	}
+}
