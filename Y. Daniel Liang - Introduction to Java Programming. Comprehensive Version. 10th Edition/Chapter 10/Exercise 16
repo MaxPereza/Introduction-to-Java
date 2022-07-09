@@ -1,0 +1,24 @@
+package pe_10_16;
+import java.math.BigInteger;
+public class DivisibleBy2Or3 {
+	public static void main(String [] args) {
+		String number = "10000000000000000000000000000000000000000000000000";			        
+		BigInteger a = new BigInteger(number);
+		BigInteger div2 = new BigInteger("2");
+		BigInteger div3 = new BigInteger("3");
+		int count = 0;
+		while(count <10)
+		{
+			if(a.remainder(div2)== BigInteger.ZERO) {
+				System.out.println(a);
+				count++;
+				
+			}
+			else if(a.remainder(div3)== BigInteger.ZERO) {
+				System.out.println(a);
+				count++;
+			}
+			a = a.add(new BigInteger("1"));				
+		}		
+	}
+}
