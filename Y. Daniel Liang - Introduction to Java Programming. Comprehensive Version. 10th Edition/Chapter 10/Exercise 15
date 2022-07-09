@@ -1,0 +1,75 @@
+package pe_10_13;
+import pe_10_04.MyPoint;
+public class MyRectangle2D {
+	private double x;
+	private double y;
+	private double width;
+	private double height;
+	
+	public MyRectangle2D(double x, double y, double width, double height){
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
+  
+  public double getX() {
+		return x;	}
+
+  public double getY() {
+		return y;	}
+    
+    public double getWidth() {
+		return width;	}
+    
+    public double getHeight() {
+		return height;	}
+    
+    public static MyRectangle2D getRectangle(double[][] points) {
+		double maxX = max(0, points);
+		double maxY = max(1, points);
+		double minX = min (0, points);	
+		double minY = min(1, points);
+		double x = (maxX + minX) /2;
+		double y = (maxY + minY) /2;
+		double width = maxX - minX;
+		double height = maxY - minY;
+		return new MyRectangle2D(x, y, width, height);		
+	}
+  
+  private static double max(int index, double [][] points)
+	{
+		double max = points[0][index];
+		for(int i = 0; i < points.length; i++) 
+			if(points[i][index] > max)
+				max = points[i][index];		
+		return max;		
+	}
+	private static double min(int index, double [][] points)
+	{
+		double min = points[0][index];
+		for(int i = 0; i < points.length; i++) 
+			if(points[i][index] < min)
+				min = points[i][index];		
+		return min;		
+	}
+}
+
+package pe_10_15;
+import java.util.Scanner;
+import pe_10_13.MyRectangle2D;
+public class Test_BoundingRectangle {
+	public static void main (String [] args) {
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter five points, (x,y):" );
+		double [][] points = new double [5][2];
+		for(int row =0; row< points.length; row++)
+			for(int column =0; column < points[row].length; column++ )
+				points[row][column] = input.nextDouble();
+		// = {{1, 2.5},  {3, 4}, {5, 6}, {7, 8}, {9, 10}};
+		input.close();
+		MyRectangle2D rect = MyRectangle2D.getRectangle(points);
+		System.out.printf("The bounding rectangle's center (%.2f, %.2f), width %.2f, height %.2f", 
+				rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+		}
+}
