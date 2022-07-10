@@ -1,0 +1,22 @@
+package pe_10_20;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+public class Approximate_e {
+	public static void main (String[]args) {
+		BigDecimal e = new BigDecimal("0");
+		BigDecimal divider = new BigDecimal("1");
+		int factor = 1; 
+		for(int i = 100; i <=1000; i+=100)
+		{
+			while(factor <= i)
+			{
+				divider = divider.multiply(new BigDecimal(factor+""));
+				e = e.add(BigDecimal.ONE.divide(divider, 25, RoundingMode.HALF_UP));
+				factor++;				
+			}
+			
+			System.out.print("i " + i);
+			System.out.println(" e: " + e);						
+		}
+  }
+}
