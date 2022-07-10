@@ -1,0 +1,22 @@
+package pe_10_21;
+import java.math.BigInteger;
+public class DivisibleBy_5_or_6 {
+	public static void main(String [] args) {
+		BigInteger a = BigInteger.valueOf(Long.MAX_VALUE);
+		BigInteger div5 = BigInteger.valueOf(5L);
+		BigInteger div6 = BigInteger.valueOf(6L);
+		int count = 0;
+		while(count <10)
+		{
+			if(a.remainder(div5).equals(BigInteger.ZERO)) {
+				System.out.println(a);
+				count++;				
+			}
+			else if(a.remainder(div6).equals(BigInteger.ZERO)) {
+				System.out.println(a);
+				count++;
+			}
+			a = a.add(BigInteger.ONE);				
+		}		
+	}
+}
