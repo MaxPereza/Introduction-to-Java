@@ -8,14 +8,11 @@ public class DivisibleBy_5_or_6 {
 		int count = 0;
 		while(count <10)
 		{
-			if(a.remainder(div5).equals(BigInteger.ZERO)) {
+			if(a.remainder(div5).equals(BigInteger.ZERO) 
+			|| a.remainder(div6).equals(BigInteger.ZERO)) {
 				System.out.println(a);
 				count++;				
-			}
-			else if(a.remainder(div6).equals(BigInteger.ZERO)) {
-				System.out.println(a);
-				count++;
-			}
+			}			
 			a = a.add(BigInteger.ONE);				
 		}		
 	}
