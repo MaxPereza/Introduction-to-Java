@@ -1,0 +1,23 @@
+package pe_10_18;
+import java.math.BigInteger;
+public class LargePrimeNumbers {
+	public static void main (String []args) {
+		BigInteger number = BigInteger.valueOf(Long.MAX_VALUE);
+		for(int i = 0; i<5 ;i++)
+		{
+			number = number.nextProbablePrime();
+			System.out.println("Prime number(probable)) " + number);					
+		}			
+	}
+	
+  //lol need a lot of time or a powerful PC
+	public static boolean isPrime(BigInteger value)
+	{
+		for (BigInteger divisor = new BigInteger("2"); divisor.compareTo(value.divide(BigInteger.TWO)) <= 0; divisor = divisor.add(BigInteger.ONE)) 
+		{
+			if (value.remainder(divisor).equals(BigInteger.ZERO))  // If true, number is not prime
+				return false; // Number is not a prime
+			}
+		return true; // Number is prime
+		}
+}
