@@ -1,0 +1,106 @@
+package pe_10_22;
+public class MyString1 {
+	private char [] str;
+	
+	MyString1()
+	{}
+	
+	MyString1 (char[] chars) {
+		str = new char [chars.length];
+		System.arraycopy(chars, 0, str, 0, chars.length);		
+	}
+	
+	public char charAt(int index)	{
+		return str[index];	}
+	
+	public int length() {
+		return str.length;	}
+	
+	public MyString1 substring(int begin, int end) {
+		char [] newStr = new char[end-begin];
+		System.arraycopy(str, begin, newStr, 0, (end-begin));
+		return new MyString1(newStr);		
+	}
+	
+	public MyString1 toLowerCase() {
+		char [] newStr = new char[str.length];
+		for(int i = 0; i < str.length; i++)
+			newStr[i]= Character.toLowerCase(str[i]);
+		return new MyString1(newStr);		
+	}
+	public boolean equals(MyString1 s) {
+		if(str.length != s.length())
+			return false;
+		
+		for(int i = 0; i < str.length; i++)
+			if(str[i] != s.charAt(i))
+				return false;
+		
+		return true;		
+	}
+	
+	public static MyString1 valueOf(int i) {
+		int limiter = 0;
+		int length = 0;
+		if(i<0)
+		{
+			limiter = 1;
+			i=i*(-1);
+			length = 1;
+		}
+		long temp = 1;
+		while (temp <= i) {
+			length++;
+			temp *= 10;
+			}
+		
+		char [] newStr = new char [length];
+		for(int j = length-1; j >=limiter ; j-- )
+		{
+			newStr[j] = (char)(i % 10 +'0');
+			i = i /10;
+		}
+		
+		if(limiter==1)
+			newStr[0] = '-';		
+		
+		return new MyString1(newStr);		
+	}
+}
+package pe_10_22;
+public class TestMyString1 {
+	public static void main(String []args)
+	{
+		char [] ch = {'0', 'A', 'B', '#', 'J','a','v','a',' ','i','s',' ','c','o','o','l','l','-'};
+		char [] ch2 = {'0','1','2','3','4','5','6','7', '8'};
+		MyString1 str2 = new MyString1(ch2);
+		MyString1 myString = new MyString1(ch);
+		System.out.println("Char at pos 3 " + myString.charAt(3));
+		System.out.println("Length str " + str2.length());
+		System.out.println("Original string str2");
+		for(int i =0; i < str2.length(); i++)
+			System.out.print(str2.charAt(i) + " ");
+		System.out.println("\nSubstring  5 to 8 " );
+		MyString1 str1 =str2.substring(5, 8);
+		for(int i =0; i < str1.length(); i++)
+			System.out.print(str1.charAt(i) + " ");
+		System.out.println("\nNormal string");
+		for(int i =0; i < myString.length(); i++)
+			System.out.print(myString.charAt(i) + " ");
+		
+		MyString1 str3 = myString.toLowerCase();
+		System.out.println("\nTo lower case");
+		for(int i =0; i < str3.length(); i++)
+			System.out.print(str3.charAt(i) + " ");
+		System.out.println("\nEqual str 3 vs str3 " + str3.equals(str3));
+		System.out.println("Equal str 2 vs str3 " + str2.equals(str3));
+		System.out.print("1234 value of " );
+		MyString1 str5 = MyString1.valueOf(1234);
+		for(int i =0; i < str5.length(); i++)
+			System.out.print(str5.charAt(i) );
+		MyString1 str6 = MyString1.valueOf(-233);
+		System.out.print("\n-234 value of " );
+		for(int i =0; i < str6.length(); i++)
+			System.out.print(str6.charAt(i) );
+	}
+}
