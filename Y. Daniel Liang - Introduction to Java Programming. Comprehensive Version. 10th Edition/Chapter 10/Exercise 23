@@ -1,0 +1,80 @@
+package pe_10_23;
+public class MyString2 {
+	private char [] str;
+	
+	public MyString2()
+	{}
+	
+	public MyString2(String s) {
+		str = new char [s.length()];
+		for(int i = 0; i< s.length();i++)
+			str[i] = s.charAt(i);		
+	}
+	
+	public char[] toChars() {
+		return str;
+	}
+	
+	public int compare(String s)
+	{
+		
+		int length = (str.length > s.length()? s.length():str.length);
+		for(int i = 0; i < length; i++)
+		{
+			char ch = s.charAt(i);
+			if(str[i] != ch )
+				return (int)(str[i]-ch);
+		}
+		if (str.length != s.length())
+			return str.length - s.length();
+		
+		return 0;				
+		}
+	
+	public MyString2 substring(int begin) {
+		char [] newStr = new char[str.length-begin];
+		System.arraycopy(str, begin, newStr, 0, (str.length-begin));
+		return new MyString2(new String(newStr));		
+	}
+	
+	public static MyString2 valueOf(boolean b) {
+		return new MyString2(b ? "true" : "false");
+	}
+	
+	public MyString2 toUpperCase() {
+		char [] newStr = new char[str.length];
+		for(int i = 0; i < str.length; i++)
+			newStr[i]= Character.toUpperCase(str[i]);
+		return new MyString2(new String (newStr));		
+	}
+}
+package pe_10_23;
+public class TestMyString2 {
+	public static void main(String [] args)
+	{
+		String a = "abcdds";
+		String b = "abcddsads";
+		MyString2 a_2 = new MyString2("abcdds");
+				
+		System.out.println("Result compare " + a.compareTo(b));
+		
+		System.out.println("Result compare " + a_2.compare(b));
+		System.out.println(" a " + (int)('b') + " b " + (int)(('m')));
+		
+		System.out.println("Upper case " );
+		MyString2 a_3 = a_2.toUpperCase();
+		char [] aChars = a_3.toChars();
+		for(char e: aChars)
+			System.out.print(e + " ");
+		MyString2 a_4 = a_3.substring(3);
+		aChars = a_4.toChars();
+		System.out.println("Substring");
+		for(char e: aChars)			
+			System.out.print(e + " ");
+		MyString2 a_5 = MyString2.valueOf(false);
+		aChars = a_5.toChars();
+		System.out.println("\nValueOf boolean ");
+		for(char e: aChars)			
+			System.out.print(e + " ");
+	}
+}
