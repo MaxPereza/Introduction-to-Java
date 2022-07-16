@@ -1,0 +1,85 @@
+package pe_10_27;
+import pe_10_24.MyCharacter;
+
+public class MyStringBuilder1 {
+	private int capacity = 16;
+	private char [] str;
+	private int size = 0;
+	
+	MyStringBuilder1()	{
+		str = new char [capacity];	}
+	
+	MyStringBuilder1(String s){
+		str = new char [s.length()];
+		str = s.toCharArray();	
+		size = str.length;
+	}	
+	
+	public MyStringBuilder1 append(MyStringBuilder1 s) {
+		char[] temp = new char[s.size + size];
+		for(int i =0; i < str.length; i++) 
+			temp[i] = str[i];		
+		for(int i = size, j=0 ; i < temp.length; j++, i++) 
+			temp[i] = s.charAt(j);			
+		return new MyStringBuilder1(String.valueOf(temp));
+	}
+	
+	public MyStringBuilder1 append(int i) {
+		String number = i+"";
+		if (size + number.length() >= str.length) {
+			char[] temp = new char[str.length + 10];
+			System.arraycopy(str, 0, temp, 0, str.length);
+			str = temp;
+			}
+		for(int j = 0; j< number.length(); j++)
+			str[size++] = number.charAt(j);
+		
+		return new MyStringBuilder1(str.toString());
+	}
+	
+	public int length() {
+		return size;
+	}
+	
+	public char charAt(int index) {
+		return str[index];
+	}
+	
+	public MyStringBuilder1 toLowerCase() {
+		char [] newStr = new char[str.length];
+		for(int i = 0; i < str.length; i++)
+			newStr[i]= MyCharacter.toLowerCase(str[i]);
+		return new MyStringBuilder1(String.valueOf(newStr));		
+	}
+	
+	public MyStringBuilder1 substring(int begin, int end) {
+		char [] newStr = new char[end-begin];
+		System.arraycopy(str, begin, newStr, 0, (end-begin));
+		return new MyStringBuilder1(String.valueOf(newStr));
+	}
+	
+	public String toString() {		
+		return String.valueOf(str, 0, size); 
+		}
+}
+
+package pe_10_27;
+public class TestMyStringBuilder1 {
+	public static void main(String []args)
+	{
+		StringBuilder str = new StringBuilder("asdfaf23423423re3");
+		System.out.println("Capacity " + str.capacity());
+		System.out.println("to String " + str.toString());
+		MyStringBuilder1 a = new MyStringBuilder1("12345678986cmhnf");
+		System.out.println( a.toString());
+		MyStringBuilder1 b = new MyStringBuilder1(" 342 &%#@ sf$");
+		MyStringBuilder1 c = b.append(a);
+		System.out.println("Result of append " + c.toString());
+		c = b.append(-45);
+		System.out.println("Append int i " + b.toString());
+		System.out.println("Length b = " + b.length() );
+		b = new MyStringBuilder1("AbJGOPOER23aZXC");
+		System.out.println("ToLower case " + b.toLowerCase().toString() );
+		System.out.println("SubString " + b.substring(3, 9).toString());
+	}
+}
