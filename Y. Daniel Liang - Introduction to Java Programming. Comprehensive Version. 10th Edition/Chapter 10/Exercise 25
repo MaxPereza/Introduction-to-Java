@@ -1,0 +1,57 @@
+package pe_10_25;
+public class NewStringSplit {	
+	public static String[] split(String s, String regex) {		
+		String [] array = new String[s.length()];
+		char [] delimiter;
+		if( regex.length()>1)
+		{
+			delimiter = new char [regex.length()-2];
+			for(int i = 1; i<regex.length()-1; i++)
+				delimiter[i-1] = regex.charAt(i);			
+		}
+		else
+		{
+			delimiter = new char [regex.length()];
+			delimiter[0] = regex.charAt(0);
+		}
+		
+		int startIndex = 0;
+		int endIndex = 0;
+		int currentPos =0;
+		for(int i = 0; i < s.length(); i++)
+		{
+			
+			for(int j = 0; j<delimiter.length; j++) {
+				if(s.charAt(i)== delimiter[j]) 
+				{
+					endIndex = i;
+					//System.out.println("I " + i + " end index " + endIndex);
+					array[currentPos++]= s.substring(startIndex, endIndex);
+					//System.out.println("CPos " + " currentPos " + currentPos +array[currentPos-1]);
+					array[currentPos++]= s.substring(endIndex, endIndex+1);
+					startIndex = endIndex+1;
+					i = endIndex;
+					}	
+				}
+			}
+		if(endIndex != s.length())
+			array[currentPos] = s.substring(endIndex+1, s.length());			
+		String [] list = new String [currentPos+1];
+		System.arraycopy(array, 0, list, 0, list.length);		
+		return list;
+	}
+}
+package pe_10_25;
+public class TestNewStringSplit {
+	public static void main(String []args) {
+		String str = "ab#12#45#";
+		String [] list = NewStringSplit.split(str , "#");
+		for(String e: list)
+			System.out.print(e +" " );
+		str = "a?b?gf#e";
+		list = NewStringSplit.split(str , "[?#]");
+		System.out.println();
+		for(String e: list)
+			System.out.print(e +" " );
+	}
+}
