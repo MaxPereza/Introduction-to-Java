@@ -1,0 +1,85 @@
+package pe_10_24;
+public class MyCharacter {
+	char ch;
+	
+	MyCharacter ()
+	{}
+	
+	public static boolean isDigith(char ch)
+	{		
+		for(int i = 0; i<=9; i++)
+			if(ch == (char)(i+'0'))
+				return true;
+				
+		return false;		
+	}
+	
+	public static boolean isLetter(char ch)
+	{
+		for(int i = 65; i <=122; i++)
+		{
+			if(i==91)
+				i+=6;
+			if(ch == (char)(i))
+				return true;			
+		}			
+		
+		return false;
+	}
+	
+	public static boolean isLetterOrDigit(char ch) {
+		return  isLetter(ch) ^ isDigith(ch);		
+	}
+	
+	public static boolean isLowerCase(char ch) {
+		for(int i = 97; i<= 122; i++)
+			if(ch == (char)i)
+				return true;
+		return false;		
+	}
+	
+	public static boolean isUpperCase(char ch) {
+		for(int i = 65; i<=90; i++)
+			if(ch == (char)i)
+				return true;
+		return false;
+	}
+	
+	public static char toLowerCase(char ch) {
+		if(isLetter(ch)&&isUpperCase(ch))
+		{
+			char lowCh = (char)(ch - 65);
+			return (char) (lowCh + 97);			
+		}
+		else
+			return ch;			
+	}
+	
+	public static char toUpperCase(char ch) {
+		if(isLetter(ch)&&isLowerCase(ch))
+		{
+			char lowCh = (char)(ch - 97);
+			return (char) (lowCh + 65);			
+		}
+		else
+			return ch;			
+	}
+}
+package pe_10_24;
+public class TestMyCharacter {
+	public static void main(String []args)
+	{
+		char a = '9';
+		System.out.println(a+ " is digit ? " + MyCharacter.isDigith(a));
+		a = (char)122;
+		System.out.println(a + " is letter ? " + MyCharacter.isLetter(a));
+		a = (char)66;
+		System.out.println(a + " is letter or digith ? " + MyCharacter.isLetterOrDigit(a));
+		a = 'Y';
+		System.out.println(a+ " is lower case? " + MyCharacter.isLowerCase(a));
+		System.out.println(a+ " is upper case? " + MyCharacter.isUpperCase(a));
+		System.out.println(a + " to lower case " + MyCharacter.toLowerCase(a));
+		a = 'a';
+		System.out.println(a + " to upper case " + MyCharacter.toUpperCase(a));	
+	}
+}
