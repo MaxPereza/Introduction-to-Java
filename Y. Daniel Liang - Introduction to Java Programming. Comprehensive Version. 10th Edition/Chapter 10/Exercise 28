@@ -1,0 +1,87 @@
+package pe_10_28;
+import pe_10_24.MyCharacter;
+
+public class MyStringBuilder2 {
+	
+	private char [] str ;
+	private static final int CAPACITY = 16;
+	private int size = 0;
+	
+	MyStringBuilder2 (){
+		str = new char [CAPACITY];
+	}	
+	
+	MyStringBuilder2 (char[] chars)
+	{
+		size = chars.length;
+		str = new char [size];
+		System.arraycopy(chars, 0, str, 0, size);
+	}
+	
+	public MyStringBuilder2(String s) {
+		size = s.length();
+		str = new char [size];
+		for(int i = 0; i < size; i++)
+			str [i] = s.charAt(i);					
+	}
+	
+	public MyStringBuilder2 insert(int offset, MyStringBuilder2 s) {
+		int newSize = size + s.size;
+		int firstArray = 0;
+		int secondArray = 0;
+		char [] temp = new char [newSize];
+		for(int i = 0; i < newSize; i++) {
+			if(i<offset || secondArray == s.size )
+				temp [i] = str[firstArray++];
+			else
+				temp[i] = s.str[secondArray++];
+		}
+		return new MyStringBuilder2(temp);				
+	}
+	
+	public String toString() {		
+		return String.valueOf(str, 0, size); 
+		}
+	
+	public MyStringBuilder2 reverse() {
+		char [] newStr = new char [size];
+		for(int i =0, j = (size-1); i< size; i++, j--)
+			newStr[j] = str[i];
+		return new MyStringBuilder2(newStr);
+	}
+	
+	public MyStringBuilder2 substring(int begin) {
+		char [] newStr = new char [size - begin];
+		for(int i = 0; i < newStr.length; i++)
+			newStr[i] = str[begin++];
+		
+		return new MyStringBuilder2(newStr);
+	}
+	public MyStringBuilder2 toUpperCase() {
+		char [] newStr = new char[str.length];
+		for(int i = 0; i < str.length; i++)
+			newStr[i]= MyCharacter.toUpperCase(str[i]);
+		return new MyStringBuilder2(String.valueOf(newStr));			
+	}
+}
+
+package pe_10_28;
+public class TestMyStringBilder2 {
+	public static void main(String [] args)
+	{
+		StringBuilder a = new StringBuilder("12345678");
+		StringBuilder b = new StringBuilder("abcdfXYWQF");
+		StringBuilder c = a.insert(3, b);		
+		System.out.println("Result: " + c.toString() /*+ " "+ c.length() +" "+ c.capacity()*/);
+		MyStringBuilder2 a1 = new MyStringBuilder2("12345678");
+		MyStringBuilder2 b1 = new MyStringBuilder2("abcdf123XYWQF$%^");
+		MyStringBuilder2 c1 = a1.insert(3, b1);
+		System.out.println("Result myStrBui insert: " + c1.toString());
+		MyStringBuilder2 d1 = a1.reverse();
+		System.out.println("Result myStrBui reverse: " + d1.toString());
+		MyStringBuilder2 d = b1.substring(1);
+		System.out.println("Result myStrBui substring: " + d.toString());
+		d = b1.toUpperCase();
+		System.out.println("Result myStrBui toUpperCase: " + d.toString());
+ 	}
+}
