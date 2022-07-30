@@ -1,0 +1,194 @@
+package pe_11_02;
+class Test {
+	public static void main (String[]args)
+	{
+		Person a = new Person("Jhon");
+		a.setName("Lhon");
+		Student b = new Student("Lana");
+		Employee c = new Employee("Ken");
+		Faculty d = new Faculty("Ivan");
+		Staff f = new Staff("Max");		
+		System.out.println(a.toString() +"\n" + b.toString() + "\n" + c.toString() +
+				"\n" + d.toString()+"\n" + f.toString());			
+	}
+}
+package pe_11_02;
+class Person {
+	private String name;
+	private String adress;
+	private int phoneNumber;
+	private String emailAdress;
+		
+	Person(){
+	}
+	
+	Person(String name){
+		this.name = name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+	
+	public void setPhoneNumber(int phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	
+	public void setEmailAdress(String emailAdress) {
+		this.emailAdress = emailAdress;
+	}
+	
+	public String getName() {
+		return name;
+		}
+	public String getAdress() {
+		return adress;	}
+	
+	public int getPhoneNumber() {
+		return phoneNumber;	}
+	
+	public String getEmailAdress() {
+		return emailAdress;	}	
+	
+	@Override
+	public String toString() {
+		return "Class Person, name:" + name;
+	
+	}
+}
+package pe_11_02;
+import pe_10_14.MyDate;
+public class Employee extends Person{
+	private int office;
+	private int salary;
+	private MyDate dateHired;	
+	
+	Employee(){
+	}
+	
+	Employee(String name){
+		super(name);
+	}
+	
+	public int getOffice () {
+		return office;
+	}
+	
+	public int getSalary() {
+		return salary;
+	}
+	
+	public MyDate getDateHired() {
+			return dateHired;
+	}
+	
+	
+	
+	public void setOffice(int office) {
+		this.office = office;
+		}
+	
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+	
+	@Override
+	public String toString()	{
+		return "Class Employee, name " + getName();	
+		}	
+}
+package pe_11_02;
+public class Student extends Person{
+	static final int freshman = 0;
+	static final int sophomore = 1;
+	static final int junior = 2;
+	static final int senior = 3;
+	private int status;
+	
+	public Student() {
+		}
+	
+	public Student (String name) {
+		super(name);
+	}
+	
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
+	public String getStatus() {
+		switch(status) {
+		case(0): return "freshman"; 
+		case(1): return "sopromore";
+		case(2): return "junior"; 
+		case(3): return "senior";
+		default: return "Something went wrong";		
+		}			
+	}
+	
+	@Override
+	public String toString()	{
+		return "Class Student, name " + super.getName();	
+		}
+}
+package pe_11_02;
+public class Faculty extends Employee {
+	private int officeHours;
+	private int rank;
+	
+	public Faculty() {
+	}
+	
+	public Faculty(String name) {
+		super(name);
+	}
+	
+	public int getOfficeHours() {
+		return officeHours;
+	}
+	
+	public int getRank() {
+		return rank;
+	}
+	
+	public void setOfficeHours(int officeHours) {
+		this.officeHours = officeHours;
+	}
+	
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	
+	@Override
+	public String toString()	{
+		return "Class Faculty, name " + super.getName();	
+		}
+}
+package pe_11_02;
+public class Staff extends Employee {
+	private int title;
+	
+	public Staff() {
+	}
+	
+	public Staff(String name) {
+		super(name);
+	}
+	
+	public int getTitle() {
+		return title;
+	}
+	
+	public void setTitle(int title) {
+		this.title = title;
+	}
+	
+	@Override
+	public String toString()	{
+		return "Class Staff, name " + super.getName();	
+		}
+}
