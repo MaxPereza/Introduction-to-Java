@@ -1,0 +1,85 @@
+package pe_11_03;
+import pe_9_7.Account;
+class Test {
+	public static void main (String []args) {
+		CheckingAccount a = new CheckingAccount(7, 256.5);
+		System.out.println(a.toString());
+		System.out.println(new Account(5, 53234.4).toString());
+		SavingsAccount b = new SavingsAccount(234, 8783);
+		System.out.println(b.toString());		
+	}
+}
+package pe_11_03;
+import pe_9_7.Account;
+
+public class CheckingAccount extends Account {
+	
+	private int chId = 0;
+	private double checkBalance = 0;
+	CheckingAccount(){
+				
+	}
+	
+	public CheckingAccount(int chId, double checkBalance)
+	{
+		this.chId = chId;
+		this.checkBalance = checkBalance;		
+	}
+	
+	public double getChBalance() {
+		return checkBalance;
+	}
+	
+	public void setChBalance (double checkBalance) {
+		this.checkBalance = checkBalance;
+	}
+	
+	public int getChId() {
+		return chId;
+	}
+	
+	public void setChId(int chId) {
+		this.chId = chId;
+	}
+	
+	@Override
+	public String toString() {
+		return "Checking id: " + chId + " checking balance: " +checkBalance; 
+	}	
+}
+package pe_11_03;
+import pe_9_7.Account;
+public class SavingsAccount extends Account {
+	private int saveId = 0;
+	private double saveBalance = 0;
+	SavingsAccount(){
+				
+	}
+	
+	public SavingsAccount(int saveId, double saveBalance)
+	{
+		this.saveId = saveId;
+		this.saveBalance = saveBalance;		
+	}
+	
+	public double getSaveBalance() {
+		return saveBalance;
+	}
+	
+	public void setSaveBalance (double saveBalance) {
+		this.saveBalance = saveBalance;
+	}
+	
+	public int getChId() {
+		return saveId;
+	}
+	
+	public void setChId(int saveId) {
+		this.saveId = saveId;
+	}
+	
+	@Override
+	public String toString() {
+		return "Saveing id: " + saveId + " saveing balance: " +saveBalance; 
+	}	
+}
