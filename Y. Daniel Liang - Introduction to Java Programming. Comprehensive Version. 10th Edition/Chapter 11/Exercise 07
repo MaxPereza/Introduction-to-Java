@@ -1,0 +1,22 @@
+package pe_11_07;
+import java.util.ArrayList;
+import java.util.Arrays;
+public class ShuffleArrayList {
+	public static void main (String [] args) {
+		Integer [] array = {1,24,5,6,89,9};
+		ArrayList<Integer> list = new ArrayList<>( Arrays.asList(array));
+		shuffle(list);
+		for(Integer e: list)
+			System.out.print(e + " ");		
+	}
+	
+	public static void shuffle(ArrayList<Integer> list) {
+		for(int i =0; i < list.size()-1; i++)
+		{
+			int temp = list.get(i);
+			int randomIndex = (int)(Math.random() * (list.size()-(i+1)) + (i+1)) ;
+			list.set(i, list.get(randomIndex));
+			list.set(randomIndex, temp);
+		}		
+	}
+}
