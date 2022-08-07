@@ -1,0 +1,27 @@
+package pe_11_14;
+import java.util.Scanner;
+import java.util.ArrayList;
+class CombineTwoLists {
+	public static void main(String []args) {
+		System.out.println("Enter five integers for list1: ");
+		ArrayList<Integer> list1 = new ArrayList<>();
+		Scanner input = new Scanner(System.in);
+		for(int i = 0 ; i<5; i++)
+			list1.add(input.nextInt());
+		System.out.println("Enter five integers for list2: ");
+		ArrayList<Integer> list2 = new ArrayList<>();
+		for(int i = 0 ; i<5; i++)
+			list2.add(input.nextInt());
+		input.close();	
+		System.out.print("The combined list is ");
+		ArrayList<Integer> newList = join(list1, list2);
+		for(Integer e: newList)
+			System.out.print(e + " ");
+	}
+	public static ArrayList<Integer> join (ArrayList<Integer> list1, ArrayList<Integer> list2){
+		ArrayList<Integer> combined = new ArrayList<>();
+		combined.addAll(list1);
+		combined.addAll(list2);
+		return combined;
+	}
+}
