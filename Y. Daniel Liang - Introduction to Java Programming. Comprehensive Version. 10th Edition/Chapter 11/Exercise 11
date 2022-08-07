@@ -1,0 +1,41 @@
+package pe_11_11;
+import java.util.ArrayList;
+import java.util.Scanner;
+class SortArrayList {
+	public static void main(String [] args) {
+		ArrayList<Integer> numbers = new ArrayList<>();
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter five integers: ");
+		for(int i = 0; i < 5; i++)
+			numbers.add(input.nextInt());
+		input.close();
+		sort(numbers);
+		/*for(Integer e: numbers)
+			System.out.print(e +" ");*/
+		System.out.println(numbers);
+		
+	}
+	
+	public static void sort(ArrayList<Integer> list) {
+		boolean swap;
+		int length = list.size();
+		do {
+			int temp;
+			swap = false;
+			for(int i =0, j= i+1; j<length; i++, j++)
+			{
+				if(list.get(i)> list.get(j))
+				{
+					temp = list.get(i);
+					list.set(i, list.get(j));
+					list.set(j, temp) ;
+					swap= true;
+				}
+			}
+			length -=1;
+			
+		}while(swap);	
+		//or java.util.Collections.sort(list);
+	}
+
+}
