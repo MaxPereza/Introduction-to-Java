@@ -1,0 +1,66 @@
+package pe_11_09;
+import java.util.ArrayList;
+import java.util.Scanner;
+class LargestRows_andColumns {
+	public static void main(String []args) {
+		System.out.println("Enter the array size n: ");
+		Scanner input = new Scanner(System.in);
+		int size = input.nextInt();
+		input.close();
+		int [][] matrix = new int [size][size];
+		ArrayList<Integer> indexRow = new ArrayList<>();
+		ArrayList<Integer> indexColumn = new ArrayList<>();
+		for(int row = 0; row < matrix.length; row++) 
+			for(int column =0; column < matrix[row].length; column++) 
+				matrix[row][column] = (int)(Math.random()*2);
+		
+		//find the maximum value in the row and column
+		int maxValue = 0;
+		for(int row = 0; row < matrix.length; row++) {
+			int summ = 0;
+			for(int column = 0; column < matrix[row].length; column++)
+				summ += matrix[row][column];
+			if(summ > maxValue) {
+				maxValue= summ;
+				indexRow.clear();
+				indexRow.add(row);
+			}
+			else if(summ == maxValue)
+				indexRow.add(row);						
+		}
+		
+		maxValue = 0;
+		for(int column = 0; column < matrix[0].length; column++) {
+			int summ = 0;
+			for(int row = 0; row < matrix.length; row++)
+				summ += matrix[row][column];
+			if(summ > maxValue) {
+				maxValue= summ;
+				indexColumn.clear();
+				indexColumn.add(column);
+			}
+			else if(summ == maxValue)
+				indexColumn.add(column);			
+		}
+		for(int row =0; row < matrix.length; row++) {
+			for(int column = 0 ; column < matrix[row].length; column++)
+				System.out.print(matrix[row][column] +" ");
+			System.out.println();
+		}
+		System.out.print("The largest row index: " );
+		for(int i =0; i < indexRow.size(); i++) {
+			if(i < indexRow.size()-1)
+				System.out.print(indexRow.get(i) + ", ");
+			else
+				System.out.print(indexRow.get(i));		
+		}
+		
+		System.out.print("\nThe largest column index: " );
+		for(int i =0; i < indexColumn.size(); i++) {
+			if(i < indexColumn.size()-1)
+				System.out.print(indexColumn.get(i) + ", ");
+			else
+				System.out.print(indexColumn.get(i));
+		}
+	}	
+}
