@@ -1,0 +1,65 @@
+package pe_11_15;
+import java.util.ArrayList;
+import java.util.Scanner;
+import pe_10_04.MyPoint;
+class Area_of_aConvexPolygon {
+	public static void main(String []args) {
+		System.out.print("Enter the number of points: ");
+		Scanner input = new Scanner(System.in);
+		int numberOfPoints = input.nextInt();
+		System.out.println("Enter the coordinates of the points: ");
+		ArrayList<MyPoint> polygon = new ArrayList<>();
+		/*polygon.add(new MyPoint(-12, 0));
+		polygon.add(new MyPoint(-8.5, 10));
+		polygon.add(new MyPoint(0, 11.4));
+		polygon.add(new MyPoint (5.5, 7.8));
+		polygon.add(new MyPoint ( 6, -5.5));
+		polygon.add(new MyPoint( 0, -7));
+		polygon.add(new MyPoint(-3.5, -5.5));*/
+	
+		for(int i = 0; i < numberOfPoints; i++)
+			polygon.add(new MyPoint(input.nextDouble(), input.nextDouble()));
+		input.close();
+		if(isConvex(polygon))
+			System.out.println("The total area is " + areaOfConvexPolygon(polygon));
+		else
+			System.out.println("The polygon is not convex");
+			
+	}
+	
+	public static boolean isConvex(ArrayList<MyPoint> polygon) {
+		if (polygon.size() < 4)
+	        return true;
+		boolean sign = false;
+		int n = polygon.size();
+		for(int i = 0; i < n; i++)
+	    {
+	        double dx1 = polygon.get((i + 2) % n).getX() - polygon.get((i + 1) % n).getX();
+	        double dy1 = polygon.get((i + 2) % n).getY() - polygon.get((i + 1) % n).getY();
+	        double dx2 = polygon.get(i).getX() - polygon.get((i + 1) % n).getX();
+	        double dy2 = polygon.get(i).getY() - polygon.get((i + 1) % n).getY();
+	        double zcrossproduct = dx1 * dy2 - dy1 * dx2;
+	        if (i == 0)
+	            sign = zcrossproduct > 0;
+	        else if (sign != (zcrossproduct > 0))
+	            return false;
+	    }
+		 return true;
+	}
+	
+	public static double areaOfConvexPolygon(ArrayList<MyPoint> polygon) {
+		int n = polygon.size();
+		double a = 0;
+		double b = 0;
+		double area = 0;
+		for(int i = 0; i < n; i++)
+	    {
+			a +=  polygon.get(i).getX() * polygon.get((i+1) % n).getY();
+			b += polygon.get(i).getY() * polygon.get((i+1) % n).getX();
+		}
+		area = 0.5 * (a - b);
+		if(area< 0)
+			area *= -1;
+		return  area;		
+	}
+}
