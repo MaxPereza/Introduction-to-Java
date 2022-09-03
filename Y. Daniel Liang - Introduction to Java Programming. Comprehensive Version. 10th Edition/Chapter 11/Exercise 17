@@ -1,0 +1,54 @@
+package pe_11_17;
+import java.util.Scanner;
+import java.util.ArrayList;
+class PerfectSquare {
+	public static void main(String args []) {
+		Scanner input = new Scanner (System.in);
+		System.out.print("Enter an integer m: ");
+		int m = input.nextInt();
+		input.close();
+		ArrayList<Integer> factors = getFactors(m);
+		ArrayList<Integer> oddFactors = new ArrayList<>();
+		ArrayList<Integer> evenFactors = new ArrayList<>();
+		for(int i = 0; i < factors.size(); i++)
+		{
+			boolean even = evenFactors.contains(factors.get(i));
+			if(!even)
+			{
+				int count = 1;
+				for(int j = i+1; j< factors.size(); j++)
+					if(factors.get(i)== factors.get(j))
+						count++;
+				
+				if(count % 2!=0)
+					oddFactors.add(factors.get(i));
+				else
+					evenFactors.add(factors.get(i));					
+			}			
+		}
+		int perfectSquare = 1;
+		for(Integer e: oddFactors)		
+			perfectSquare *= e;			
+		
+		System.out.println("The smallest number n for m * n to be a perfect square is " + perfectSquare 
+				+ "\nm * n is " +m*perfectSquare);		
+		
+	}
+	
+	static ArrayList<Integer>  getFactors(int m) {
+		ArrayList <Integer> ListFactors = new ArrayList <>();		
+		while(m !=1) {
+			int remainder = 1;
+			for(int i = 2; i <= m && remainder != 0 ; i++)
+			{
+				remainder = m%i;
+				if(remainder == 0)
+				{
+					ListFactors.add(i);
+					m = m / i;					
+				}					
+			}					
+		}
+		return ListFactors;		
+	}
+}
