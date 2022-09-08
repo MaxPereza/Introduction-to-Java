@@ -1,0 +1,25 @@
+package pe_11_18;
+import java.util.Scanner;
+import java.util.ArrayList;
+class ArrayList_of_Character {
+	public static void main(String []args) {
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter string : ");
+		String str = input.nextLine();
+		input.close();
+		ArrayList<Character> charList = toCharacterArray(str);
+		System.out.println();
+		for(Character e: charList)
+			System.out.print(e + " ");
+		
+	}
+	
+	public static ArrayList<Character> toCharacterArray(String s)
+	{
+		ArrayList<Character> list = new ArrayList<>();
+		for(int i = 0; i < s.length(); i++)
+			list.add(s.charAt(i));
+		
+		return list;
+	}
+}
