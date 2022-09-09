@@ -1,0 +1,66 @@
+package pe_11_19;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+public class BinPacking {
+	public static void main(String []args) {
+		//Integer [] list = {7, 5, 2, 3, 5, 8};
+		//ArrayList<Integer> array = new ArrayList<>(Arrays.asList(list));
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter the number of objects: ");
+		int size = input.nextInt();
+		System.out.print("Enter the weights of the objects: ");
+		Integer [] list = new Integer [size];
+		for(int i =0; i < list.length; i++)
+			list[i] = input.nextInt();
+		input.close();
+		ArrayList<Integer> array = new ArrayList<>(Arrays.asList(list));
+		ArrayList<Integer []> containerFull = binPack(array);
+		for(int i =0; i<containerFull.size(); i++)
+		{
+			System.out.print("Container " + (i+1)+ " contains objects with weight ");
+			for(int j = 0; j < containerFull.get(i).length; j++)
+				System.out.print(containerFull.get(i)[j] + " ");
+			System.out.println();
+		}		
+	}
+	
+	public static  ArrayList<Integer []>  binPack (ArrayList<Integer> list)
+	{
+		ArrayList<Integer []> containerList = new ArrayList<>();
+		while(list.size()!=0) 
+			containerList.add(containerPack(list));
+		
+		return containerList;
+		
+	}
+	
+	public static Integer [] containerPack(ArrayList<Integer> objects)
+	{
+		final int maxValue = 10;
+		int freeSpace = maxValue - objects.get(0);
+		ArrayList<Integer> container = new ArrayList<>();
+		container.add(objects.get(0));
+		objects.remove(0);
+		
+		int currentWeight = freeSpace;
+		while(freeSpace>0 && currentWeight>0 )
+		{
+			boolean wasPacking = false;
+			for(int i =0; i < objects.size(); i++)
+			{
+				if(currentWeight == objects.get(i))
+				{
+					container.add(objects.get(i));
+					objects.remove(i);
+					freeSpace-=currentWeight;
+					wasPacking = true;
+				}
+			}
+			if(!wasPacking)
+				currentWeight--;			
+		}
+		Integer [] array = new Integer[container.size()];
+		return container.toArray(array);
+	}
+}
