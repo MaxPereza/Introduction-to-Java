@@ -1,0 +1,99 @@
+package pe_12_04;
+
+public class ModifiedLoan {
+	private double annualInterestRate;
+	private int numberOfYears;
+	private double loanAmount;
+	private java.util.Date loanDate;
+	/** Default constructor */
+	public ModifiedLoan() {
+		this(2.5, 1, 1000);
+	 }
+	
+	public ModifiedLoan(double annualInterestRate, int numberOfYears, double loanAmount) {
+		setAnnualInterestRate(annualInterestRate);
+		setNumberOfYears(numberOfYears);
+		setLoanAmount(loanAmount);
+		loanDate = new java.util.Date();
+	}
+	
+	/** Return annualInterestRate */
+	public double getAnnualInterestRate() {
+		return annualInterestRate;
+	}
+	/** Set a new annualInterestRate */
+	public void setAnnualInterestRate(double annualInterestRate) throws IllegalArgumentException{
+		if(annualInterestRate > 0)
+			this.annualInterestRate = annualInterestRate;
+		else
+			throw new IllegalArgumentException("Annual interest rate cannot "
+					+ "be less than or equal to zero.");
+	}
+	
+	/** Return numberOfYears */ 
+	public int getNumberOfYears() {
+		return numberOfYears;
+	}
+	/** Set a new numberOfYears */
+	public void setNumberOfYears(int numberOfYears) {
+		if(numberOfYears > 0)
+			this.numberOfYears = numberOfYears;
+		else 
+			throw new IllegalArgumentException("Number of years cannot "
+					+ "be less than or equal to zero.");
+			
+	}
+	/** Return loanAmount */
+	public double getLoanAmount() {
+		return loanAmount;
+	}
+		/** Set a new loanAmount */
+	public void setLoanAmount(double loanAmount) {
+		if(loanAmount > 0)
+			this.loanAmount = loanAmount;
+		else
+			throw new IllegalArgumentException("Loan amount cannot "
+					+ "be less than or equal to zero.");
+			
+	}
+	/** Find monthly payment */
+	public double getMonthlyPayment() {
+		double monthlyInterestRate = annualInterestRate / 1200;
+		double monthlyPayment = loanAmount * monthlyInterestRate / (1 -
+				(1 / Math.pow(1 + monthlyInterestRate, numberOfYears * 12)));
+		return monthlyPayment;
+	}
+	/** Find total payment */
+	public double getTotalPayment() {
+		double totalPayment = getMonthlyPayment() * numberOfYears * 12;
+		return totalPayment;
+	}
+	/** Return loan date */
+	public java.util.Date getLoanDate() {
+		return loanDate;
+	}
+}
+
+package pe_12_04;
+public class TestModifiedLoan {
+	public static void main(String []args) {
+		try {
+			ModifiedLoan test1 = new ModifiedLoan(0, 1,200);		
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());			
+		}
+		try {
+			ModifiedLoan test1 = new ModifiedLoan(1, 0 ,200);		
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());			
+		}
+		try {
+			ModifiedLoan test1 = new ModifiedLoan(1, 1 , -5);		
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());			
+		}		
+	}
+}
