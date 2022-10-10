@@ -1,0 +1,23 @@
+package pe_12_03;
+import java.util.Scanner;
+class MyArrayIndexOutOfBoundsException {
+	public static void main(String [] args) {
+		int [] list = new int [100];
+		for(int i = 0; i < list.length; i++)
+			list[i] = randomInteger();
+		System.out.print("Enter index between 0 - 99: ");
+		try {
+			Scanner input = new Scanner(System.in);
+			int index = input.nextInt();
+			System.out.print("Number at the specified index: " + list[index] );
+		}
+		catch(ArrayIndexOutOfBoundsException ex) {
+			System.out.print("Out of Bounds");
+		}		
+	}
+	
+	static int randomInteger() {
+		int number = (int)(Math.random() * 100);
+		return number;
+	}
+}
