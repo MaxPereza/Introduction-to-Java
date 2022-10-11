@@ -1,0 +1,36 @@
+package pe_12_05;
+class IllegalTriangleException  extends Exception {
+	String sumOfTwoSides;
+	IllegalTriangleException(String sumOfTwoSides){
+		super("Sum of two sides less then the other " + sumOfTwoSides);
+		this.sumOfTwoSides = sumOfTwoSides;
+	}
+	
+	String getSum() {
+		return sumOfTwoSides;
+	}
+}
+
+TriangleWithException(double side1, double side2, double side3)
+			throws IllegalTriangleException{
+		if(side1 + side2> side3) {
+			this.side1 = side1;
+			this.side2 = side2;
+			this.side3 = side3;		
+		}
+		else
+			throw new IllegalTriangleException((side1+side2)+" < " +side3);		
+	}
+  
+package pe_12_05;
+class TestTriangleWhithExeption {
+	public static void main(String []args) {
+		try {
+			TriangleWithException triangle = new TriangleWithException(3,2,6);
+		}
+		catch(IllegalTriangleException ex)
+		{
+			System.out.print(ex.getMessage());
+		}		
+	}
+}
