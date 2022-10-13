@@ -1,0 +1,34 @@
+package pe_12_07;
+import java.util.Scanner;
+class Bin2Dec {
+	public static void main(String [] args) {
+		try {
+			Scanner input = new Scanner(System.in);
+			System.out.print("Ente binary number: ");
+			String binary = input.nextLine();
+			int [] decimal = bin2Dec(binary);
+			int number = 0;
+			for(int i = 0; i < decimal.length; i++)
+				number += decimal[i];
+			System.out.println("Decimal number is " + number);
+			input.close();
+		}
+		catch(NumberFormatException ex) {
+			System.out.println(ex.getMessage());
+		}		
+	}
+	static int [] bin2Dec (String binaryString) throws NumberFormatException{
+		int [] decimal = new int[binaryString.length()]; 
+		for(int i = 0; i<binaryString.length(); i++) {
+			char ch = binaryString.charAt(i);
+			if(ch == '0' || ch == '1')
+			{
+				ch -='0';
+				decimal[i] = (int)Math.pow(2, (binaryString.length()-1 - i)) * ch;
+			}
+			else 
+				throw new NumberFormatException("Not a binary number.");				
+		}
+		return decimal;		
+	}
+}
