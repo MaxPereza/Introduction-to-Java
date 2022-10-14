@@ -1,0 +1,27 @@
+package pe_12_09;
+public class BinaryFormatException extends NumberFormatException{
+	BinaryFormatException(){
+		
+	}
+	BinaryFormatException(String str){
+		super(str);
+	}
+	BinaryFormatException(char ch, String str){
+		super(ch+" "+ str);
+	}
+}
+
+static int [] bin2Dec (String binaryString) throws BinaryFormatException{
+	int [] decimal = new int[binaryString.length()]; 
+	for(int i = 0; i<binaryString.length(); i++) {
+		char ch = binaryString.charAt(i);
+		if(ch == '0' || ch == '1')
+		{
+			ch -='0';
+			decimal[i] = (int)Math.pow(2, (binaryString.length()-1 - i)) * ch;
+		}
+		else 
+			throw new BinaryFormatException(ch , "Not a binary number.");				
+	}
+	return decimal;		
+}
