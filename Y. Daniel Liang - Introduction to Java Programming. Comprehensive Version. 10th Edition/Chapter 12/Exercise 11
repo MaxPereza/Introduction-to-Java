@@ -1,0 +1,40 @@
+package pe_12_11;
+import java.util.ArrayList;
+
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.Scanner;
+class RemoveText {
+	public static void main(String[] args) throws Exception {
+		// Check command line parameter usage
+			if (args.length != 2) {
+				System.out.println("Usage: java Exercise12_11 John filename");
+				System.exit(1);
+				}
+			// Check if source file exists
+			File file = new File(args[1]);
+				if (!file.exists()) {
+					System.out.println("Source file " + args[1] + " does not exist");
+					System.exit(2);
+					}
+			ArrayList<String> newFile = new ArrayList<>();
+			try (
+					// Create input and output files
+				Scanner input = new Scanner(file);
+					
+				
+				) {
+				
+				while (input.hasNext()) {
+					String s1 = input.nextLine();
+					String s2 = s1.replaceAll(args[0], "");
+					newFile.add(s2);
+					
+					}
+				}
+			PrintWriter output = new PrintWriter(file);
+			for(int i = 0; i < newFile.size(); i++)
+				output.println(newFile.get(i));			
+			output.close();
+			}
+}
