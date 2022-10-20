@@ -1,0 +1,28 @@
+package pe_12_14;
+import java.util.Scanner;
+import java.io.File;
+import java.io.PrintWriter;
+
+class ProcessScoresIn_a_TextFile {
+	public static void main(String [] args)  throws java.io.IOException {
+		File scoresFile = new File("scoresFile.txt");
+		PrintWriter output = new PrintWriter(scoresFile);
+		
+		int num = (int)(Math.random() * ( 21 - 2 ))+2; 
+		for(int i = 1 ; i <= num; i++ ) {
+			int number  = (int)(Math.random() * 10)+1;
+			output.print(number + " ");
+		}
+		output.close();
+		Scanner str = new Scanner(scoresFile);
+		int count = 0;
+		int total = 0;
+		while(str.hasNext()) {
+			total += str.nextInt();
+			count++;			
+		}
+		str.close();
+		int average = total / count; 
+		System.out.println("Scores total: " + total + " average: " + average + " count: " + count);	
+	}
+}
