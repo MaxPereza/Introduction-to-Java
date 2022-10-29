@@ -1,0 +1,96 @@
+package pe_12_20 ; 
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class RemovePackageStatement {
+	public static void main (String [] args) {
+		// Check if source file exists
+		File sourceFolder = new File(args[0]);
+		if (!sourceFolder.exists()) {
+			System.out.println("Source folder " + args[0] + " does not exist");
+			System.exit(1);
+			}
+		//confirmation that the object is a directory
+		if (!sourceFolder.isDirectory()) {
+			System.out.println("Source object " + args[0] + " is not a directory ");
+			System.exit(2);
+			}
+		//getting a list of folders and files
+		File [] list = sourceFolder.listFiles();
+		ArrayList<File> directoryList = new ArrayList<>();
+		for(int i = 0; i < list.length; i++)
+			if(list[i].isDirectory())
+				directoryList.add(list[i]);
+		//cycle through each directory
+		for(int i = 0; i < directoryList.size();i++) 
+			mainSelectJavaFiles(directoryList.get(i));		
+	}
+	
+	//selection of java files in a folder
+	static void mainSelectJavaFiles (File folder)
+	{
+		String namePackage = folder.getName();
+		//add all files from the current folder
+		File [] list = folder.listFiles();
+		ArrayList<File> fileList = new ArrayList<>();
+		for(int i = 0 ; i < list.length; i++)
+			if(list[i].isFile())
+				fileList.add(list[i]);
+		//deleting non-java files
+		for(int i = 0; i < fileList.size(); i++)
+			if(!fileList.get(i).getName().matches(".*.java")) {
+				fileList.remove(i);
+				i--;
+			}
+		//deleting files that do not contain a "package statement"
+		for(int i = 0 ; i< fileList.size(); i++) {
+			try (Scanner input = new Scanner(fileList.get(i));){
+				
+				String line = input.nextLine();
+				if(!line.matches("\\s*"+"package\\s*"+namePackage+"\\s*;")) {
+					fileList.remove(i);
+					System.out.println("primary processing "+ line);
+					i--;
+				}				
+			}
+			catch(Exception ex) {
+				System.out.println("Select package trouble " + ex.getMessage() );
+			}			
+		}
+		for(int i = 0; i < fileList.size(); i++) {
+			try {
+				removePackage (fileList.get(i), namePackage);
+			}
+			catch(Exception ex) {
+			System.out.println("Problem in remove metord " + ex.getMessage());
+			}
+		}			
+	}
+	
+	//method remove the statement "package chapter"
+		static void removePackage (File javaFile, String namePackage) throws Exception {
+			ArrayList <String> newJavaFile = new ArrayList <>();
+			Scanner input = new Scanner(javaFile);
+			while(input.hasNext()) {
+				String line = input.nextLine();
+				if(line.matches("\\s*"+"package\\s*"+namePackage+"\\s*;")) {
+					System.out.println("line is: " + line);
+					line = line.replaceFirst("\\s*"+"package\\s*"+namePackage+"\\s*;", "");
+					/*int start = line.indexOf("package");
+					System.out.println("Index start " + start);
+					int end = line.indexOf(";");
+					line = line.substring(end+1);*/
+					System.out.println("First line: " + line);
+				}
+					
+				newJavaFile.add(line);
+			}
+			
+			PrintWriter output = new PrintWriter(javaFile);
+			for(int i =0; i < newJavaFile.size(); i++) 
+				output.println(newJavaFile.get(i));			
+			output.close();
+		}
+}
