@@ -1,0 +1,54 @@
+package pe_12_21;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+class DataSorted {
+	public static void main(String []args) {
+		// Check number of strings passed
+		if (args.length != 1) {
+			System.out.println("Usage: java file");
+			System.exit(1);
+		}
+					 
+		// Check if source file exists
+		File file = new File(args[0]);
+		if (!file.exists()) {
+			System.out.println("File "+ args[0] + " does not exist");
+			System.exit(1);
+			}
+		//check sort order
+		checkOrder(file);		
+	}
+	
+	static void checkOrder(File file) {
+		ArrayList<String> list = new ArrayList<>();
+		try(Scanner input = new Scanner(file)){
+			while(input.hasNext()) 
+				list.add(input.nextLine());			
+		}
+		catch(Exception ex) {
+			System.out.println("Problems in checking sort order: " + ex.getMessage());						
+		}
+		ArrayList<String> sortedList = new ArrayList(list);
+		Collections.sort(sortedList);
+		if(sortedList.equals(list))
+			System.out.println("File is sorted");
+		else {
+			System.out.println("File is not sorted");
+			displayTwoStrings(list);
+		}			
+	}
+	
+	static void displayTwoStrings(ArrayList <String> list) {		
+		for(int i = 0; i < list.size()-1; i++) {
+			if(list.get(i).compareTo(list.get(i+1))>0) {
+				System.out.println("fist string: "+ list.get(i) +
+						"\nsecond string: " + list.get(i+1));
+				break;
+			}				
+		}		
+	}
+}
