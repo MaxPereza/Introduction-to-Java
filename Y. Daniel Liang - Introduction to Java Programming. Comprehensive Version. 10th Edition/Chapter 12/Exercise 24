@@ -1,0 +1,43 @@
+package pe_12_24;
+
+import java.io.File;
+import java.io.PrintWriter;
+
+class CreateLargeDataset {
+	public static void main (String args []) {
+		File date = new File("Salary.txt");
+		try(PrintWriter output = new PrintWriter(date);){
+			for(int i = 1; i<= 1000; i++) {
+				String line = giveName_lastName(i);
+				line = giveRank_salary(line);
+				output.println(line);				
+			}
+			}
+		
+		catch(Exception exTwo) {
+			System.out.println("We have problem in writeFile " + exTwo.getMessage());
+		}			
+	}
+	
+	static String giveName_lastName(int lineNumber)
+	{
+		String [] names = {"Jhon" , "Sara", "Vano" , "Greg", "Elizabeth", "Max", "Elen", "Morrigan"};
+		String [] lastNames = {"Smith", "Hawke" , "Targaryen", "Romanov", "Ryrik", "Caesar", "Barka"};
+		String name = names[(int)(Math.random()* names.length)] + lineNumber;//random choice of name
+		String lastName = lastNames[(int)(Math.random() * lastNames.length)] + lineNumber;////random choice of last name
+		return name + " " + lastName+ " ";
+		
+	}
+	
+	static String giveRank_salary(String name_lastName) {
+		String [] ranks = {"assistant", "associate", "full"};
+		double [][] salary = {{50000, 80000},
+							  {60000, 110000},
+							  {75000, 130000}};
+		int rankIndex = (int)(Math.random()*ranks.length);////random choice of rank index
+		String rank = ranks[rankIndex];
+		double wage = Math.random() * (salary[rankIndex][1]+1 - salary[rankIndex][0]) +salary[rankIndex][0];
+		wage = (int)(wage * 100) /100.00;
+		return name_lastName + rank + " " + wage;
+		}
+}
