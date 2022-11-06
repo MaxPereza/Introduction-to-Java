@@ -1,0 +1,54 @@
+package pe_12_25;
+
+import java.util.Scanner;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+class ProcessLargeDataset {
+	public static void main(String [] args) {		
+		try{
+			URL url = new URL("http://liveexample.pearsoncmg.com/data/Salary.txt");
+			Scanner input = new Scanner(url.openStream());
+			double totalAssistant = 0;
+			int countAssistant = 0;
+			double totalAssociate = 0;
+			int countAssociate = 0;
+			double totalFull = 0;
+			int countFull = 0;
+			while(input.hasNext()) {
+				String strLine = input.nextLine();
+				Scanner line = new Scanner(strLine);
+				int count = 0;
+				while(line.hasNext()) {
+					String word = line.next();
+					count++;
+					if(count == 2) {
+						word = line.next();
+						switch(word){
+						
+						case "assistant": totalAssistant += Double.parseDouble(line.next());
+						countAssistant++; break;
+						case "associate": totalAssociate += Double.parseDouble(line.next()); 
+						countAssociate++; break;
+						case "full": totalFull += Double.parseDouble(line.next()); 
+						countFull++; break;						
+						}
+					}					
+				}				
+			}			
+			System.out.println("Total salary assistant professors is: " + totalAssistant + 
+					" and average salary is: " + (totalAssistant/countAssistant));
+			System.out.println("Total salary associate professors is: " + totalAssociate + 
+					" and average salary is: " + (totalAssociate/countAssociate));
+			System.out.println("Total salary full professors is: " + totalFull + 
+					" and average salary is: " + (totalFull/countFull));
+		}
+		catch (MalformedURLException ex) {
+			ex.printStackTrace();
+		}
+		catch (java.io.IOException ex) {
+			System.out.println("I/O Errors: no such file");
+		}	
+				
+	}
+}
