@@ -1,0 +1,60 @@
+package pe_12_27;
+
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class ReplaceWords {
+	public static void main(String []args) {
+		ArrayList<File> fileList = getFileList(args);
+		replaceWords(fileList);
+	
+	}
+	
+	static ArrayList<File> getFileList(String [] args){
+		ArrayList<File> fileList = new ArrayList<>();
+		for(int i = 0; i < args.length; i++) {
+			File file = new File(args[i]);
+			if(file.isFile()&&file.exists()&&file.canRead())
+				fileList.add(file);
+		}
+		return fileList;
+	}
+	
+	static void replaceWords(ArrayList<File> list) {
+		for(int i =0; i < list.size(); i++) {
+			replace(list.get(i));
+			
+		}
+	}
+	
+	static void replace(File file) {
+		StringBuilder newFile = new StringBuilder();
+		try(Scanner input = new Scanner(file);){
+			while(input.hasNext()) {
+				String strLine = input.nextLine();
+				Scanner line = new Scanner(strLine);
+				while(line.hasNext()) {
+					String word = line.next();
+					char digitOne;
+					char digitTwo;
+					if(word.matches("Exercise\\d{1}_\\d{1}")) {
+						digitOne = word.charAt(8);
+						digitTwo = word.charAt(10);
+						strLine = strLine.replaceFirst(word, "Exercise0" + digitOne+"_0" + digitTwo) ;
+					}
+											
+				}
+				newFile.append(strLine);
+				newFile.append(System.lineSeparator());
+			}
+			PrintWriter output = new PrintWriter(file) ;
+			output.print(newFile);
+			output.close();
+		}
+		catch(java.io.IOException ex) {
+			System.out.println("I/O Errors: no such file");
+		}
+	}
+}
