@@ -33,7 +33,7 @@ class RenameFiles {
 		String oldName = file.getName();
 		char digitOne = oldName.charAt(8);
 		char digitTwo = oldName.charAt(10);
-		String newName = oldName.replaceFirst("Exercise"+digitOne+"_"+digitTwo, "Exercise0" + digitOne+"_0" + digitTwo) ;
+		String newName = oldName.replaceFirst("Exercise"+digitOne+"_"+digitTwo, "Exercise0" + digitOne+"_" + digitTwo) ;
 		file.renameTo(new File(newName));
 	}
 }
