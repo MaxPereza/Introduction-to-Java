@@ -1,0 +1,24 @@
+package pe_12_29;
+
+import java.io.File;
+
+class RenameFiles {
+	public static void main (String []args) {
+		renameFiles(args);
+		
+	}
+	static void renameFiles(String [] list) {
+		
+		for(String name: list) {
+			File file = new File(name);
+			//file check
+			if(file.isFile()&&file.exists()&&file.canRead()&&
+					file.getName().matches("Exercise\\d{1}_\\d{1}\\s*(.+)$")){
+				StringBuilder newName = new StringBuilder(name);
+				//find insertion point
+				newName.insert(name.indexOf('_') + 1, "0");
+                file.renameTo(new File(newName.toString()));				
+			}			
+		}
+	}
+}
