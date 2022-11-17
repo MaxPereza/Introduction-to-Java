@@ -1,0 +1,39 @@
+package pe_12_28;
+
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+class RenameFiles {
+	public static void main(String []args) {
+		ArrayList<File> fileList = getFileList(args);
+		renameFiles(fileList);
+		
+	}
+	static ArrayList<File> getFileList(String [] args){
+		ArrayList<File> fileList = new ArrayList<>();
+		for(int i = 0; i < args.length; i++) {
+			File file = new File(args[i]);
+			if(file.isFile()&&file.exists()&&file.canRead())
+				fileList.add(file);
+		}
+		return fileList;
+	}
+	static void renameFiles(ArrayList<File> fileList) {
+		for(int i = 0; i < fileList.size(); i++)
+		{
+			if(fileList.get(i).getName().matches("Exercise\\d{1}_\\d{1}\\s*(.+)$")) {
+				File file = fileList.get(i);
+				rename(file);
+				
+			}
+		}
+	}
+	static void rename (File file) {
+		String oldName = file.getName();
+		char digitOne = oldName.charAt(8);
+		char digitTwo = oldName.charAt(10);
+		String newName = oldName.replaceFirst("Exercise"+digitOne+"_"+digitTwo, "Exercise0" + digitOne+"_0" + digitTwo) ;
+		file.renameTo(new File(newName));
+	}
+}
