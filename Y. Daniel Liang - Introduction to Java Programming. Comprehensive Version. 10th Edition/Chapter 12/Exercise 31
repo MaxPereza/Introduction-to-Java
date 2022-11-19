@@ -1,0 +1,91 @@
+package pe_12_31;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Scanner;
+
+class BabyNamePopularityRanking {
+	public static void main(String []args) {
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter the year: ");
+		String year = input.nextLine();
+		System.out.print("Enter the gender: ");
+		char gender = input.nextLine().charAt(0);
+		gender = Character.toLowerCase(gender);
+		System.out.print("Enter the name: ");
+		String name = input.nextLine();
+		input.close();
+		String url = "http://liveexample.pearsoncmg.com/data/babynamesranking"+year+".txt";
+		int rank = getRank(url, gender, name);
+		if(rank==0)
+			System.out.println("The name " +name+ " is not ranked in year "+ year);
+		else
+			System.out.println(name+ " is ranked #"+rank+ " in year " + year);
+		
+	}
+	
+	static int getRank (String adress, char gender, String name) {
+		int rank = 0;
+		try(Scanner input = new Scanner(new URL(adress).openStream());){
+			boolean nameFound = false;
+			while(input.hasNext()&&!nameFound) {
+				String strLine = input.nextLine();
+				if(Character.toLowerCase(gender)=='m')
+					rank = maleSearch(strLine, name);
+				else
+					rank = femaleSearch(strLine, name);
+				nameFound = rank!=0;
+			}			
+		}
+		catch (MalformedURLException ex) {
+			ex.printStackTrace();
+		}
+		catch (java.io.IOException ex) {
+			System.out.println("I/O Errors: no such file");
+		}
+		return rank;
+		
+	}
+	static int maleSearch (String strLine, String name) {
+		try(Scanner line = new Scanner(strLine);){
+			int count = 1;
+			int rank =0;
+			boolean nameFound = false;
+			while(line.hasNext()&&count<3) {
+				String word = line.next();
+				if(count == 1)
+					rank = Integer.parseInt(word);
+				if(count == 2)
+					nameFound = word.equalsIgnoreCase(name);
+				count++;
+			}
+			if(nameFound)
+				return rank;						
+		}
+		catch(Exception ex) {
+			System.out.println("We have problem in male search, " + ex.getMessage());
+		}
+		return 0;
+		
+	}
+	static int femaleSearch (String strLine, String name) {
+		try(Scanner line = new Scanner(strLine);){
+			int count = 1;
+			int rank =0;
+			boolean nameFound = false;
+			while(line.hasNext()&&count<5) {
+				String word = line.next();
+				if(count == 1)
+					rank = Integer.parseInt(word);
+				if(count == 4)
+					nameFound = word.equalsIgnoreCase(name);
+				count++;
+			}
+			if(nameFound)
+				return rank;						
+		}
+		catch(Exception ex) {
+			System.out.println("We have problem in female search, " + ex.getMessage());
+		}
+		return 0;
+	}
+}
