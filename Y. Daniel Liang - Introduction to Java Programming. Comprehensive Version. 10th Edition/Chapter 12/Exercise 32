@@ -1,0 +1,54 @@
+package pe_12_32;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Scanner;
+
+class RankingSummary {
+	public static void main(String []args) {
+		int year = 2010;
+		System.out.println("Year Rank 1\tRank 2\t   Rank 3     Rank 4\t Rank 5\t    "
+				+ "Rank 1     Rank 2\t  Rank 3     Rank 4     Rank 5");
+		for(int i = year; i >=2001; i--) {
+			year = i;
+			
+			String url = "http://liveexample.pearsoncmg.com/data/babynamesranking"+year+".txt";
+			rankingSummary(url, year);			
+		}
+	}
+	static void rankingSummary(String adress, int year) {
+		try(Scanner input = new Scanner(new URL(adress).openStream());){
+			String [] male = new String [5];
+			String [] female = new String [5];
+			int countLines = 0;
+			while(input.hasNext()&&countLines < 5){
+				
+				int countWord = 1;
+				String strLine = input.nextLine();
+				Scanner line = new Scanner(strLine);
+				while(line.hasNext()&&countWord<5) {
+					String word = line.next();
+					if(countWord == 2)
+						male[countLines] = word;
+					if(countWord==4)
+						female[countLines] = word;
+					countWord++;
+				}
+				countLines++;
+			}
+			System.out.print(year+" ");
+			for(int i = 0; i < female.length; i++)
+				System.out.printf("%-11s", female[i]);			
+			for(String m: male)
+				System.out.printf("%-11s",m);
+			System.out.println();
+		}
+		
+		catch (MalformedURLException ex) {
+			ex.printStackTrace();
+		}
+		catch (java.io.IOException ex) {
+			System.out.println("I/O Errors: no such file");
+		}				
+	}
+}
