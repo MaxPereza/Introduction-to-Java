@@ -1,0 +1,32 @@
+package pe_13_02;
+import java.util.ArrayList;
+
+public class ShuffleArrayList {
+	public static void main(String []args) {
+		ArrayList<Number> list = new ArrayList<>();
+		for (int i = 0 ; i < 15; i++) {
+			int number = (int)(Math.random()*101);
+			list.add(number);
+		}
+		for(Number e: list)
+			System.out.print(e + " ");
+		shuffle(list);
+		System.out.println("\nAfter shuffle: ");
+		for(Number e: list)
+			System.out.print(e + " ");		
+	}
+	
+	public static void shuffle(ArrayList<Number> list) {
+		for(int i = 0; i < list.size()-1; i++) {
+			int index = randomIndex(i+1, list.size());
+			Number temp = list.get(i);
+			list.set(i, list.get(index));
+			list.set(index, temp);			
+		}		
+	}
+	
+	public static int randomIndex(int min, int max) {
+		int index =  (int)(Math.random()*(max-min))+min;
+		return index;
+	}
+}
