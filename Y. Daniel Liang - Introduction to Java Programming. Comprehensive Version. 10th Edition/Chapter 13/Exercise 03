@@ -1,0 +1,48 @@
+package pe_13_03;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
+public class SortArrayList {
+	public static void main (String []args) {
+		ArrayList<Number> list = new ArrayList<>();
+		for(int i = 0; i < 5; i++) {
+			// Add an integer
+			int integer = (int)(Math.random() * 1000);
+			list.add(integer);
+			// Add a double
+			double doubleNumber = Math.random() * 1000;
+			list.add(doubleNumber);
+			// add BigDecimal
+			list.add(new BigDecimal((Math.random()*1000)));
+		}
+		System.out.println("List without sorting: ");
+		for(Number e: list)
+			System.out.println(e + " ");
+		sort(list);
+		System.out.println("\nList after sorting: ");
+		for(Number e: list)
+			System.out.println(e + " ");
+		
+	}
+	public static void sort(ArrayList<Number> list) {
+		boolean swap;
+		int length = list.size();
+		do {
+			Number temp;
+			swap = false;
+			for(int i =0, j= i+1; j<length; i++, j++)
+			{
+				if(list.get(i).doubleValue()>list.get(j).doubleValue())
+				{
+					temp = list.get(i);
+					list.set(i, list.get(j));
+					list.set(j, temp);
+					swap= true;
+				}
+			}
+			length -=1;
+			
+		}while(swap);		
+	}
+}
