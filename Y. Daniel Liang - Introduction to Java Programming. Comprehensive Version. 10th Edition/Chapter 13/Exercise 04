@@ -1,0 +1,54 @@
+package pe_13_04;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+public class DisplayCalendars {
+	public static void main(String []args) {
+		Calendar calendar = new GregorianCalendar();
+		switch(args.length) {
+		case 2: try {
+			int month = Integer.parseInt(args[0]);
+			int year = Integer.parseInt(args[1]);
+			calendar.set(year, month, 1);
+		}
+			catch(Exception ex) {
+				System.out.println("We have problem with mont or year");
+			}
+			break;
+		case 1: try {
+			int month = Integer.parseInt(args[0]);
+			calendar.set(calendar.get(Calendar.YEAR), month, 1);
+		}
+			catch(Exception ex) {
+				System.out.println("We have problem with mont or year");
+			}
+			break;
+		}		
+		printCalendar(calendar);
+			
+		}
+	public static void printCalendar(Calendar cal) {
+		String[] monthName = {"January", "February", "March", "April",
+				"May", "June", "July", "August", "September" , "October" , "November ", "December"};
+		System.out.println(monthName[cal.get(Calendar.MONTH)] + " " + cal.get(Calendar.YEAR));
+		System.out.println("_ _ _ _ _ _ _ _ _ _ _ _ _ _");
+		String[] dayNameOfWeek = {"Sun", "Mon", "Tue", "Wed",
+				"Thu", "Fri", "Sat"};
+		Calendar dayOfWeek = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), 1);
+				
+		for(String e: dayNameOfWeek)
+			System.out.print(e +" ");
+		System.out.println();
+		int weekDay = dayOfWeek.get(Calendar.DAY_OF_WEEK) -1;
+		for(int i = 0; i< weekDay; i++ )
+			System.out.print("    ");
+		
+		int maxDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		for(int i = 1; i <=maxDays; i++, weekDay++){//
+			if(weekDay%7==0) 
+				System.out.printf("\n%-4d", i);					
+			else
+				System.out.printf("%-4d", i);				
+		}	
+	}
+}
