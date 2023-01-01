@@ -1,0 +1,32 @@
+package pe_13_05;
+
+class TestGeometricObject {
+	public static void main(String []args) {
+		Triangle num1 = new Triangle(4,5,5);
+		Triangle num2 = new Triangle (3,4,6);
+		System.out.println("The largest Triangle is " + GeometricObject.max(num1, num2).toString());
+		Circle cir1 = new Circle (3.2);
+		Circle cir2 = new Circle (4);
+		System.out.println("The largest Circle is " + GeometricObject.max(cir1, cir2).toString());
+	}
+}
+
+// object comparison
+	@Override
+	public int compareTo(GeometricObject o) {
+		if (getArea() > o.getArea())
+			return 1;
+		else if (getArea() < o.getArea())
+			return -1;
+		else
+			return 0;
+		}
+	// static method "Max"
+	public static GeometricObject max(GeometricObject o1, GeometricObject o2) {
+		if(o1.compareTo(o2)>=0)
+			return o1;
+		else
+			return o2;
+		//return o1.compareTo(o2) >= 0 ? o1 : o2;
+	}
+}
