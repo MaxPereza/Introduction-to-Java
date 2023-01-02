@@ -1,0 +1,13 @@
+package pe_13_06;
+public class TestComparableCircle {
+	public static void main(String []args) {
+		ComparableCircle c1 = new ComparableCircle(3.5);
+		ComparableCircle c2 = new ComparableCircle(5.5);
+		String answer = c1.compareTo(c2) == 0 ? "Equal": (c1.compareTo(c2) > 0 ? "True" :"False");
+		System.out.println("Is circle c1 larger than circle c2? " + answer);
+		Rectangle rec = new Rectangle(7, 5);
+		answer = c1.compareTo(rec)== 0 ? "Equal": (c1.compareTo(rec) > 0 ? "True" :"False");
+		System.out.println("Is circle c1 larger than rectangle? " + answer);
+		System.out.println("Area circle: " + c1.getArea()+ " Area rectangle : " + rec.getArea() );		
+	}
+}
