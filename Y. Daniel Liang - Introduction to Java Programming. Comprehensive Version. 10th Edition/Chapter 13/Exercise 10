@@ -1,0 +1,70 @@
+package pe_13_10;
+
+import pe_13_01.GeometricObject;
+
+public class RectangleComparable extends GeometricObject 
+		implements Comparable<RectangleComparable>{
+	private double width = 1;
+	private double height = 1;
+	
+	public RectangleComparable (double width, double height)
+	{
+		this.width = width;
+		this.height = height;
+	}
+	public RectangleComparable()
+	{}
+	
+	public double getArea()
+	{
+		return width * height;
+	}
+	
+	public double getPerimeter()
+	{
+		return 2*(width * height);
+	}
+	
+	public double getWidth(){
+		return width;
+	}
+	
+	public void setWidth(double width) {
+		this.width = width;
+	}
+		
+	public double getHeight()	{
+		return height;
+	}
+	
+	public void setHeight(double height) {
+		this.height = height;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof RectangleComparable && this.getArea() == ((RectangleComparable) o).getArea();
+	}
+	
+	@Override	
+	public int compareTo(RectangleComparable o) {
+		return this.equals(o)? 0:(this.getArea() > o.getArea() )? 1 : -1;				
+	}	
+}
+
+package pe_13_10;
+
+import pe_13_01.GeometricObject;
+
+public class TestRectangleComparable {
+	public static void main(String []args) {
+		RectangleComparable rect1 = new RectangleComparable();
+		GeometricObject rect2 = new RectangleComparable(4,2);
+		System.out.println("Two rectangles are equal? " + rect1.equals(rect2));
+		RectangleComparable rect3 = new RectangleComparable(5,4);
+		System.out.println("Two rectangles are equal? " + rect1.compareTo(rect3));
+		rect1.setWidth(2);
+		rect1.setHeight(4);
+		System.out.println("Two rectangles are equal? " + rect1.equals(rect2));
+	}
+}
