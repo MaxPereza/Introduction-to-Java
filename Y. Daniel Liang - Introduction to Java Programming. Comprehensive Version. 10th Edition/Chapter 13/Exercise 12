@@ -1,0 +1,32 @@
+package pe_13_12;
+
+import pe_13_05.GeometricObject;
+import pe_13_05.Circle;
+import pe_13_06.Rectangle;
+
+class SumTheAreas_ofGeometricObjects {
+	public static void main(String [] args) {
+		GeometricObject list [] = generator(4);
+		for(GeometricObject e: list)
+			System.out.print("area: "+e.getArea() +" ");
+		System.out.print("\nSum the areas of geometric objects: " + sumArea(list));		
+	}
+	
+	public static GeometricObject[] generator(int size) {
+		GeometricObject[] list = new GeometricObject[size];
+		for(int i = 0; i<size; i++) {
+			if(i%2==0)
+				list [i] = new Circle(i+1);
+			else
+				list [i] = new Rectangle(i, i+1);			
+		}
+		return list;		 
+	}
+	
+	public static double sumArea(GeometricObject[] a) {
+		double sum = 0;
+		for(int i = 0; i< a.length; i++)
+			sum += a[i].getArea();
+		return sum;
+	}
+}
