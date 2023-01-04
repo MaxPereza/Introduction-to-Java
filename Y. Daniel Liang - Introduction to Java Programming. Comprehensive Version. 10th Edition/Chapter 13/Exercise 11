@@ -1,0 +1,63 @@
+package pe_13_11;
+
+public class TestOctagon {
+	public static void main(String []args) {
+		Octagon oct = new Octagon(5);
+		System.out.println("Octagon area is " + oct.getArea() + " perimeter " + oct.getPerimeter());
+		Octagon oct2 = oct.clone();
+		System.out.println("Octagon1 equal octagon2? " + oct.equals(oct2));
+		System.out.println("Octagon1 bigger then octagon2? " + oct.compareTo(oct2));
+	}
+}
+
+import pe_13_01.GeometricObject;
+
+public class Octagon extends GeometricObject 
+		implements Comparable<Octagon>, Cloneable {
+	private double side = 0;	
+	
+	public Octagon (double side)	{
+		this.side = side;		
+	}
+	
+	public Octagon()
+	{}
+	
+	public double getArea()
+	{
+		return (2 + 4 / Math.sqrt(2)) * side * side;
+	}
+	
+	public double getPerimeter()
+	{
+		return 8 * side;
+	}
+	
+	public double getSide(){
+		return side;
+	}
+	
+	public void setSide(double side) {
+		this.side = side;
+	}	
+	
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof Octagon && this.getArea() == ((Octagon) o).getArea();
+	}
+	
+	@Override
+	public int compareTo(Octagon o) {
+		return this.equals(o)? 0:(this.getArea() > o.getArea() )? 1 : -1;				
+	}
+	
+	@Override
+	public Octagon clone()  {
+		 try {
+			 return (Octagon)super.clone();
+	        }
+		 catch (CloneNotSupportedException ex) {
+			 return null;
+	        }
+	}	
+}
