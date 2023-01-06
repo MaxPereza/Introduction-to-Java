@@ -1,0 +1,48 @@
+package pe_13_15;
+import java.math.BigInteger;
+import java.util.Scanner;
+
+
+
+public class TestBigIntegerRational {
+	public static void main(String []args) {
+		System.out.print("Enter the first rational number: ");
+		BigInteger [] firstRNumber = readInput();
+		System.out.print("Enter the second rational number: ");
+		BigInteger [] secondRNumber = readInput();
+	}
+	
+	public static BigInteger [] getNumber(String number){
+		System.out.println("Aga " + number);
+		BigInteger [] rNumber = new BigInteger [2];
+		try{
+			Scanner line = new Scanner(number);
+			for(int i =0; i < 2; i++){
+				String num = line.next();
+				rNumber[i] = new BigInteger (num);
+				System.out.println("End " + rNumber[i].toString());
+				}
+		}
+	
+		catch(Exception ex) {
+			System.out.println("Wrong number " +ex.getMessage());
+			Scanner input = new Scanner(System.in);
+			getNumber(input.nextLine());
+						
+		}
+		return rNumber;		
+	}
+	
+	public static BigInteger [] readInput(){
+		BigInteger [] number = new BigInteger [2];
+		try{Scanner input = new Scanner(System.in);
+			String numberStr = input.nextLine();
+			number = getNumber(numberStr);
+		}
+		
+		catch(Exception ex) {
+			System.out.println("We have some problem in readInput " + ex.getMessage());
+		}
+		return number;
+	}
+}
