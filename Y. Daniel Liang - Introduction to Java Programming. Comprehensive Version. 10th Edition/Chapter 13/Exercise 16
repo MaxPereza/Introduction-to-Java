@@ -1,0 +1,49 @@
+package pe_13_16;
+
+import pe_13_14.Rational;
+
+public class RationalNumberCalculator {
+	public static void main(String []args) {
+		if(args.length==0) {
+			System.out.println("What's up dude? Where is the line?");
+			System.exit(0);	
+		}
+	
+		if(args.length<3) {
+			System.out.println("It's not serious, try again, ok?");
+			System.exit(1);
+		}
+				
+		String [] number1Str = args[0].split("[/,.,-,+]");
+		String sign = args[1].replaceAll("\\d+/\\d+", "").trim();
+		String [] number2Str = args[2].split("[/,.,-,+]");
+					
+		long number1 [] = new long [2];
+		long number2 [] = new long [2];
+		
+		try {
+			for(int i = 0; i < 2; i++) {
+				number1[i] = Integer.parseInt(number1Str [i].trim());
+				number2[i] = Integer.parseInt(number2Str [i].trim());
+			}
+			
+			Rational num1 = new Rational (number1[0], number1[1]);
+			Rational num2 = new Rational (number2[0], number2[1]);
+			Rational num3 = new Rational();
+			switch(sign) {
+			
+			case "/": num3 = num1.divide(num2); break;
+			case ".": num3 = num1.multiply(num2);
+					sign = "*"; break;
+			case "-": num3 = num1.subtract(num2); break;
+			case "+": num3 = num1.add(num2); break;
+			}
+			
+			System.out.println(num1+ " " + sign + " " + num2 + " = " + num3 );
+			
+			}
+		catch(Exception ex) {
+			System.out.println("Houston we have a problem, something went wrong: " + ex.getMessage());
+		}
+	}
+}
