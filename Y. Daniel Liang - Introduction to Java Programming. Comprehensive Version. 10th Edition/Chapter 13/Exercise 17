@@ -1,0 +1,123 @@
+package pe_13_17;
+import java.util.Scanner;
+
+public class TestComplex {
+	public static void main(String []args) {
+		//Complex num1 = new Complex(3.5, 5.5);
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter the first complex number: ");
+		Complex num1 = getNumber(input);
+		//Complex num2 = new Complex(-3.5, 1);
+		System.out.print("Enter the second complex number: ");
+		Complex num2 = getNumber(input);
+		input.close();
+	
+		System.out.println("(" +num1 + ") + (" + num2 + ") = " + num1.add(num2).toString());
+		System.out.println("(" +num1 + ") - (" + num2 + ") = " +num1.subtract(num2).toString());
+		System.out.println("(" +num1 + ") * (" + num2 + ") = " +num1.multiply(num2).toString());
+		System.out.println("(" +num1 + ") / (" + num2 + ") = " +num1.divide(num2).toString());
+		System.out.println("|"+ num1 + "| = " + num1.abs());
+		System.out.println(num1.equals(num2));
+		System.out.println(num1.getRealPart());
+		System.out.println(num1.getImaginaryPart());
+		System.out.println(num1+ " compare to " + num2 +" = " + num1.compareTo(num2));
+	}
+	
+	public static Complex getNumber(Scanner input){
+		String number = input.nextLine();		
+		double [] num = new double [2];
+		try(Scanner line = new Scanner(number)) {		
+			for(int i =0; i < 2; i++){
+				String StrNum = line.next();
+				num [i] = Double.parseDouble(StrNum);
+				}
+			return new Complex(num[0], num[1]);
+		}
+	
+		catch(Exception ex) {
+			System.out.print("Wrong number: " +ex.getMessage()+", try again: ");
+			return getNumber(input);			
+			}			
+	}
+}
+
+package pe_13_17;
+
+public class Complex implements Comparable<Complex>, Cloneable  {
+	private double a = 0;
+	private double b = 0;
+	
+	Complex(){		
+	}
+	
+	Complex (double a, double b){
+		this.a = a;
+		this.b = b;
+	}
+	Complex (double a){
+		this.a = a;
+	}
+	
+	public double getRealPart() {
+		return a;
+	}
+	
+	public double getImaginaryPart() {
+		return b;
+	}
+	
+	public double abs() {
+		return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));//Math.abs
+	}
+	
+	public Complex add(Complex n2) {
+		double a =  this.a + n2.a;
+		double b = this.b + n2.b;
+		return new Complex(a, b);
+	}
+	
+	public Complex subtract(Complex n2) {
+		double a =  this.a - n2.a;
+		double b = this.b - n2.b;
+		return new Complex(a, b);
+	}
+	
+	public Complex multiply(Complex n2) {
+		double a = (this.a * n2.a)- this.b * n2.b;
+		double b = (this.b * n2.a) + this.a * n2.b;
+		return new Complex(a, b);
+	}
+	//(ac + bd)/(c2 + d2) + (bc - ad)i/(c2 + d2)
+	public Complex divide (Complex n2) {
+		double a = (this.a * n2.a + this.b * n2.b) / (Math.pow(n2.a, 2) + Math.pow(n2.b, 2)); 
+		double b = (this.b * n2.a - this.a * n2.b)/ (Math.pow(n2.a, 2) + Math.pow(n2.b, 2)); 
+		return new Complex(a, b);
+		
+	}
+	
+	@Override
+	public String toString() {
+		return (int)(a*1000)/1000.0 +" + " + (int)(b*1000)/1000.0+"i";
+	}
+	
+	@Override // Override the equals method in the Object class
+	public boolean equals(Object other) {
+		return other instanceof  Complex && this.abs() == ((Complex)(other)).abs();		
+	}
+	
+	
+	@Override	
+	public int compareTo(Complex o) {
+		return this.equals(o)? 0:(this.abs() > o.abs() )? 1 : -1;				
+	}	
+	
+	@Override
+	public Complex clone()  {
+		 try {
+			 return (Complex)super.clone();	            
+	        }
+		 catch (CloneNotSupportedException ex) {
+			 return null;
+	        }
+	}	
+}
