@@ -1,0 +1,14 @@
+package pe_13_18;
+
+import pe_13_15.RationalBigInteger;
+
+public class UsetheRational {
+	public static void main (String []args) {
+		RationalBigInteger sum = new RationalBigInteger(1,2);
+		
+		for(int i = 2; i < 100; i++) {
+			System.out.println("i "+ i+ "; Sum is + " + sum);
+			sum = sum.add(new RationalBigInteger(i,i+1));
+		}
+	}
+}
