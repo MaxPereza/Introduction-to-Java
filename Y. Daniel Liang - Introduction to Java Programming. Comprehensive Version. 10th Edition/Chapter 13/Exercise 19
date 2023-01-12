@@ -1,0 +1,35 @@
+package pe_13_19;
+
+import java.util.Scanner;
+public class ConvertDecimals_toFractions {
+	public static void main(String []args) {
+		System.out.print("Enter a decimal number: ");
+		Scanner input = new Scanner(System.in);
+		String strNumber = input.nextLine();
+		input.close();
+		String [] decimal = new String [2];
+		decimal = strNumber.split("[.]");
+		if(decimal.length!=2) {
+			System.out.println("Something went wrong, try again ");
+			System.exit(0);
+		}
+		double original = Double.parseDouble(strNumber);
+		
+		int factor = (int)Math.pow(10, decimal[1].length());
+		long numerator  = (long) (original * factor);
+		long denominator = (long) (1 *  factor);
+		long gcd = gcd((long)numerator, denominator);
+		numerator = numerator/gcd;
+		denominator /=gcd;
+		System.out.println("The fraction number is " + numerator + "/" +denominator );			
+	}
+	
+	public static long gcd(long a, long b) {
+		while (b != (0)) {
+	            long temp = b;
+	            b = a % b;
+	            a = temp;
+	        }
+	        return a;
+	}
+}
