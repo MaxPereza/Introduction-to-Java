@@ -1,11 +1,41 @@
+package pe_13_20;
+import pe_13_17.Complex;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class SolveQuadraticEquations {
 	public static void main(String []args) {
 		System.out.print("Enter a, b, c:  ");
-		Complex num1 = new Complex(1,3);
-		Complex num2 = new Complex(1);
-		double discriminant = Math.pow(num1.getImaginaryPart(), 2) - 4*(num1.getRealPart() * num2.getRealPart());
-		double r1 = (-num1.getImaginaryPart() + Math.sqrt(discriminant)) / (2 * num1.getRealPart());
-		double r2 = (-num1.getImaginaryPart() - Math.sqrt(discriminant)) / (2 * num1.getRealPart());
-		System.out.println(" discriminant"+ discriminant + " r1 " + r1 + " /r2 " + r2);
+		double a = 0;
+		double b = 0;
+		double c = 0;
+		try(Scanner input = new Scanner(System.in)){
+			a = input.nextDouble();
+			b = input.nextDouble();
+			c = input.nextDouble();
+		}
+		catch(InputMismatchException  ex) {
+			System.out.println(ex.getMessage() + " Are you crazy? Try next time");
+			System.exit(0);
+		}
+		
+		double discriminant = Math.pow(b, 2) - 4*(a * c);
+		if(discriminant > 0) {
+			double r1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+			double r2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+			System.out.printf("The roots are %.4f and %.4f", r1, r2);			
+		}
+		else if(discriminant == 0) {
+			double r1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+			System.out.printf("The root is %.4f", r1);
+		}
+		else
+		{
+			Complex complexRoot1 = new Complex(-b / (2 * a), Math.sqrt(-discriminant) / (2 * a));
+	        Complex complexRoot2 = new Complex(-b / (2 * a), -Math.sqrt(-discriminant) / (2 * a));
+	        System.out.println("The roots are: " + complexRoot1 + " and " + complexRoot2 );
+			
+		}		 
 	}
 }
