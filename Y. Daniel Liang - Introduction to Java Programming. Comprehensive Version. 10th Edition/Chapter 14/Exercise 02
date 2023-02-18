@@ -1,0 +1,59 @@
+package pe_14_02;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class Tic_tac_toeBoard extends Application{
+	@Override
+	public void start(Stage primaryStage) {
+		// Create a GridPane
+		GridPane pane = new GridPane();
+		pane.setAlignment(Pos.CENTER);
+		pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
+		pane.setHgap(5.5);
+		pane.setVgap(5.5);
+		// Place nodes in the pane
+		Image x = new Image("image/14_02/x.png");
+		ImageView list [] = new ImageView[9];
+		Image o = new Image("image/14_02/o.png");
+		int index = 0;
+		
+		
+		for(int row = 0; row < 3; row++)
+			for(int column = 0; column < 3; column++) {
+				int image = randomImage();
+				switch(image) {
+				case 0: list[index] = new ImageView(o);
+				list[index].setFitHeight(70);
+				list[index].setFitWidth(70);
+				pane.add(list [index], column, row);
+				index++; break;
+				case 1: list[index] = new ImageView(x);
+				list[index].setFitHeight(70);
+				list[index].setFitWidth(70);
+				pane.add(list [index], column, row);
+				index++; break;
+				case 2: break;
+				}				
+			}
+		
+		Scene scene = new Scene(pane);
+		primaryStage.setTitle("Tic-Tac-Toe");
+		primaryStage.setScene(scene);
+		primaryStage.show();		
+	}
+	
+	static int randomImage() {
+		return (int)(Math.random() *3);
+	}
+	
+	public static void main(String []args) {
+		launch(args);
+	}
+}
