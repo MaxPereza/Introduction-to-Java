@@ -1,0 +1,43 @@
+package pe_14_06;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+public class Display_aCheckerboard extends Application {
+	@Override
+	public void start(Stage primaryStage) {
+		VBox pane = new VBox();
+		pane.setPadding(new Insets(0.5, 0.5, 0.5, 0.5));		
+		for(int i = 0; i < 8; i++)
+			pane.getChildren().add(getHBox(i));		
+		
+		Scene scene = new Scene(pane);
+		primaryStage.setTitle("Checkerboard");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+	
+	private HBox getHBox(int color) {
+		HBox Hbox = new HBox();
+		Hbox.setPadding(new Insets(0.5,0.5,0.5,0.5));
+		for(int i = 0; i < 8; i++) {
+			Rectangle r = new Rectangle(40,40);
+			r.setFill(color % 2 == 0 ?Color.WHITE: Color.BLACK);
+			r.setStroke(Color.BLACK);		
+			Hbox.getChildren().add(r);
+			color++;
+		}
+		return Hbox;
+		
+	}
+	
+	public static void main(String []args) {
+		launch(args);
+	}
+}
