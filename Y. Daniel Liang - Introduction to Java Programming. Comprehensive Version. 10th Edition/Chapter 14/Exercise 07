@@ -1,1 +1,39 @@
 
+package pe_14_07;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+
+public class DisplayRandom0or1 extends Application {
+	@Override
+	public void start(Stage primaryStage) {
+		GridPane pane = new GridPane();
+		//pane.setAlignment(Pos.CENTER);
+		pane.setPadding(new Insets(5,5,5,5));
+		pane.setVgap(0.0);
+		pane.setHgap(0.0);
+		for(int column  = 0; column < 10; column++)
+			for(int row =0; row < 10; row++) {
+				TextField digit = new TextField((int)(Math.random()*2)+"");
+				digit.setPrefColumnCount(1);
+				digit.setAlignment(Pos.CENTER);
+				digit.setFont(Font.font("Times New Roman", FontWeight.BOLD, 14));
+				pane.add(digit, column, row);	
+				
+		}
+		Scene scene = new Scene(pane);
+		primaryStage.setTitle(" DisplayRandom 0 or 1");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+	public static void main(String []args) {
+		launch(args);
+	}
+}
