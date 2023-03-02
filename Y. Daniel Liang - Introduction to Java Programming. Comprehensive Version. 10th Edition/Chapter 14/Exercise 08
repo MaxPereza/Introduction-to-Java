@@ -1,0 +1,41 @@
+package pe_14_08;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class Display54Cards extends Application{
+	@Override
+	public void start(Stage primaryStage) {
+		GridPane pane = getPane();
+		Scene scene = new Scene(pane);
+		primaryStage.setTitle("54 cards");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		
+	}
+	public static void main(String [] args) {
+		launch(args);
+	}
+	
+	public GridPane getPane() {
+		GridPane pane = new GridPane();
+		pane.setPadding(new Insets(5,5,5,5));
+		pane.setVgap(5.0);		
+		int card = 1;
+		for(int row = 0; card <= 54;row++)
+			for(int column = 0; column < 9; column++) {
+				Image image = new Image("image/card/"+card + ".jpg");
+				ImageView imageView = new ImageView(image);
+				imageView.setFitHeight(120);
+				imageView.setFitWidth(120);
+				pane.add(imageView, column, row);
+				card++;				
+			}
+		return pane;			
+	}
+}
