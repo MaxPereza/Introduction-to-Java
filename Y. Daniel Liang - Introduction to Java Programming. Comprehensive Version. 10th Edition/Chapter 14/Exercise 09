@@ -1,75 +1,88 @@
 package pe_14_09;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-public class CreateFourFans extends Application {
+public class CreateFourFans_2 extends Application {
 	@Override
 	public void start(Stage primaryStage) {
-		
-		Scene scene = new Scene(new MyGridPane(), 250, 250);
-		primaryStage.setTitle("four Fans");
+		primaryStage.setTitle("Four fans");
+		Scene scene = new Scene(new MyGridPane(), 500,500);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
 	}
-
+	
 	public static void main(String []args) {
 		launch(args);
 	}
 }
 
-class MyGridPane extends GridPane {
+class MyPane extends Pane {
 	private void paint() {
 		getChildren().clear();
-		
+		double radius = getWidth()/2-10;
+		double angle = 35;
+		double length = getWidth() /(angle*40/100)  ;
+		for(int i = 0; i < 4; i++) {
+			
+			Arc arc = new Arc(getWidth()/2, getHeight()/2, radius, radius,angle, length );
+			arc.setFill(Color.RED);
+			arc.setType(ArcType.ROUND);
+			getChildren().add(arc);
+			angle+=90;
+		}
+		Circle circle = new Circle(getWidth()/2, getHeight()/2, radius+5);
+		circle.setStroke(Color.BLACK);
+		circle.setFill(null);
+		getChildren().add(circle);		
+	}
+	@Override
+	public void setWidth(double width) {
+		super.setWidth(width);
+		paint();
+	}	
+	@Override
+	public void setHeight(double height) {
+		super.setHeight(height);
+		paint();
+	}	
+}
+
+class MyGridPane extends GridPane{	
+	private void paint() {
+		getChildren().clear();
 		int numberColumn = 2;
 		int numberRow = 2;
-		//setPadding(new Insets(15,10,15,10));
-		setAlignment(Pos.CENTER);
-		//setHgap(5.5);
-		//setVgap(12.5);
-		double columnHeight = getHeight()/numberColumn;
-		double rowWidth = getWidth()/numberRow;
-		double centerY = columnHeight/2;
-		double centerX = rowWidth/2;
-		double radius = getWidth()/(numberColumn*numberRow)-5;//-10
-				
-		for(int column =0; column < 2; column++) {			 
-			for(int row = 0; row < 2; row++) {
-				
-				Circle circle = new Circle(centerX, centerY, radius);
-				circle.setStroke(Color.BLACK);
-				circle.setFill(null);
-				Arc arc = new Arc(centerX, centerY,radius *0.4, radius *0.3, 180, 30);
-				arc.setType(ArcType.ROUND);
-				arc.setFill(Color.RED);
-				add(circle, column, row);
-				add(arc, column, row);
-				centerY += rowWidth; 
-				
-			}
-			centerX +=columnHeight;  
-			
-		}
+		double innerWidth = getWidth()/numberColumn;
+		double innerHeight = getHeight()/numberRow;
+		for(int column = 0; column < numberColumn; column++ )
+			for(int row = 0; row < numberRow; row++) {
+				add(getFan(innerWidth, innerHeight),column, row );
+			}				
 	}
-		
-		@Override
-		public void setWidth(double width) {
-			super.setWidth(width);
-			paint();
-		}
-		@Override
-		public void setHeight(double height) {
-			super.setHeight(height);
-			paint();
-		}
+	@Override
+	public void setHeight(double height) {
+		super.setHeight(height);
+		paint();		
+	}
+	@Override
+	public void setWidth(double width) {
+		super.setWidth(width);
+		paint();
+	}
+	
+	private MyPane getFan(double width, double height) {
+		MyPane fan = new MyPane();
+		fan.setWidth(width);
+		fan.setHeight(height);
+		return fan;
+	}
 }
