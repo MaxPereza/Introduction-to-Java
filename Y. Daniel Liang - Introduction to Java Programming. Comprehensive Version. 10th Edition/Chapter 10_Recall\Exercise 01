@@ -1,0 +1,79 @@
+package pe_10_01;
+
+public class WeatherStation {
+	private double temperature; // in C
+	private double pressure; // in bar
+	
+	public WeatherStation() {
+		this(0,1);
+	}
+	
+	public WeatherStation(double temperature, double pressure )
+	{
+		this.temperature = temperature;
+		this.pressure = pressure;
+	}
+	
+	public WeatherStation fromImperial(double temperatureF, double pressurePSI )
+	{
+		double temperature = (temperatureF - 32)/1.8;
+		double pressure = pressurePSI / 14.5038;		
+		return new WeatherStation (temperature,pressure );		
+	}
+	
+	public double getTemp() {
+		return temperature;
+	}
+	public double getPressure() {
+		return pressure;
+	}
+	
+	public double getTempF() {
+		return (temperature + 1.8)+32;
+	}
+	public double getpressurePSI() {
+		return pressure *  14.5038;
+	}
+	
+	public void setTemperature(double temperature) {
+		this.temperature = temperature;
+	}
+	
+	public void setPressure(double pressure) {
+		this.pressure = pressure;
+	}
+	public void setTemperatureFahrenheit (double temperatureFah) {
+		this.temperature = (temperatureFah - 32)/1.8; 
+	}
+	
+	public void setetPressurePSI(double pressurePSI) {
+		this.pressure = pressurePSI / 14.5038;
+	}	
+
+}
+
+
+package pe_10_01;
+
+class TestWeatherStation {
+	public static void main(String [] args) {
+		WeatherStation one = new WeatherStation();
+		WeatherStation two = new WeatherStation(35, 0.5);
+		WeatherStation three = new WeatherStation().fromImperial(68, 21);
+		
+		System.out.println("°C " + one.getTemp()+ " and bar "  + one.getPressure() + " °F " + one.getTempF() + " and PSI " + one.getpressurePSI());
+		System.out.println("°C " + two.getTemp()+" and bar " + two.getPressure() + " °F " + two.getTempF() + " and PSI " + two.getpressurePSI());
+		System.out.println("°C " + three.getTemp()+" and bar " + three.getPressure() + " °F " + three.getTempF() + " and PSI " + three.getpressurePSI());
+		
+		System.out.println("Let's change the temperature C from 35 to 15 and the pressure Bar from 0,5 to 3");
+		two.setTemperature(15);
+		two.setPressure(3);
+		System.out.println("°C and bar " + two.getTemp()+" " + two.getPressure() + " °F and PSI " + two.getTempF() + " " + two.getpressurePSI());
+		
+		System.out.println("Let's change the temperature F from 68 to 100 and the pressure PSI from 21 to 30");
+		three.setTemperatureFahrenheit(100);
+		three.setPressure(30);
+		System.out.println("°C and bar " + three.getTemp()+" " + three.getPressure() + " °F and PSI " + three.getTempF() + " " + three.getpressurePSI());
+	}
+
+}
