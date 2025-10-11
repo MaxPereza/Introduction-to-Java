@@ -1,0 +1,100 @@
+package pe_10_03;
+
+public class Rational {
+	private int numerator;
+	private int denominator;
+	
+	public Rational (int numerator, int denominator) {
+		this.numerator = numerator;
+		this.denominator = denominator;
+	}
+	
+	public int getNumerator() {
+		return numerator;
+	}
+	
+	public int getDenomenator() {
+		return denominator;
+	}
+	
+	public void normalize () {
+		for(int i = numerator; i >1; i--) {
+			if((numerator % i ==0) && (denominator % i ==0)) {
+				numerator =numerator/i;
+				denominator = denominator / i;
+				i = numerator;
+			}
+			
+		}
+		
+	}
+	
+	public boolean isWhole() {
+		return (numerator % denominator == 0);
+		
+	}
+	
+	public boolean isDecimal() {
+		return (numerator % denominator != 0);
+	}
+	
+	public boolean equals(int numerator, int denominator) {
+		Rational temp = new Rational(numerator, denominator);
+		return equals(temp) ;
+		
+	}
+	
+	public boolean equals (Rational r) {
+		r.normalize();
+		this.normalize();
+		return ((r.getNumerator() == getNumerator()) && (r.getDenomenator() == getDenomenator())) ;
+		
+		
+	}
+	public static Rational parseRational(char[] num, char[] deno) {
+		String numenator = String.valueOf(num);
+		String denominator = String.valueOf(deno);
+				
+		if(numenator.matches("\\d+") && (denominator.matches("\\d+")) ) 
+			return new Rational(Integer.parseInt(numenator), Integer.parseInt(denominator));
+		else
+			return new Rational (-1010, 1010);		
+	}
+	
+	public static Rational parseRational(String numb) {
+		String [] rational = numb.split("/");
+		if(rational.length>=1)
+			return parseRational(rational[0].toCharArray(), rational[1].toCharArray());	
+		else
+			return new Rational(-1010, 1010);
+	}
+}
+
+package pe_10_03;
+
+class TestRacional {
+	public static void main (String [] args) {
+		Rational nA = new Rational(20, 10);
+		System.out.println("Numerator " + nA.getNumerator() + " Denominator " + nA.getDenomenator()) ;
+		System.out.println("Normalize number A and result: ");
+		nA.normalize();
+		System.out.println("Numerator " + nA.getNumerator() + " Denominator " + nA.getDenomenator()) ;
+		System.out.println("New number with new constructor: ");
+		Rational nB = Rational.parseRational("6/12");
+		System.out.println("Numerator " + nB.getNumerator() + " Denominator " + nB.getDenomenator()) ;
+		System.out.println("Normalize number B and result: ");
+		nB.normalize();
+		System.out.println("Numerator " + nB.getNumerator() + " Denominator " + nB.getDenomenator()) ;
+		System.out.println("Compare numbers " + nA.equals(nB));
+		System.out.println("Another constructor with char array ");
+		char [] num= {'1', '2'};
+		char [] den = {'2','4'};
+		System.out.println("numen " + num[0]+ " " + num[1]);
+		Rational nC = Rational.parseRational(num, den);
+		System.out.println("New number is: ");
+		System.out.println("Numerator " + nC.getNumerator() + " Denominator " + nC.getDenomenator()) ;
+		System.out.println("Compare numbers B and C " + nB.equals(nC));
+		System.out.println("Number A is Whole A " + nA.isWhole() + " is decimal " + nA.isDecimal() );
+		
+	}
+}
