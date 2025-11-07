@@ -1,0 +1,23 @@
+package pe_10_05;
+import java.util.Scanner;
+public class Display_the_divisors {
+	public static void main(String [] args) {
+		Scanner input = new Scanner(System.in);
+		System.out.println("Please enter integer: ");
+		int number = input.nextInt();
+		input.close();
+		StackOfIntegers divisors = new StackOfIntegers();
+		for(int i = number-1; i>=1; i-- )
+			if(number % i == 0)
+				divisors.push(i);
+		
+		int size = divisors.getSize();
+		System.out.println("Divisors : ");
+		for(int i = size; i>=0; i-- ) {
+			if(divisors.empty() != true)
+				System.out.print(divisors.pop() + " ");
+		}
+				
+	}	
+
+}
