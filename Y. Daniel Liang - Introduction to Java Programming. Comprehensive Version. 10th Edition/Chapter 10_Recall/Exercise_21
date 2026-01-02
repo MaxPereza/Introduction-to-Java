@@ -1,0 +1,108 @@
+package pe_10_21;
+
+import java.math.BigInteger;
+
+public class BigRational {
+	private BigInteger numerator;
+	private BigInteger denominator;
+	
+	public BigRational (BigInteger numerator, BigInteger denominator) {
+		this.numerator = numerator;
+		this.denominator = denominator;
+	}
+	
+	public BigInteger getNumerator() {
+		return numerator;
+	}
+	
+	public BigInteger getDenomenator() {
+		return denominator;
+	}
+	
+	public void normalize () {
+		for(BigInteger i = numerator; i.compareTo(BigInteger.ONE) > 0; i = i.subtract(BigInteger.ONE)) {
+			
+			if((numerator.remainder(i).compareTo(BigInteger.ZERO)  ==0) && (denominator.remainder(i).compareTo(BigInteger.ZERO) ==0)) {
+				numerator =numerator.divide(i);
+				denominator = denominator.divide(i);
+				i = numerator;
+			}
+			
+		}
+		
+	}
+	
+	public boolean isWhole() {
+		return (numerator.remainder(denominator).compareTo(BigInteger.ZERO)  == 0);
+		
+	}
+	
+	public boolean isDecimal() {
+		return (numerator.remainder(denominator).compareTo(BigInteger.ZERO) != 0);
+	}
+	
+	public boolean equals(BigInteger numerator, BigInteger denominator) {
+		BigRational temp = new BigRational (numerator, denominator);
+		return equals(temp) ;
+		
+	}
+	
+	public boolean equals (BigRational r) {
+		r.normalize();
+		this.normalize();
+		/*System.out.println(" Compare ");
+		System.out.println("r Num " + r.getNumerator()) + " Num " + */
+		return ((r.getNumerator().compareTo(getNumerator()) == 0 && (r.getDenomenator().compareTo(getDenomenator()) == 0))) ;
+		
+		
+	}
+	public static BigRational parseRational(char[] num, char[] deno) {
+		String numenator = String.valueOf(num);
+		String denominator = String.valueOf(deno);
+				
+		if(numenator.matches("\\d+") && (denominator.matches("\\d+")) ) 
+			return new BigRational (new BigInteger (numenator), new BigInteger (denominator));
+		else
+			return new BigRational (new BigInteger ("-1010"), new BigInteger(" 1010"));		
+	}
+	
+	public static BigRational parseRational(String numb) {
+		String [] rational = numb.split("/");
+		if(rational.length>=1)
+			return parseRational(rational[0].toCharArray(), rational[1].toCharArray());	
+		else
+			return new BigRational (new BigInteger ("-1010"), new BigInteger(" 1010"));	
+	}
+}
+
+
+package pe_10_21;
+
+import java.math.BigInteger;
+
+class TestBigRacional {
+		public static void main (String [] args) {
+			BigRational nA = new BigRational(new BigInteger ("20"), new BigInteger ("10"));
+			System.out.println("Numerator " + nA.getNumerator() + " Denominator " + nA.getDenomenator()) ;
+			System.out.println("Normalize number A and result: ");
+			nA.normalize();
+			System.out.println("Numerator " + nA.getNumerator() + " Denominator " + nA.getDenomenator()) ;
+			System.out.println("New number with new constructor: ");
+			BigRational nB = BigRational.parseRational("6/12");
+			System.out.println("Numerator " + nB.getNumerator() + " Denominator " + nB.getDenomenator()) ;
+			System.out.println("Normalize number B and result: ");
+			nB.normalize();
+			System.out.println("Numerator " + nB.getNumerator() + " Denominator " + nB.getDenomenator()) ;
+			System.out.println("Compare numbers " + nA.equals(nB));
+			System.out.println("Another constructor with char array ");
+			char [] num= {'1', '2'};
+			char [] den = {'2','4'};
+			System.out.println("numen " + num[0]+ " " + num[1]);
+			BigRational nC = BigRational.parseRational(num, den);
+			System.out.println("New number is: ");
+			System.out.println("Numerator " + nC.getNumerator() + " Denominator " + nC.getDenomenator()) ;
+			System.out.println("Compare numbers B and C " + nB.equals(nC));
+			System.out.println("Number A is Whole A " + nA.isWhole() + " is decimal " + nA.isDecimal() );			
+		
+	}
+}
