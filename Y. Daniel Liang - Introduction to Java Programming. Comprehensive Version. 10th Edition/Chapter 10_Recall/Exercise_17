@@ -1,1 +1,20 @@
+package pe_10_17;
 
+import java.math.BigInteger;
+
+public class CubeNumbers {
+public static void main(String [] args) {
+		
+		System.out.println("Long MAX " + Long.MAX_VALUE);
+		Long value1 = Long.MAX_VALUE;
+		double cube  = Math.cbrt(value1);
+		String number = (int)cube + "";
+		BigInteger cube0 = new BigInteger(number);
+		System.out.println("First number "+cube0);
+
+		for(int i = 0; i <10; i++) {
+			cube0 = cube0.add(BigInteger.ONE);
+			System.out.println("Number " + cube0 + " in 3 power = "+ cube0.pow(3));
+		}
+	}
+}
