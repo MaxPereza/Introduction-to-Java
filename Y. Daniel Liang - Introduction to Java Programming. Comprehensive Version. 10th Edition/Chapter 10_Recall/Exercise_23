@@ -1,0 +1,68 @@
+package pe_10_23;
+
+public class Name {
+	private String firstName;
+	private String lastName;
+	public Name ( String name ) {
+		String [] array = new String [2];
+		array = name.split("\\s+");
+		if(array.length >=2) {
+			firstName = array[0];
+			lastName = array[1];
+		}
+		else
+		{
+			firstName = array[0];
+			lastName = "NoLastName";			
+		}			
+	}
+	
+	public Name() {
+		this("Sarah Connor");
+	}
+	
+	public Name toInitials () {
+		
+		String name = firstName.substring(0, 1);
+		String lName = lastName.substring(0, 1);
+		return new Name(name + " " +lName);
+	}
+	
+	public Name capitalize () {
+		String name = firstName.toUpperCase();
+		String lName = lastName.toUpperCase();
+		return new Name(name + " " +lName);
+	}
+	
+	
+	public String getFirstName () {
+		return firstName;
+	}
+	
+	public String getLastName () {
+		return lastName;
+	}
+	
+	public static Name fromFirstLast ( String first , String last ) {
+		return new Name(first + " " + last);
+	}
+}
+
+package pe_10_23;
+
+class TestName {
+	public static void main(String [] args) {
+		Name first = new Name("Mortis Dadlbee");
+		System.out.println(first.getFirstName() + " " +first.getLastName());
+		Name second = new Name();
+		System.out.println(second.getFirstName() + " " +second.getLastName());
+		Name three = new Name("Gorah");
+		System.out.println(three.getFirstName() + " " +three.getLastName());
+		Name four = first.capitalize();
+		System.out.println(four.getFirstName() + " " +four.getLastName());
+		Name five = first.toInitials();
+		System.out.println(five.getFirstName() + " " +five.getLastName());
+		Name six = Name.fromFirstLast("Angelina", "Jolie");
+		System.out.println(six.getFirstName() + " " +six.getLastName());
+	}
+}
