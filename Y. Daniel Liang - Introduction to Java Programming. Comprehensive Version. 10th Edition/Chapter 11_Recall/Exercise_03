@@ -1,0 +1,115 @@
+package pe_11_03;
+
+import pe_9_7.Account;
+
+class TestAccounts {
+	public static void main (String []args) {
+		CheckAccount a = new CheckAccount(7, 256.5, 300);
+		System.out.println(a.toString());
+		a.setOverDraftActual(150);
+		System.out.println(a.toString());
+		System.out.println(new Account(5, 53234.4).toString());
+		SaveAccount b = new SaveAccount(234, 8783);
+		
+		System.out.println(b.toString());	
+		b.setSaveBalance(25000);
+		b.setSaveID(12);
+		System.out.println(b.toString());	
+		
+		}
+	}
+package pe_11_03;
+
+import pe_9_7.Account;
+
+class SaveAccount extends Account {
+	private int saveID = super.getId();
+	private double saveBalance = 0;
+	
+	SaveAccount(){
+		
+	}
+	SaveAccount(int saveID, double saveBalance){
+		this.saveID = saveID;
+		this.saveBalance = saveBalance;
+	}
+	
+	int getID () {
+		return saveID;
+	}
+	
+	double getSaveBalance() {
+		return saveBalance;
+	}
+	
+	void setSaveID(int saveID) {
+		this.saveID = saveID;
+	}
+	
+	void setSaveBalance (double saveBalance) {
+		this.saveBalance = saveBalance;
+	}
+	
+	@Override
+	public String toString() {
+		return "Save id: " + saveID + " saveing balance: " +saveBalance; 
+	}
+}
+
+package pe_11_03;
+
+import pe_9_7.Account;
+
+class CheckAccount extends Account {
+	private int checkID = super.getId();
+	private double checkBalance = 0;
+	private double overdraftLimit = 0;
+	private double overdraftActual = 0;
+	
+	CheckAccount (){
+		
+	}
+	CheckAccount (int checkID, double checkBalance, double overdraftLimit){
+		this.checkID = checkID;
+		this.checkBalance = checkBalance;
+		this.overdraftLimit = overdraftLimit;
+		this.overdraftActual = overdraftLimit;
+	}
+	
+	int getcheckID() {
+		return checkID;
+	}
+	
+	double getCheckBalance() {
+		return checkBalance;
+	}
+	
+	double getOverDraftLimit() {
+		return overdraftLimit;
+	}
+	
+	double getOverDraftActual() {
+		return overdraftActual;
+	}
+	
+	void setCheckID(int checkID) {
+		this.checkID = checkID;
+	}
+	
+	void setOverDraftLimit(double overdraftLimit) {
+		this.overdraftLimit = overdraftLimit;
+	}
+	
+	void setCheckBalance(double checkBalance) {
+		this.checkBalance = checkBalance;
+	}
+	
+	void setOverDraftActual(double overdraftActual) {
+		this.overdraftActual = overdraftActual;
+	}
+	
+	@Override
+	public String toString() {
+		return "Check id: " + checkID + " check balance: " +checkBalance + " overdraft limit " + overdraftLimit + " actual overdraft " + overdraftActual; 
+	}
+}
