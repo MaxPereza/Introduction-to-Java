@@ -1,0 +1,43 @@
+package pe_11_13;
+import java.util.ArrayList;
+import java.util.Scanner;
+class DelDuplicates {
+	public static void main (String [] args) {
+		System.out.println("Enter 10 integers: ");
+		Scanner input = new Scanner(System.in);
+		ArrayList <Integer> list = new ArrayList <>();
+		for(int i = 0; i <10; i++) {
+			String number = input.next();
+			if(isInteger(number))
+				list.add(Integer.parseInt(number));
+		}
+		input.close();
+		
+		System.out.println("Digit check");
+		for(Integer number: list)
+			System.out.print(number + " ");
+		ArrayList<Integer> noDupl = checkDuplicate(list);
+				
+		for(Integer number: noDupl)
+			System.out.print(number + " ");
+		
+		
+	}
+	
+	public static boolean isInteger(String str) {
+		if(str.isEmpty())
+			return false;
+		for(int i =0; i < str.length(); i++)
+			if(!Character.isDigit(str.charAt(i)))
+				return false;
+		return true;
+	}
+	
+	 static ArrayList<Integer> checkDuplicate(ArrayList <Integer> list) {
+		ArrayList <Integer> newList = new ArrayList<>();
+		for(Integer number: list) 
+			if(!newList.contains(number))
+				newList.add(number);
+		return newList;			
+	}
+}
