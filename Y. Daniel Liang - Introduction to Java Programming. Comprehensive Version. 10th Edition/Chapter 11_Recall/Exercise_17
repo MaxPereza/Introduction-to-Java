@@ -1,0 +1,77 @@
+package pe_11_17;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class PerfSquare {
+	public static void main(String [] args) {
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter an integer m: ");
+		int number = input.nextInt();
+		input.close();
+		ArrayList <Integer> factors = getFactors(number);
+		for(Integer num: factors)
+			System.out.print(num+ "");
+		ArrayList <Integer> oddFactors = getOddFactors(factors);
+		System.out.println();
+		if (oddFactors.isEmpty()){
+			System.out.println("This number cannot be a perfect square.");
+			return;			
+			
+		}
+			
+		for(Integer num: oddFactors)
+			System.out.print(num+ "");
+		oddFactors = checkDuplicate(oddFactors);
+		System.out.println();
+		for(Integer num: oddFactors)
+			System.out.print(num+ "");
+		int smallest;
+		
+		if(oddFactors.size()==1)
+			smallest = oddFactors.get(0);
+		else
+			smallest = oddFactors.get(0) * oddFactors.get(1);
+		System.out.println("\nThe smallest number n for m * n to be a perfect square is " + smallest + 
+				"\nm * n is " + (smallest * number));
+		
+		
+	}
+	
+	static ArrayList<Integer> getFactors(int number) {
+		ArrayList <Integer> factors = new ArrayList<>();
+		int factor = 2;
+		while (number!=1) {
+			if(number % factor==0) {
+				factors.add(factor);
+				number = number / factor;
+			}
+			
+			else
+				factor++;
+		}
+		return factors;			
+	}
+	
+	static ArrayList <Integer> getOddFactors(ArrayList <Integer> list){
+		ArrayList <Integer> oddFactors = new ArrayList<Integer>();
+		for(Integer num: list) {
+			int count = 0;
+			for(Integer num2: list) {
+				if(num == num2)
+					count++;
+			}
+			if(count % 2 != 0)
+				oddFactors.add(num);
+						
+		}		
+		return oddFactors;
+	}
+	static ArrayList<Integer> checkDuplicate(ArrayList <Integer> list) {
+		ArrayList <Integer> newList = new ArrayList<>();
+		for(Integer number: list) 
+			if(!newList.contains(number))
+				newList.add(number);
+		return newList;	
+	}
+}
