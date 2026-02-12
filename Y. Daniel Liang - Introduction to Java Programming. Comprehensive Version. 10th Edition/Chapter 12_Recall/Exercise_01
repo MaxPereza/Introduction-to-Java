@@ -1,0 +1,73 @@
+package pe_11_01;
+
+class NumberFormatException {
+	public static void main (String [] args) {
+		if (args.length != 3) {
+			System.out.println("Usage: java Calculator operand1 operator operand2");
+			System.exit(1);			
+		}
+		
+		// The result of the operation
+		int result = 0;
+		switch (args[1].charAt(0)) {
+		 	case '+': result = checNumeric(args[0]) + checNumeric(args[2]);
+		 	break;
+		 	case '-': result = checNumeric(args[0])  - checNumeric(args[2]);
+		 	break;
+		 	case '.': result = checNumeric(args[0]) *  checNumeric(args[2]);
+		 	break;
+		 	case '/': result = checNumeric(args[0]) / checNumeric(args[2]);
+		 	}
+		// Display result
+		System.out.println(args[0] + ' ' + args[1] + ' ' + args[2]	 + " = " + result);
+	}
+	
+	public static int checNumeric (String num) {
+		int number = 0;
+		try {
+			number = Integer.parseInt(num);
+		}
+		
+		catch(IllegalArgumentException ex) {
+			System.out.println("Incorrect input: an integer is required");
+			System.exit(1);			
+		}
+		return number;		
+	}
+}
+
+package pe_11_01;
+
+class NumberFormatException_noTry {
+	public static void main (String [] args) {
+		if (args.length != 3) {
+			System.out.println("Usage: java Calculator operand1 operator operand2");
+			System.exit(1);			
+		}
+		
+		// The result of the operation
+		int result = 0;
+		switch (args[1].charAt(0)) {
+		 	case '+': result = checNumeric(args[0]) + checNumeric(args[2]);
+		 	break;
+		 	case '-': result = checNumeric(args[0])  - checNumeric(args[2]);
+		 	break;
+		 	case '.': result = checNumeric(args[0]) *  checNumeric(args[2]);
+		 	break;
+		 	case '/': result = checNumeric(args[0]) / checNumeric(args[2]);
+		 	}
+		// Display result
+		System.out.println(args[0] + ' ' + args[1] + ' ' + args[2]	 + " = " + result);
+	}
+	
+	public static int checNumeric (String num) {
+		int number = 0;
+		if (num.matches("\\d+"))
+			number = Integer.parseInt(num);
+		else {
+			System.out.println("Incorrect input: an integer is required");
+			System.exit(1);			
+		}
+		return number;		
+	}
+}
