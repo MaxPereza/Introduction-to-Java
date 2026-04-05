@@ -1,0 +1,128 @@
+package pe_12_04;
+
+class LoanException {
+	private double annualInterestRate;
+	private int numberOfYears;
+	private double loanAmount;
+	private java.util.Date loanDate;
+	/** Default constructor */
+	public LoanException() {
+		this(2.5, 1, 1000);
+		}
+	
+	public LoanException(double annualInterestRate, int numberOfYears, double loanAmount) throws IllegalArgumentException{
+		if(annualInterestRate <=0 || numberOfYears <=0 || loanAmount <=0 )
+			throw new IllegalArgumentException ("Any of the values cannot be less than or equal 0");
+		
+		this.annualInterestRate = annualInterestRate;
+		this.numberOfYears = numberOfYears;
+		this.loanAmount = loanAmount;
+		loanDate = new java.util.Date();
+		}
+	
+	/** Return annualInterestRate */
+	public double getAnnualInterestRate() {
+		return annualInterestRate;
+	}
+	
+	/** Set a new annualInterestRate */
+	public void setAnnualInterestRate(double annualInterestRate) throws IllegalArgumentException{
+		if(annualInterestRate <= 0)
+			throw new IllegalArgumentException("Annual interest rate cannot be less than or equal to zero.");
+	
+			this.annualInterestRate = annualInterestRate;
+	}
+		
+	
+	/** Return numberOfYears */
+	public int getNumberOfYears() {
+		return numberOfYears;
+	}
+	
+	/** Set a new numberOfYears */
+	public void setNumberOfYears(int numberOfYears) {
+		if(numberOfYears <= 0)
+			throw new IllegalArgumentException("Number of years cannot be less than or equal to zero.");
+		
+		this.numberOfYears = numberOfYears;			
+	}
+	
+	/** Return loanAmount */
+	public double getLoanAmount() {
+		return loanAmount;
+		}
+	
+	/** Set a new loanAmount */
+	public void setLoanAmount(double loanAmount) {
+		if(loanAmount <= 0)
+			throw new IllegalArgumentException("Loan amount cannot be less than or equal to zero.");
+		
+		this.loanAmount = loanAmount;			
+	}
+	
+	/** Find monthly payment */
+	public double getMonthlyPayment() {
+		double monthlyInterestRate = annualInterestRate / 1200;
+		double monthlyPayment = loanAmount * monthlyInterestRate / (1 -	(1 / Math.pow(1 + monthlyInterestRate, numberOfYears * 12)));
+		return monthlyPayment;
+		}
+	
+	/** Find total payment */
+	public double getTotalPayment() {
+		double totalPayment = getMonthlyPayment() * numberOfYears * 12;
+		return totalPayment;
+		}
+	/** Return loan date */
+	public java.util.Date getLoanDate() {
+		return loanDate;
+		}
+	}
+
+
+package pe_12_04;
+
+class TestLoanException {
+	public static void main(String []args) {
+		try {
+			LoanException test1 = new LoanException(0, 1,200);		
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());			
+		}
+		try {
+			LoanException test1 = new LoanException(1, 0 ,200);		
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());			
+		}
+		try {
+			LoanException test1 = new LoanException(1, 1 , -5);		
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());			
+		}
+		LoanException test2 = new LoanException(1, 1, 1);
+		
+		try {
+			test2.setAnnualInterestRate(0);		
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		
+		try {
+			test2.setLoanAmount(0);		
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());
+			}
+		
+		try {
+			test2.setNumberOfYears(0);	
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());
+			}		
+		
+	}
+}
