@@ -1,0 +1,92 @@
+package pe_12_05;
+
+import pe_11_01.GeometricObject;
+
+class TriangleWanException extends GeometricObject {
+	private double side1 = 1.0;
+	private double side2 = 1.0;
+	private double side3 = 1.0;
+	
+	TriangleWanException () {
+	}
+	
+	TriangleWanException(double side1, double side2, double side3) throws TriangleException{
+		String resultCheck = checkSides(side1, side2, side3);
+		if(resultCheck == null) {
+			this.side1 = side1;
+			this.side2 = side2;
+			this.side3 = side3;		
+		}
+		else
+			//System.out.println(resultCheck);
+			throw new TriangleException(resultCheck);		
+	}
+	
+	public double getSide1 () {
+		return side1;	}
+	public double getSide2 () {
+		return side2;	}
+	public double getSide3() {
+		return side3;	}
+	
+	public double getArea() {
+		double s = (side1+side2+side3)/2;
+		double area = Math.sqrt((s*(s - side1)*(s - side2)*(s - side3)));
+		return area;
+	}
+	
+	public double getPerimeter() {
+		return (side1 + side2 +side3);		
+	}
+	
+	public String toString() {
+		return "Triangle: side1 = " + side1 + " side2 = " + side2 +
+				" side3 = " + side3;
+	}
+	
+	String checkSides(double side1, double side2, double side3) {
+		if(side1 + side2 < side3)
+			return "Sum of sides 1 and 2 = " + (side1+side2) + " < " +side3 +" side3";
+		else  if(side1 + side3 < side2)		
+			return "Sum of sides 1 and 3 = " + (side1+side3) + " < " +side2 + " side2";
+		else if(side2 + side3 < side1)
+			return "Sum of sides 2 and 3 = " + (side2+side3) + " < " +side1 + " side1";
+		else 
+			return null;			
+	}
+}
+
+package pe_12_05;
+class TriangleException extends Exception{
+	String message;
+	
+	TriangleException(String message){
+		super("The rule is broken. " + message);
+		this.message = message;
+	}
+	
+	String getTriangleMessage() {
+		return message;
+	}	
+}
+
+package pe_12_05;
+
+class TesttiangleRule {
+	public static void main(String [] args) {
+		try {
+			TriangleWanException triangle_1 = new TriangleWanException(1, 2, 3);
+			System.out.println("Normal triangle_1 " + triangle_1.getPerimeter());
+			//TriangleWanException triangle_2 = new TriangleWanException(6, 2, 3);
+			//System.out.println("Normal triangle_2 " + triangle_2.getPerimeter());
+			//TriangleWanException triangle_3 = new TriangleWanException(6, 10, 3);
+			//System.out.println("Normal triangle_3 " + triangle_3.getPerimeter());
+			TriangleWanException triangle_4 = new TriangleWanException(6, 10, 17);
+			System.out.println("Normal triangle_3 " + triangle_4.getPerimeter());
+		}
+		catch(TriangleException ex) {
+			System.out.println(ex);
+			
+		}		
+	}
+}
