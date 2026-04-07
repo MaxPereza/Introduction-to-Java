@@ -1,0 +1,8 @@
+package pe_12_07;
+
+class NullDenominatorException extends Exception{
+	
+	NullDenominatorException (){
+		super("Invalid denominator, it cannot be equal to 0");
+	}
+}
