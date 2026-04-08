@@ -1,0 +1,59 @@
+package pe_12_08;
+
+import java.util.Scanner;
+
+class TestHexException {
+	public static void main(String [] args ) {
+		try {
+			Scanner input = new Scanner(System.in);
+			System.out.print("Enter a hex number: ");
+			String hex = input.nextLine();
+			 System.out.println("The decimal value for hex number "
+			 + hex + ": is " + hexToDecimal(hex.toUpperCase()));
+			 input.close();
+			
+		}
+		catch(HexException ex) {
+			System.out.println(ex);
+		}		
+	}
+	
+	public static String hexToDecimal(String hex) throws HexException  {
+		int decimalValue = 0;
+		for (int i = 0; i < hex.length(); i++) {
+			char hexChar = hex.charAt(i);
+			if(hexCharToDecimal(hexChar) == 16)
+				throw new HexException (hex);
+			decimalValue = decimalValue * 16 + hexCharToDecimal(hexChar);
+			 }
+			
+			return decimalValue + "";
+		}		 
+		 
+		 public static int hexCharToDecimal(char ch) {
+		 if (ch >= 'A' && ch <= 'F')
+			 return 10 + ch - 'A';
+		 else if(ch >= '0' && ch <= '9')// ch is '0', '1', ..., or '9'
+			 return ch - '0';
+		 else
+			 return 16;
+		 }
+}
+
+package pe_12_08;
+
+class HexException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String str;
+	
+	HexException (String str){
+		super("Not a hex number " +str );
+		this.str = str;
+	}
+	String getHexMessage() {
+		return str;
+	}
+}
