@@ -1,0 +1,55 @@
+package pe_12_09;
+
+import java.util.Scanner;
+
+class BinToDec {
+	public static void main(String [] args) {
+	try {
+		Scanner input = new Scanner(System.in);
+		System.out.print("Ente binary number: ");
+		String binary = input.nextLine();
+		int [] decimal = bin2Dec(binary);
+		int number = 0;
+		for(int i = 0; i < decimal.length; i++)
+			number += decimal[i];
+		System.out.println("Decimal number is " + number);
+		input.close();
+	}
+	catch(BinaryException ex) {
+		System.out.println(ex);
+	}
+}
+	static int [] bin2Dec (String binaryString) throws BinaryException{
+	int [] decimal = new int[binaryString.length()]; 
+	for(int i = 0; i<binaryString.length(); i++) {
+		char ch = binaryString.charAt(i);
+		if(ch == '0' || ch == '1')
+		{
+			ch -='0';
+			decimal[i] = (int)Math.pow(2, (binaryString.length()-1 - i)) * ch;
+		}
+		else 
+			throw new BinaryException(binaryString);				
+	}
+	return decimal;		
+}
+}
+
+package pe_12_09;
+
+class BinaryException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String str;
+	
+	BinaryException(String str){
+		super("Not a binary number " + str);
+		this.str = str;
+	}
+	
+	String getBinMessage() {
+		return str;
+	}
+}
