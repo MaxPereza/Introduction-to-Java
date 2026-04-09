@@ -1,0 +1,59 @@
+package pe_12_10;
+
+class Fraction {
+	final int numerator ;
+	final int denominator ;
+	Fraction()
+	{
+		this.numerator = 1;
+		this.denominator = 1;
+	}
+	
+	Fraction (int numerator, int denominator) throws NullDenominatorException{
+		this.numerator = numerator;
+		if(denominator == 0)
+			throw new NullDenominatorException();
+		this.denominator = denominator;
+	}
+	
+	int getNumerator() {
+		return numerator;
+	}
+	
+	int getDenominator() {
+		return denominator;
+	}
+	
+	void printFraction() {
+		System.out.println(numerator + "/" +denominator);
+	}	
+}
+package pe_12_07;
+
+class NullDenominatorException extends Exception{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	NullDenominatorException (){
+		super("Invalid denominator, it cannot be equal to 0");
+	}
+}
+
+package pe_12_10;
+
+class TestFraction {
+	public static void main(String [] args) {
+		try {
+			Fraction fract1 = new Fraction( 2, 3);
+			fract1.printFraction();
+			Fraction fract2 = new Fraction( 2, 0);
+			fract2.printFraction();
+		}
+		catch(NullDenominatorException ex) {
+			System.out.println(ex);
+		}		
+	}
+}
