@@ -1,0 +1,47 @@
+package pe_12_12;
+
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class ReformatJavaSource {
+	
+	public static void main (String []args) throws Exception {
+	if (args.length != 1) {
+		System.out.println("java Exercise12_12 Test.java");
+		System.exit(1);
+		}
+	// Check if source file exists
+	File file = new File(args[0]);
+		if (!file.exists()) {
+			System.out.println("Source file " + args[0] + " does not exist");
+			System.exit(2);
+			}
+	ArrayList<String> newFile = new ArrayList<>(); //An array of strings is created
+	try (
+			// Create input and output files
+			Scanner input = new Scanner(file);
+			) {
+			
+			while (input.hasNext()) {
+				String s1 = input.nextLine();
+				newFile.add(s1);
+				}
+			}
+	
+	for(int i = 0; i < newFile.size(); i++) {
+		if(newFile.get(i).matches("\\{\\s*?")) // If there is an opening curly brace
+		{
+			newFile.remove(i);	//A string is removed from the array			
+			i--;			//  The counter moves to the previous line.
+			newFile.set(i, newFile.get(i) +"  {");	//the string is extracted, a bracket is added, and the string is set to the same position in the array
+		}			
+	}
+	
+	PrintWriter output = new PrintWriter("text/formattedСode.txt"); //a file is created in a specific directory
+	for(int i = 0; i < newFile.size(); i++) // strings from the array are written to a file
+		output.println(newFile.get(i));
+	output.close();
+	}		
+}
