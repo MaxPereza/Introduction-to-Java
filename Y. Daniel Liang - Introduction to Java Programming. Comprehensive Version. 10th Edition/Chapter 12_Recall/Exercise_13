@@ -1,0 +1,41 @@
+package pe_12_13;
+
+import java.io.File;
+import java.util.Scanner;
+
+class TextCounter {
+	public static void main (String []args) throws Exception {
+		if (args.length != 1) {
+			System.out.println("java Exercise12_13 Test.java");
+			System.exit(1);
+			}
+		// Check if source file exists
+		File file = new File(args[0]);
+			if (!file.exists()) {
+				System.out.println("Source file " + args[0] + " does not exist");
+				System.exit(2);
+			}
+		
+		int counterLines = 0;
+		int counterWords = 0;
+		int counterChar = 0;
+		try (
+				Scanner input = new Scanner(file);
+				) {
+				
+				while (input.hasNext()) {
+					String str = input.nextLine(); // we take one line from the file
+					counterLines++; // count the line
+					Scanner line = new Scanner(str); // add a line to the scanner
+					while(line.hasNext()) {
+						String word = line.next(); // we take a word from the scanner-line
+						counterWords++;//count the word
+						counterChar += word.length(); // count characters
+					}
+					line.close();					
+					}
+			}
+		System.out.println("File " + args[0] + " has\n" + counterChar + " characters\n" + counterWords + " words\n" + counterLines +" lines");		
+		
+	}
+}	
