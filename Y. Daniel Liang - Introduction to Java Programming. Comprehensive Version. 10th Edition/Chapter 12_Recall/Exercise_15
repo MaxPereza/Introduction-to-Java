@@ -1,0 +1,56 @@
+package pe_12_15;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+class WritingIn_aSortedFile {
+	public static void main(String [] args) {
+		if (args.length != 2) {
+			System.out.println("String line java Exercise12_12 Test.java");
+			System.exit(1);
+			}
+		// Check if source file exists
+		File file = new File(args[1]);
+		if (!file.exists()) {
+			System.out.println("Source file " + args[1] + " does not exist");
+			System.exit(2);
+			}
+		
+		System.out.println("Positon name " + args[0] + " is " +writeIn_File(args[0], file ));
+	}
+	
+	
+	public static int writeIn_File (String name, File file) {
+		ArrayList<String> list = new ArrayList<String>();
+		try( Scanner input = new Scanner(file)){
+			while (input.hasNext()) {
+				String str = input.nextLine();
+				list.add(str);
+			}
+			
+		}
+		catch(FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		list.add(name);
+		Collections.sort(list);
+		
+		try {
+			PrintWriter output = new PrintWriter("text/formattedText.txt");
+			for(int i = 0; i < list.size(); i++)
+				output.println(list.get(i));
+			output.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return list.indexOf(name);
+	}
+}
